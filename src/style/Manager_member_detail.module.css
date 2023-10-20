@@ -1,0 +1,87 @@
+:root {
+  /*콘텐츠내용 width*/
+  --content-width: 1200px;
+  /*메인컬러*/
+  --main-color: #21325e;
+  /*보조컬러*/
+  --sub-color: #f7be16;
+  /*보조컬러-뒤에 깔아주는 연한 회색*/
+  --back-color: #f5f5f5;
+}
+* {
+  padding: 0;
+  margin: 0;
+}
+.member_detail_wrap {
+  width: var(--content-width);
+  margin: auto;
+  margin-top: 20px;
+  padding: 5px;
+}
+.detail_header{
+}
+/*버튼*/
+.detail_button{
+ text-align: center;
+}
+.button_inner{
+  margin: auto;
+  padding: 10px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.detail_list{
+  background-color: var(--main-color);
+  border: 2px solid var(--main-color);
+  color: #fff;
+  margin-right: 10px;
+  transition: 0.3s;
+}
+.detail_list:hover{
+  background-color: var(--back-color);
+  border: 2px solid var(--back-color);
+  color: #000;
+}
+.detail_delete{
+  border: none;
+  background-color: var(--back-color);
+  border: 2px solid var(--back-color);
+  color: #000;
+  transition: 0.3s;
+}
+.detail_delete:hover{
+  background-color: var(--sub-color);
+  border: 2px solid var(--sub-color);
+  color: #000;
+}
+/*회원정보조회*/
+.detail_wrap{
+  margin-top: 20px;
+  padding: 5px;
+}
+.input_wrap{
+  width: 500px;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.input_wrap p{
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 10px;
+  padding: 2px;
+}
+.input_info{
+  display: inline-block;
+  width: 500px;
+  background-color: var(--back-color);
+  border-radius: 5px;
+  height: 45px;
+  line-height: 45px;
+}
+.input_info span{
+  padding-left: 20px;
+}
+
+
+
