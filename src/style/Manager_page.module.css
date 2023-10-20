@@ -1,0 +1,77 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+.tab_wrap { 
+  /* border: 1px solid #000; */
+  width: var(--content-width);
+  margin: auto;
+  margin-top: 50px;
+}
+.tab_wrap>h2{
+text-align: center;
+margin-bottom: 50px;
+}
+/*라디오버튼 동작*/
+.tab_wrap input[name=tab]{ 
+  display: none; 
+}
+.tab_wrap input:nth-of-type(1)~div:nth-of-type(1),
+.tab_wrap input:nth-of-type(2)~div:nth-of-type(2),
+.tab_wrap input:nth-of-type(3)~div:nth-of-type(3),
+.tab_wrap input:nth-of-type(4)~div:nth-of-type(4),
+.tab_wrap input:nth-of-type(5)~div:nth-of-type(5),
+.tab_wrap input:nth-of-type(6)~div:nth-of-type(6) {
+  display: none;
+}
+.tab_wrap input:nth-of-type(1):checked~div:nth-of-type(1),
+.tab_wrap input:nth-of-type(2):checked~div:nth-of-type(2),
+.tab_wrap input:nth-of-type(3):checked~div:nth-of-type(3),
+.tab_wrap input:nth-of-type(4):checked~div:nth-of-type(4),
+.tab_wrap input:nth-of-type(5):checked~div:nth-of-type(5),
+.tab_wrap input:nth-of-type(6):checked~div:nth-of-type(6) {
+  display: block;
+}
+.tab_wrap input:nth-of-type(1):checked~header>label[for=tab1],
+.tab_wrap input:nth-of-type(2):checked~header>label[for=tab2],
+.tab_wrap input:nth-of-type(3):checked~header>label[for=tab3],
+.tab_wrap input:nth-of-type(4):checked~header>label[for=tab4],
+.tab_wrap input:nth-of-type(5):checked~header>label[for=tab5],
+.tab_wrap input:nth-of-type(6):checked~header>label[for=tab6] {
+  background: var(--sub-color);
+  color: #000;
+}
+.tab_wrap>header{ 
+ /* border: 1px solid #000; */
+ display: inline-block;
+  }
+
+  /*header 디자인*/
+.tab_wrap>header>label {
+  display: inline-block;
+  border-radius: 30px;
+  width: 190px; 
+  height: 50px; 
+  line-height: 50px; 
+  font-family: 'NanumBold'; 
+  text-align: center;
+  font-weight: 700; 
+  text-decoration: none;
+  cursor: pointer; 
+  background-color: var(--back-color); 
+  margin: 2px;
+}
+.tab_wrap>header>hr{
+  background-color: var(--back-color);
+  border: none;
+  height: 2px;
+  margin-top:10px;
+  margin-bottom:20px;
+}
+.tab_wrap>header>label:hover { 
+  background-color: var(--main-color); 
+  color: #fff;
+}
+.tab_content{
+ overflow: hidden;
+}
