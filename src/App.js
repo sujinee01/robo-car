@@ -8,8 +8,7 @@ import NoticeMain from "./components/Notice_main";
 import NoticeDetail from "./components/Notice_detail";
 import CustomerHelpCenter from "./components/Customer_help_center";
 
-import MyPage from "./components/My_page";
-import ReservationPage from "./components/Reservation";
+
 import CustomerList from "./components/Customer_review_list";
 import AboutUs from "./components/About_us";
 

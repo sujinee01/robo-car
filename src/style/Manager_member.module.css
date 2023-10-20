@@ -1,0 +1,110 @@
+:root {
+  /*콘텐츠내용 width*/
+  --content-width: 1200px;
+  /*메인컬러*/
+  --main-color: #21325e;
+  /*보조컬러*/
+  --sub-color: #f7be16;
+  /*보조컬러-뒤에 깔아주는 연한 회색*/
+  --back-color: #f5f5f5;
+}
+* {
+  padding: 0;
+  margin: 0;
+}
+.member_wrap { 
+  /* border: 1px solid #000; */
+  width: var(--content-width);
+  margin: auto;
+  margin-top: 20px;
+}
+
+/*테이블 디자인*/
+.member_wrap table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 1150px;
+  margin: auto;
+}
+.member_wrap th,
+.member_wrap td {
+  padding: 6px 15px;
+  text-align: center;
+}
+.member_wrap th {
+  background: var(--sub-color);
+  color: #000;
+  text-align: left;
+  text-align: center;
+}
+.member_wrap th:nth-child(1){
+  width: 50px;
+}
+.member_wrap th:nth-child(2){
+  width: 130px;
+}
+.member_wrap th:nth-child(3){
+  width: 150px;
+}
+.member_wrap th:nth-child(4){
+  width: 170px;
+}
+.member_wrap th:nth-child(5){
+  width: 180px;
+}
+.member_wrap th:nth-child(6){
+  width: 200px;
+}
+.member_wrap th:nth-child(7){
+  width: 140px;
+}
+.member_wrap th:nth-child(8){
+  width: 90px;
+}
+.member_wrap th:nth-child(9){
+  width: 90px;
+}
+.member_wrap tr:first-child th:first-child {
+  border-top-left-radius: 6px;
+}
+.member_wrap tr:first-child th:last-child {
+  border-top-right-radius: 6px;
+}
+.member_wrap td {
+  border-right: 1px solid #dedfe0;
+  border-bottom: 1px solid #dedfe0;
+}
+.member_wrap td:first-child {
+  border-left: 1px solid #c6c9cc;
+}
+.member_wrap tr:nth-child(even) td {
+  background-color: var(--back-color);
+}
+.member_wrap tr:last-child td:first-child {
+  border-bottom-left-radius: 6px;
+}
+.member_wrap tr:last-child td:last-child {
+  border-bottom-right-radius: 6px;
+}
+
+/*삭제 조회 버튼 디자인*/
+.member_wrap button{
+  border: none;
+  background-color: unset;
+  cursor: pointer;
+}
+.faXmark,
+.faMagnifyingGlass{
+  color: var(--main-color);
+  transition: 0.3s;
+}
+.faXmark{
+ font-size: 25px;
+}
+.faMagnifyingGlass{
+  font-size: 20px;
+}
+.faXmark:hover,
+.faMagnifyingGlass:hover{
+  color: var(--sub-color);
+}
