@@ -11,10 +11,16 @@ import CustomerHelpCenter from "./components/Customer_help_center";
 import MyPage from "./components/My_page";
 import ReservationPage from "./components/Reservation";
 import CustomerList from "./components/Customer_review_list";
+import AboutUs from "./components/About_us";
+
+import Header from "./components/Header";
 
 function App() {
   return (
     <Router>
+      <div style={{ height: "100px" }}>
+        <Header />
+      </div>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/controlMain" element={<ControlMain />} />
@@ -23,8 +29,9 @@ function App() {
         <Route path="/noticeMain" element={<NoticeMain />} />
         <Route path="/noticeDetail" element={<NoticeDetail />} />
         <Route path="/helpCenter" element={<CustomerHelpCenter />} />
-        {/* <Route path="/mypage" element={<MyPage />} />
-        <Route path="/resv" element={<ReservationPage />} /> */}
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/about" element={<AboutUs />} />
+        {/* <Route path="/resv" element={<ReservationPage />} /> */}
 
         <Route path="/test" element={<CustomerList />} />
       </Routes>

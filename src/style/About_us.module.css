@@ -1,32 +1,32 @@
 :root {
-    /*콘텐츠내용 width*/
-    --content-width: 1200px;
-    /*탭메뉴 내부 콘텐츠 width*/
-    --tabmenu-width: 1000px;
-    /*메인컬러*/
-    --main-color: #21325e;
-    /*보조컬러*/
-    --sub-color: #f7be16;
-    /*보조컬러-뒤에 깔아주는 연한 회색*/
-    --back-color: #f5f5f5;
-  }
-  * {
-    padding: 0;
-    margin: 0;
-  }
-.about_us{
-    margin: auto;
+  /*콘텐츠내용 width*/
+  --content-width: 1200px;
+  /*탭메뉴 내부 콘텐츠 width*/
+  --tabmenu-width: 1000px;
+  /*메인컬러*/
+  --main-color: #21325e;
+  /*보조컬러*/
+  --sub-color: #f7be16;
+  /*보조컬러-뒤에 깔아주는 연한 회색*/
+  --back-color: #f5f5f5;
+}
+* {
+  padding: 0;
+  margin: 0;
+}
+.about_us {
+  margin: auto;
 }
 
 /*서비스 소개 메인*/
-.company_main{
-    background-color: var(--back-color);
-    border-bottom:4px solid var(--main-color);
-    width: 100%;
-    height: 437px;
-    margin: auto;
+.company_main {
+  background-color: var(--back-color);
+  border-bottom: 4px solid var(--main-color);
+  width: 100%;
+  height: 437px;
+  margin: auto;
 }
-.company_logo{
+.company_logo {
   width: 100%;
   margin: auto;
   /* border: 1px solid #000; */
@@ -34,85 +34,85 @@
   display: inline-block;
   margin-top: 100px;
 }
-.company_logo_img{
+.company_logo_img {
   width: 150px;
 }
-.company_text{
+.company_text {
   /* border: 1px solid #000; */
   width: 100%;
   display: inline-block;
   text-align: center;
   margin-top: 30px;
 }
-.company_text h2{}
-.company_text span{
+.company_text h2 {
+}
+.company_text span {
   /* border: 1px solid #000; */
   width: 100%;
   display: inline-block;
   font-size: 18px;
   margin-top: 20px;
 }
-.truck_wrap{
+.truck_wrap {
   width: 1400px;
   margin: auto;
   margin-bottom: 10px;
 }
-.truck_inner{
+.truck_inner {
   /* border: 1px solid #000; */
   text-align: right;
   margin-top: -20px;
 }
-.truck{
+.truck {
   width: 170px;
 }
 
 /*서비스 소개 wrap*/
-.company_content{
+.company_content {
   /* border: 1px solid #000; */
   width: var(--content-width);
   margin: auto;
 }
-.outline_wrap{
-
+.outline_wrap {
 }
 /*운송예약 서비스 소개*/
-.outline_inner{
+.outline_inner {
   /* border: 1px solid #000; */
   margin-top: 100px;
 }
-.outline_title{
+.outline_title {
   /* border: 1px solid yellow; */
 }
-.outline_title hr{
+.outline_title hr {
   width: 130px;
   height: 5px;
   background-color: var(--sub-color);
   border: 0;
 }
-.outline_title h2{
+.outline_title h2 {
   margin-top: 15px;
 }
-.outline_text{
+.outline_text {
   /* border: 1px solid red; */
   position: relative;
   height: 300px;
   margin-top: 30px;
 }
 .outline_text b,
-.outline_text_02 b{
+.outline_text_02 b {
   font-size: 21px;
 }
-.outline_image_wrap{
+.outline_image_wrap {
   position: absolute;
   display: inline-block;
   height: 300px;
 }
-.outline_text img{
+.outline_text img {
   width: 520px;
   border-radius: 30px;
   display: inline-block;
 }
-.outline_text span{
+.outline_text span {
   /* border: 1px solid #000; */
   display: inline-block;
   position: absolute;
@@ -121,47 +121,47 @@
   height: 300px;
   padding: 60px 60px;
   font-size: 19px;
-  line-height: 35px; 
+  line-height: 35px;
 }
 
 /*차량관제화면 소개*/
-.outline_inner_02{
+.outline_inner_02 {
   /* border: 1px solid #000; */
   margin-top: 50px;
 }
-.outline_title_02{
+.outline_title_02 {
   /* border: 1px solid yellow; */
   text-align: right;
 }
-.outline_title_02 hr{
+.outline_title_02 hr {
   width: 130px;
   height: 5px;
   background-color: var(--sub-color);
   border: 0;
   float: right;
 }
-.outline_title_02 h2{
+.outline_title_02 h2 {
   clear: both;
   margin-top: 15px;
 }
-.outline_text_02{
+.outline_text_02 {
   /* border: 1px solid red; */
   position: relative;
   height: 300px;
   margin-top: 30px;
 }
-.outline_image_wrap_02{
+.outline_image_wrap_02 {
   position: absolute;
   display: inline-block;
   height: 300px;
   right: 0;
 }
-.outline_text_02 img{
+.outline_text_02 img {
   width: 520px;
   border-radius: 30px;
   display: inline-block;
 }
-.outline_text_02 span{
+.outline_text_02 span {
   /* border: 1px solid #000; */
   display: inline-block;
   position: absolute;
@@ -175,57 +175,57 @@
 
 /*이용안내 탭메뉴*/
 /*탭메뉴 디자인*/
-.tab_wrap { 
+.tab_wrap {
   /* border: 1px solid #000; */
   width: var(--content-width);
   margin: auto;
   margin-top: 200px;
 }
 
-.tab_wrap input[name=tab]{ 
-  display: none; 
-}
-
-.tab_wrap input:nth-of-type(1)~div:nth-of-type(1),
-.tab_wrap input:nth-of-type(2)~div:nth-of-type(2) {
+.tab_wrap input[name="tab"] {
   display: none;
 }
 
-.tab_wrap input:nth-of-type(1):checked~div:nth-of-type(1),
-.tab_wrap input:nth-of-type(2):checked~div:nth-of-type(2) {
-  display: block
+.tab_wrap input:nth-of-type(1) ~ div:nth-of-type(1),
+.tab_wrap input:nth-of-type(2) ~ div:nth-of-type(2) {
+  display: none;
 }
 
-.tab_wrap input:nth-of-type(1):checked~header>label[for=tab1],
-.tab_wrap input:nth-of-type(2):checked~header>label[for=tab2] {
+.tab_wrap input:nth-of-type(1):checked ~ div:nth-of-type(1),
+.tab_wrap input:nth-of-type(2):checked ~ div:nth-of-type(2) {
+  display: block;
+}
+
+.tab_wrap input:nth-of-type(1):checked ~ header > label[for="tab1"],
+.tab_wrap input:nth-of-type(2):checked ~ header > label[for="tab2"] {
   background: var(--main-color);
   color: hsl(0, 0%, 100%);
 }
 
-.tab_wrap>header{ 
- /* border: 1px solid #000; */
- display: inline-block;
-  }
-
-.tab_wrap>header>label {
+.tab_wrap > header {
+  /* border: 1px solid #000; */
   display: inline-block;
-  width: 250px; 
-  height: 50px; 
-  line-height: 50px; 
+}
+
+.tab_wrap > header > label {
+  display: inline-block;
+  width: 250px;
+  height: 50px;
+  line-height: 50px;
   margin-right: 10px;
   border-radius: 5px 5px 0px 0px;
-  font-family: 'NanumBold'; 
+  font-family: "NanumBold";
   text-align: center;
-  font-weight: 700; 
+  font-weight: 700;
   text-decoration: none;
-  cursor: pointer; 
-  background-color: var(--back-color); 
+  cursor: pointer;
+  background-color: var(--back-color);
 }
-.tab_wrap>header>label:hover { 
-  background-color: var(--sub-color); 
+.tab_wrap > header > label:hover {
+  background-color: var(--sub-color);
 }
 .tab1_content,
-.tab2_content{
+.tab2_content {
   background-color: var(--back-color);
   display: inline-block;
   padding: 50px;
@@ -234,48 +234,48 @@
 
 /*이용안내 콘텐츠 wrap*/
 .info_wrap,
-.info_wrap_02{
+.info_wrap_02 {
   /* border: 1px solid #000; */
   width: var(--tabmenu-width);
   margin: auto;
   margin-top: 50px;
 }
 
-.info_wrap>p{
+.info_wrap > p {
   display: inline-block;
   font-size: 25px;
   font-weight: bold;
 }
-.info_wrap_02>p{
+.info_wrap_02 > p {
   /* border: 1px solid #000; */
   font-size: 25px;
   font-weight: bold;
-  text-align:center;
+  text-align: center;
 }
 /*차량관제 화면 이용안내*/
-.control_image{
+.control_image {
   /* border: 1px solid #000; */
   width: 100%;
   text-align: center;
   margin-top: 20px;
 }
-.control_image img{
+.control_image img {
   width: var(--tabmenu-width);
   border-radius: 30px;
   height: 400px;
 }
 
-.control_step_wrap{
+.control_step_wrap {
   /* border: 1px solid red; */
   text-align: center;
   margin-top: 50px;
 }
-.control_step_wrap>p{
+.control_step_wrap > p {
   font-size: 25px;
   font-weight: bold;
   margin-bottom: 50px;
 }
-.control_step_inner{
+.control_step_inner {
   /* border: 1px solid #000; */
   background-color: #fff;
   padding: 10px 20px;
@@ -284,18 +284,17 @@
   display: inline-block;
   margin-bottom: 20px;
 }
-.control_step_info{
+.control_step_info {
   /* border: 1px solid #000; */
   float: left;
 }
-.control_step_info img{
+.control_step_info img {
   width: 30px;
 }
-.control_step_inner p{
+.control_step_inner p {
   /* border: 1px solid #000; */
   height: 35px;
   line-height: 35px;
-  
 }
 
 /*운송예약 이용안내*/
@@ -317,12 +316,12 @@
   height: 110px;
   border-radius: 50%;
 }
-.book_icon_inner span{
+.book_icon_inner span {
   /* border: 1px solid #000; */
   position: absolute;
   top: 70%;
   left: 50%;
-  transform: translatex( -50%);
+  transform: translatex(-50%);
   font-weight: bold;
   font-weight: 17px;
 }
@@ -351,13 +350,13 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.book_info_wrap{
+.book_info_wrap {
   /* border: 1px solid #000; */
   width: var(--tabmenu-width);
   background-color: var(--back-color);
   border-radius: 30px;
 }
-.book_info_inner{
+.book_info_inner {
   /* border: 1px solid #000; */
   background-color: var(--back-color);
   width: 750px;
@@ -365,33 +364,32 @@
   text-align: center;
   margin-top: 30px;
 }
-.book_text>p{
+.book_text > p {
   /* border: 1px solid #000; */
   padding: 20px 0px;
   text-align: left;
   font-weight: bold;
 }
-.book_text{
+.book_text {
   padding: 30px 0px;
 }
 
 /*운송예약 이용요금*/
-.book_price_wrap{
+.book_price_wrap {
   width: var(--tabmenu-width);
   margin: auto;
   margin-top: 100px;
 }
-.book_price_wrap>p{
+.book_price_wrap > p {
   text-align: center;
   font-size: 25px;
   font-weight: bold;
 }
-.book_price_inner{
+.book_price_inner {
   margin-top: 30px;
 }
-.book_price_inner img{
+.book_price_inner img {
   width: var(--tabmenu-width);
   border-radius: 30px;
   height: 400px;
 }
-

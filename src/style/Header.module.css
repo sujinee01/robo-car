@@ -1,0 +1,55 @@
+:root {
+  /*메인컬러*/
+  --main-color: #21325e;
+  /*보조컬러*/
+  --sub-color: #f7be16;
+  /*보조컬러-뒤에 깔아주는 연한 회색*/
+  --back-color: #f5f5f5;
+}
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.header {
+  position: fixed;
+  display: flex;
+  width: 100vw;
+  height: 100px;
+  padding: 15px;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  box-shadow: 0 5px 5px -4px gray;
+
+  z-index: 1000;
+  transition: 0.5s;
+}
+
+.header > a {
+  height: 100%;
+}
+.header img {
+  height: 100%;
+}
+
+.header_nav {
+  margin-right: 25%;
+}
+
+.nav_item {
+  margin-left: 60px;
+  font-weight: 600;
+  text-decoration: none;
+  color: black;
+
+  transition: 0.1s;
+}
+
+/* .header_nav:hover .nav_item {
+  color: lightgray;
+}
+
+.header_nav .nav_item:hover {
+  color: var(--main-color);
+} */

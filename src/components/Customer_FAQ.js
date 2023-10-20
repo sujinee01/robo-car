@@ -25,6 +25,10 @@ function CustomerFaq() {
       question: "Q. 자주 묻는 질문입니다.",
       answer: "A. 답변",
     },
+    {
+      question: "Q. 자주 묻는 질문입니다.",
+      answer: "A. 답변",
+    },
     // 추가적인 질문과 답변을 필요에 따라 추가할 수 있습니다.
   ];
 
