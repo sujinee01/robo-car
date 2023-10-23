@@ -133,7 +133,6 @@ function Join() {
   };
 
   const onChangeId = (e) => {
-    console.log("onChangeId 호출");
     const currentId = e.target.value;
     setId(currentId);
     const idRegExp = /^(?=.*[a-zA-Z])(?=.*[0-9]).{4,16}$/;

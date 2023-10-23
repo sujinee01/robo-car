@@ -9,12 +9,14 @@ import arrow from "../assets/arrow.png";
 import effectimage01 from "../assets/effectimage_01.jpg";
 import effectimage02 from "../assets/effectimage_02.jpg";
 
-import ImageSlider from "./Image_slider";
+// import ImageSlider from "./Image_slider";
+import ImgSlider from "./Img_slider";
 
 const MainPage = () => {
   return (
     <>
-      <ImageSlider />
+      <ImgSlider />
+      {/* <ImageSlider /> */}
       <div className={styles.main_wrap}>
         <div className={styles.main_service}>
           <div className={styles.service_title}>
