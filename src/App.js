@@ -12,6 +12,7 @@ import CustomerHelpCenter from "./components/Customer_help_center";
 import ReservationPage from "./components/Reservation"; */
 import CustomerList from "./components/Customer_review_list";
 import ManagerReserv from "./components/Manager_reserv";
+import ManagerReview from "./components/Manager_review";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         {/* <Route path="/mypage" element={<MyPage />} />
         <Route path="/resv" element={<ReservationPage />} /> */}
         <Route path="/reserve" element={<ManagerReserv />} />
+        <Route path="/review" element={<ManagerReview />} />
         <Route path="/test" element={<CustomerList />} />
       </Routes>
     </Router>
