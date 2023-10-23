@@ -1,0 +1,195 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+/** 타이틀 아래 버튼 디자인 부분 */
+
+.listbtn {
+  margin-top: 1%;
+  margin-bottom: 3%;
+}
+
+.checkbtn {
+  width: 400px;
+  height: 50px;
+  background: #f7be16;
+  color: black;
+  font-size: 15px;
+  border: none;
+  font-weight: 500;
+}
+
+.lockbtn {
+  width: 400px;
+  height: 50px;
+  background: #f5f5f5;
+  color: black;
+  font-size: 15px;
+  border: none;
+  font-weight: 500;
+}
+
+.lockbtn:hover,
+.lockbtn:focus {
+  background: #f7be16;
+  color: black;
+  font-size: 15px;
+  border: none;
+  font-weight: 500;
+}
+
+/** 본문 내용 */
+
+.customratingcontainer {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/** 아코디언 형식으로 F&Q 구현한 부분*/
+
+.accordionContainer {
+  /* margin-top: 4%; */
+  width: 100%;
+}
+
+.accordionHeader {
+  padding: 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  /* border-top: 2px solid #293462;
+  border-bottom: 1px solid #293462; */
+}
+
+/* .accordionHeader:hover {
+  background-color: #f5f5f5;
+} */
+
+.open .accordionHeader {
+  background-color: none;
+}
+
+/** 아코디언 내부 편집 */
+
+.content {
+  padding: 10px;
+}
+
+.num {
+  padding-left: 3%;
+  font-size: 15px;
+  font-weight: 600;
+}
+.person {
+  margin-left: 40%;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.title {
+  margin-left: 0%;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.accordionItem {
+  border-radius: 5px;
+}
+
+.accordionItem:nth-child(odd),
+.accordionItem:nth-child(odd) .content {
+  background: #f5f5f5;
+}
+.triangle {
+  transition: 0.2s;
+}
+.rotate {
+  rotate: -90deg;
+  transition: 0.2s;
+}
+
+/** 아코디언 open 되면 보이는 부분*/
+
+.opencontainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.openstar {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.openwriter {
+  display: flex;
+  margin-top: 0%;
+  justify-content: left;
+  align-items: center;
+  padding-bottom: 1%;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.opencar {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding-bottom: 1%;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.opensatisfy {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding-bottom: 1%;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.opencontent {
+  display: flex;
+  justify-content: left;
+  margin-top: 2%;
+  font-size: 15px;
+  font-weight: 600;
+  align-items: center;
+}
+
+.btndel {
+  display: inline-block;
+  width: 100px;
+  height: 40px;
+  padding: 10px 20px;
+  border-radius: 10px; /* 반원 형태를 만들기 위해 큰 값 사용 */
+  background-color: #293462; /* 버튼 배경색 */
+  color: #fff; /* 텍스트 색상 */
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.3s ease; /* 배경색 전환 효과 */
+  border: 0;
+  font-weight: 900;
+  margin-left: 85%;
+  margin-bottom: 1%;
+  right: 0;
+}
+
+.btndel:hover,
+.btndel:focus {
+  width: 100px;
+  height: 40px;
+  background-color: #f7be16; /* 마우스 호버 시 배경색 변경 */
+  color: #293462;
+  border: 0;
+  font-weight: 900;
+  margin-left: 85%;
+  margin-bottom: 1%;
+  right: 0;
+}
