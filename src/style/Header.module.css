@@ -53,3 +53,13 @@
 .header_nav .nav_item:hover {
   color: var(--main-color);
 } */
+
+.ham_btn {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.ham_btn:hover {
+  transform: translateX(-10px);
+  transition: 0.2s ease;
+}

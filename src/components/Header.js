@@ -7,10 +7,22 @@ import logo from "../assets/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
+import Sidebar from "./Sidebar";
+
 /** 헤더 구현 컴포넌트 */
 const Header = () => {
-  const { nav_item, header } = st;
+  const { nav_item, header, ham_btn } = st;
   const [preScrollPos, setPreScrollPos] = useState(0);
+  const [btnToggle, setBtnToggle] = useState(false);
+
+  const toggleBtn = () => {
+    if (!btnToggle) {
+      setBtnToggle(!btnToggle);
+    } else {
+      setBtnToggle(!btnToggle);
+    }
+    console.log(btnToggle);
+  };
 
   useEffect(() => {
     const navItems = document.querySelectorAll(`.${nav_item}`);
@@ -60,7 +72,7 @@ const Header = () => {
       }
     };
 
-    window.addEventListener("scroll", scrollPos); // window 객체에 스크롤 이벤트를 추가
+    window.addEventListener("scroll", scrollPos); // window 객체에 스크롤 이벤트 추가
 
     return () => {
       window.removeEventListener("scroll", scrollPos); // 컴포넌트가 언마운트될 때 이벤트 제거
@@ -75,26 +87,33 @@ const Header = () => {
         </a>
 
         <div className={st.header_nav}>
-          <a href="#" className={st.nav_item}>
+          <a href="/about" className={st.nav_item}>
             서비스 소개
           </a>
-          <a href="#" className={st.nav_item}>
+          <a href="/ControlMain" className={st.nav_item}>
             차량관제
           </a>
-          <a href="#" className={st.nav_item}>
+          <a
+            href="#"
+            className={st.nav_item}
+            onClick={() => {
+              alert("로그인이 필요한 서비스 입니다.");
+            }}
+          >
             운송예약
           </a>
-          <a href="#" className={st.nav_item}>
+          <a href="/noticeMain" className={st.nav_item}>
             공지사항
           </a>
-          <a href="#" className={st.nav_item}>
+          <a href="/helpCenter" className={st.nav_item}>
             고객센터
           </a>
         </div>
 
-        <div>
+        <div className={st.ham_btn} onClick={toggleBtn}>
           <FontAwesomeIcon icon={faBars} size="2x" />
         </div>
+        <Sidebar isOpen={btnToggle} setIsOpen={setBtnToggle} />
       </header>
     </div>
   );
