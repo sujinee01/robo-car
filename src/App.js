@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import MainPage from "./components/Main_page";
@@ -14,10 +14,26 @@ import AboutUs from "./components/About_us";
 import CustomerList from "./components/Customer_review_list";
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const logedIn = localStorage.getItem("id");
+    if (logedIn) {
+      // 로컬 스토리지에 로그인 아이디가 존재하면
+      setIsLogin(true); // 로그인 정보 true
+      if (logedIn === "admin") {
+        // 아이디가 admin이면 관리자 로그인 true
+        setIsAdmin(true);
+      }
+    }
+    console.log("act");
+  }, [isLogin, isAdmin]);
+
   return (
     <Router>
       <div style={{ height: "100px" }}>
-        <Header />
+        <Header isLogin={isLogin} isAdmin={isAdmin} />
       </div>
       <Routes>
         <Route path="/" element={<MainPage />} />

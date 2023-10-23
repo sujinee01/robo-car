@@ -113,13 +113,17 @@
   transition: 0.2s;
 }
 
+.go_join a {
+  text-decoration: none;
+  color: black;
+}
+
 .login_form .go_join {
   display: inline-block;
   padding: 10px 100px;
   border-radius: 10px; /* 반원 형태를 만들기 위해 큰 값 사용 */
-  border-color: #293462;
+  /* border-color: #293462; */
   background-color: #f5f5f5; /* 버튼 배경색 */
-  color: #293462; /* 텍스트 색상 */
   text-align: center;
   text-decoration: none;
   cursor: pointer;

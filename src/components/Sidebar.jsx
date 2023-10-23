@@ -10,6 +10,7 @@ import {
   faPersonCirclePlus,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import { faRectangleXmark } from "@fortawesome/free-regular-svg-icons";
 import st from "../style/Sidebar.module.css";
 
 const SideBarWrap = styled.div`
@@ -31,7 +32,7 @@ const SideBarWrap = styled.div`
 `;
 
 /** 햄버거 메뉴 구현 함수 */
-function Sidebar({ isOpen, setIsOpen }) {
+function Sidebar({ isOpen, setIsOpen, isLogin, isAdmin }) {
   const outside = useRef();
 
   useEffect(() => {
@@ -39,7 +40,7 @@ function Sidebar({ isOpen, setIsOpen }) {
     return () => {
       document.removeEventListener("mousedown", handlerOutsie);
     };
-  });
+  }, []);
 
   const handlerOutsie = (e) => {
     if (!outside.current.contains(e.target)) {
@@ -51,6 +52,9 @@ function Sidebar({ isOpen, setIsOpen }) {
     setIsOpen(false);
   };
 
+  const logout = () => {
+    localStorage.clear();
+  };
   return (
     <SideBarWrap id="sidebar" ref={outside} className={isOpen ? "open" : ""}>
       <FontAwesomeIcon
@@ -59,30 +63,58 @@ function Sidebar({ isOpen, setIsOpen }) {
         style={{ cursor: "pointer" }}
       />
       <ul>
-        <li className={st.menu_item}>
-          <a href="/login">
-            <div className={st.menu_icon}>
-              <FontAwesomeIcon icon={faRightToBracket} />
-            </div>
-            로그인
-          </a>
-        </li>
-        <li className={st.menu_item}>
-          <a href="/join">
-            <div className={st.menu_icon}>
-              <FontAwesomeIcon icon={faPersonCirclePlus} />
-            </div>
-            회원가입
-          </a>
-        </li>
-        <li className={st.menu_item}>
-          <a href="/mypage">
-            <div className={st.menu_icon}>
-              <FontAwesomeIcon icon={faUser} />
-            </div>
-            마이페이지
-          </a>
-        </li>
+        {isLogin ? (
+          <li className={st.menu_item}>
+            <a href="/" onClick={logout}>
+              <div className={st.menu_icon}>
+                <FontAwesomeIcon icon={faRectangleXmark} />
+              </div>
+              로그아웃
+            </a>
+          </li>
+        ) : (
+          <div>
+            <li className={st.menu_item}>
+              <a href="/login">
+                <div className={st.menu_icon}>
+                  <FontAwesomeIcon icon={faRightToBracket} />
+                </div>
+                로그인
+              </a>
+            </li>
+            <li className={st.menu_item}>
+              <a href="/join">
+                <div className={st.menu_icon}>
+                  <FontAwesomeIcon icon={faPersonCirclePlus} />
+                </div>
+                회원가입
+              </a>
+            </li>
+          </div>
+        )}
+        {isLogin ? (
+          isAdmin ? (
+            <li className={st.menu_item}>
+              <a href="/manage">
+                <div className={st.menu_icon}>
+                  <FontAwesomeIcon icon={faUser} />
+                </div>
+                관리자 페이지
+              </a>
+            </li>
+          ) : (
+            <li className={st.menu_item}>
+              <a href="/mypage">
+                <div className={st.menu_icon}>
+                  <FontAwesomeIcon icon={faUser} />
+                </div>
+                마이 페이지
+              </a>
+            </li>
+          )
+        ) : (
+          ""
+        )}
       </ul>
     </SideBarWrap>
   );

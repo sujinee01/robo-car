@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import styles from "../style/Login.module.css";
 
 function Login() {
-  const navigate = useNavigate();
   const [loginMessage, setLoginMessage] = useState(""); // 로그인 메시지 상태
 
   useEffect(() => {
@@ -37,7 +35,7 @@ function Login() {
           localStorage.setItem("name", data.u_name);
           // 로그인 성공 시 메시지 설정
           alert(`환영합니다, ${data.u_name}님!`);
-          navigate("/"); // 로그인 성공 시 Home 페이지로 이동
+          window.location.href = "/"; // 로그인 성공 시 Home 페이지로 리다이렉트
         } else {
           // 로그인 실패 시 메시지 설정
           if (data.info === "pw") {

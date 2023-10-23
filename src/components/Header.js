@@ -2,6 +2,7 @@
  페이지 상단 헤더 부분 구현하는 JS 파일입니다.
 */
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import st from "../style/Header.module.css";
 import logo from "../assets/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,8 +11,9 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Sidebar from "./Sidebar";
 
 /** 헤더 구현 컴포넌트 */
-const Header = () => {
-  const { nav_item, header, ham_btn } = st;
+const Header = ({ isLogin, isAdmin }) => {
+  const navigate = useNavigate();
+  const { nav_item, header } = st;
   const [preScrollPos, setPreScrollPos] = useState(0);
   const [btnToggle, setBtnToggle] = useState(false);
 
@@ -21,7 +23,6 @@ const Header = () => {
     } else {
       setBtnToggle(!btnToggle);
     }
-    console.log(btnToggle);
   };
 
   useEffect(() => {
@@ -97,7 +98,10 @@ const Header = () => {
             href="#"
             className={st.nav_item}
             onClick={() => {
-              alert("로그인이 필요한 서비스 입니다.");
+              isLogin
+                ? navigate("/resv")
+                : alert("로그인이 필요한 서비스입니다.");
+              navigate("/login");
             }}
           >
             운송예약
@@ -113,7 +117,12 @@ const Header = () => {
         <div className={st.ham_btn} onClick={toggleBtn}>
           <FontAwesomeIcon icon={faBars} size="2x" />
         </div>
-        <Sidebar isOpen={btnToggle} setIsOpen={setBtnToggle} />
+        <Sidebar
+          isOpen={btnToggle}
+          setIsOpen={setBtnToggle}
+          isLogin={isLogin}
+          isAdmin={isAdmin}
+        />
       </header>
     </div>
   );

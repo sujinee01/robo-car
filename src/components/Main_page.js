@@ -194,8 +194,7 @@ const MainPage = () => {
             </div>
           </div>
         </div>
-      </div>{" "}
-      /*main_wrap*/
+      </div>
     </>
   );
 };
