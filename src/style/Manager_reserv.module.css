@@ -178,6 +178,6 @@
   transition: background-color 0.3s ease; /* 배경색 전환 효과 */
   border: 0;
   font-weight: 900;
-  margin-bottom: 1%;
+  margin-bottom:2%;
   right: 0;
 }
