@@ -12,6 +12,52 @@ app.use(express.json());
 // URL-encoded 형식의 요청 데이터 파싱 설정
 app.use(express.urlencoded({ extended: true }));
 
+/** [관리자페이지 - 회원관리] 데이터 요청 처리 */
+app.post("/ManageMember", (req, res) => {
+  const reqTarget = req.body.reqTarget;
+
+  console.log(`관리자 페이지 ${reqTarget} 데이터 요청`);
+
+  db.getConnection((err, conn) => {
+    if (err) console.log("MySQL 연결 실패");
+
+    let sql = "";
+
+    if (reqTarget === "Home") {
+      sql = "SELECT * FROM reservation";
+    } else if (reqTarget === "Member") {
+      sql = "SELECT * FROM user";
+    } else if (reqTarget === "Resv") {
+    } else if (reqTarget === "Car") {
+    } else if (reqTarget === "Notice") {
+    } else if (reqTarget === "Review") {
+    } else {
+      console.log("요청을 처리할 수 없습니다.");
+    }
+
+    conn.query(sql, (err, rows, fields) => {
+      if (err) {
+        console.log("쿼리 실행 실패: ", err);
+        res.status(500).json({ success: false, message: "쿼리 실행 오류" });
+        return;
+      }
+
+      if (rows.length > 0) {
+        res
+          .status(200)
+          .json({ success: true, rows, message: `${reqTarget}요청 완료` });
+      } else {
+        res.status(200).json({
+          success: true,
+          message: `${reqTarget}요청 실패`,
+        });
+      }
+    });
+
+    conn.release();
+  });
+});
+
 /** 로그인 요청 처리 */
 app.post("/Login", (req, res) => {
   const parId = req.body.id; // 로그인 페이지에서 입력 받은 아이디 받아오기

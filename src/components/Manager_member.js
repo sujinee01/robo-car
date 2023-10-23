@@ -2,45 +2,31 @@ import styles from "../style/Manager_member.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-function ManagerMember() {
-  const users = [
+function ManagerMember({ userData }) {
+  let users = [
     {
       id: 1,
-      u_name: "홍길동",
-      u_id: "gildong11",
-      u_phone: "01023456789",
-      u_email: "gildong@naver.com",
-      u_addr: "서울특별시",
-      u_office: "(주)길동",
-    },
-    {
-      id: 2,
-      u_name: "홍길동",
-      u_id: "gildong11",
-      u_phone: "01023456789",
-      u_email: "gildong@naver.com",
-      u_addr: "서울특별시",
-      u_office: "(주)길동",
-    },
-    {
-      id: 3,
-      u_name: "홍길동",
-      u_id: "gildong11",
-      u_phone: "01023456789",
-      u_email: "gildong@naver.com",
-      u_addr: "서울특별시",
-      u_office: "(주)길동",
+      u_name: "",
+      u_id: "",
+      u_phone: "",
+      u_email: "",
+      u_addr: "",
+      u_office: "",
     },
   ];
+  if (userData) {
+    users = userData;
+  }
+  // console.log(userData[0]);
 
-  function User({ user }) {
+  function User({ user, key }) {
     return (
       <tr>
-        <td></td>
+        <td>{key}</td>
         <td>{user.u_name}</td>
         <td>{user.u_id}</td>
-        <td>{user.u_name}</td>
         <td>{user.u_phone}</td>
+        <td>{user.u_email}</td>
         <td>{user.u_addr}</td>
         <td>{user.u_office}</td>
         <td>

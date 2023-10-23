@@ -12,6 +12,7 @@ import ManagerPage from "./components/Manager_page";
 import AboutUs from "./components/About_us";
 
 import CustomerList from "./components/Customer_review_list";
+import MemberDetail from "./components/Manager_member_detail";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -27,7 +28,6 @@ function App() {
         setIsAdmin(true);
       }
     }
-    console.log("act");
   }, [isLogin, isAdmin]);
 
   return (
@@ -47,6 +47,7 @@ function App() {
         {/* <Route path="/mypage" element={<MyPage />} /> */}
         {/* <Route path="/resv" element={<ReservationPage />} /> */}
         <Route path="/manage" element={<ManagerPage />} />
+        <Route path="/test" element={<MemberDetail />} />
       </Routes>
     </Router>
   );
