@@ -99,7 +99,7 @@
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  transition: 0.3s; /* 배경색 전환 효과 */
+  transition: 0.2s; /* 배경색 전환 효과 */
   margin: auto; /*중앙 정렬*/
 
   width: 100%;
@@ -110,7 +110,7 @@
   color: #000000;
   font-weight: bold;
 
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
 .login_form .go_join {
@@ -123,7 +123,7 @@
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  transition: 0.3s; /* 배경색 전환 효과 */
+  transition: 0.2s; /* 배경색 전환 효과 */
   margin: auto; /*중앙 정렬*/
 
   width: 100%;
@@ -134,5 +134,5 @@
   background-color: #f7be16; /* 마우스 호버 시 배경색 변경 */
   color: #ffffff;
 
-  transition: 0.3s;
+  transition: 0.2s;
 }
