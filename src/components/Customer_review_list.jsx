@@ -229,7 +229,6 @@ function CustomerReviewList() {
                         <div className={styles.opencontent}>
                           <p>{review.content}</p>
                         </div>
-                        <button className={styles.btndel}>삭제</button>
                       </div>
                     )}
                   </div>

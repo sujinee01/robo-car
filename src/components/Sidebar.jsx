@@ -9,6 +9,7 @@ import {
   faRightToBracket,
   faPersonCirclePlus,
   faUser,
+  faCircleUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { faRectangleXmark } from "@fortawesome/free-regular-svg-icons";
 import st from "../style/Sidebar.module.css";
@@ -16,7 +17,6 @@ import st from "../style/Sidebar.module.css";
 const SideBarWrap = styled.div`
   z-index: 5;
   padding: 12px;
-  border-radius: 15px 0 0 15px;
   background-color: #f5f5f5;
   height: 100%;
   width: 200px;
@@ -64,14 +64,24 @@ function Sidebar({ isOpen, setIsOpen, isLogin, isAdmin }) {
       />
       <ul>
         {isLogin ? (
-          <li className={st.menu_item}>
-            <a href="/" onClick={logout}>
+          <div>
+            <li className={st.user_info}>
               <div className={st.menu_icon}>
-                <FontAwesomeIcon icon={faRectangleXmark} />
+                <FontAwesomeIcon icon={faCircleUser} size="2x" />
               </div>
-              로그아웃
-            </a>
-          </li>
+              <div className={st.user_name}>
+                {localStorage.getItem("name")} 님
+              </div>
+            </li>
+            <li className={st.menu_item}>
+              <a href="/" onClick={logout}>
+                <div className={st.menu_icon}>
+                  <FontAwesomeIcon icon={faRectangleXmark} />
+                </div>
+                로그아웃
+              </a>
+            </li>
+          </div>
         ) : (
           <div>
             <li className={st.menu_item}>

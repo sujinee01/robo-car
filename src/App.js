@@ -10,9 +10,8 @@ import NoticeDetail from "./components/Notice_detail";
 import CustomerHelpCenter from "./components/Customer_help_center";
 import ManagerPage from "./components/Manager_page";
 import AboutUs from "./components/About_us";
-
-import CustomerList from "./components/Customer_review_list";
-import MemberDetail from "./components/Manager_member_detail";
+import MyPage from "./components/My_page";
+import Reservation from "./components/Reservation";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -44,10 +43,9 @@ function App() {
         <Route path="/noticeDetail" element={<NoticeDetail />} />
         <Route path="/helpCenter" element={<CustomerHelpCenter />} />
         <Route path="/about" element={<AboutUs />} />
-        {/* <Route path="/mypage" element={<MyPage />} /> */}
-        {/* <Route path="/resv" element={<ReservationPage />} /> */}
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/resv" element={<Reservation />} />
         <Route path="/manage" element={<ManagerPage />} />
-        <Route path="/test" element={<MemberDetail />} />
       </Routes>
     </Router>
   );
