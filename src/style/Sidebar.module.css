@@ -28,3 +28,16 @@
   display: inline-block;
   width: 30px;
 }
+
+.user_info {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 30px 5px;
+}
+
+.user_name {
+  display: inline-block;
+  font-weight: 600;
+  margin-left: 10px;
+}
