@@ -4,15 +4,15 @@ import Select from "react-select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
-function Manager_reserv() {
+function ManagerReserv() {
   const CATEGORY_LIST = [
-    { label: "특근", value: null },
+    { label: "특급", value: null },
     { label: "일반", value: "0001" },
   ];
   const formatOptionLabel = ({ label, value }) => (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
       <span style={{ color: "black" }}>
-        {value === "0001" ? "특근 배송" : "일반 배송"}
+        {value === "0001" ? "특급 배송" : "일반 배송"}
       </span>
     </div>
   );
@@ -221,4 +221,4 @@ function Manager_reserv() {
   );
 }
 
-export default Manager_reserv;
+export default ManagerReserv;

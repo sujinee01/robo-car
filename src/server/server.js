@@ -8,9 +8,53 @@ const db = require("./config/db_config.js"); // DB 설정파일
 
 // JSON 형식의 요청 데이터 파싱 설정
 app.use(express.json());
-
 // URL-encoded 형식의 요청 데이터 파싱 설정
 app.use(express.urlencoded({ extended: true }));
+
+/** [관리자페이지 - 차량 등록] 데이터 처리 */
+app.post("/CarAdd", (req, res) => {
+  const body = req.body;
+
+  const clicenseplt = body.clicenseplt || req.query.clicenseplt;
+  const cmodel = body.cmodel || req.query.cmodel;
+  const cid = body.cid || req.query.cid;
+  const cpower = body.cpower;
+  const clight = body.clight;
+  const cbattery = body.cbattery || req.query.cbattery;
+
+  db.getConnection((err, conn) => {
+    console.log("차량등록 요청");
+    if (err) {
+      console.log("MySQL 연결 실패:", err);
+      res.status(500).json({ success: false, message: "MySQL 연결 실패" });
+      return;
+    }
+    console.log("MySQL 연결 성공");
+
+    const sql =
+      "INSERT INTO car_list(car_licenseplt,car_model,car_id,car_power,car_light,car_battery) VALUES (?,?,?,?,?,?)";
+    const params = [clicenseplt, cmodel, cid, cpower, clight, cbattery];
+
+    conn.query(sql, params, (err, result, fields) => {
+      // console.log('실행쿼리: ' + sql);
+      if (err) {
+        console.log("쿼리 실행 실패:");
+        console.dir(err);
+        res.status(500).json({ success: false, message: "쿼리 실행 실패" });
+        return;
+      }
+      if (result) {
+        console.log(result);
+        console.log("차량 등록 성공!");
+        res.status(200).json({ success: true, message: "차량 등록 성공" });
+      } else {
+        res.status(500).json({ success: false, message: "차량 등록 실패" });
+      }
+    });
+
+    conn.release();
+  });
+});
 
 /** [관리자페이지 - 회원관리] 데이터 요청 처리 */
 app.post("/ManageMember", (req, res) => {
