@@ -1,10 +1,11 @@
 import styles from "../style/Manager_main.module.css";
 import right from "../assets/right.png";
-import ManagerHeader from "./Manager_header";
+
+// import ManagerHeader from "./Manager_header";
 const ManagerMain = () => {
   return (
     <>
-      <ManagerHeader />
+      {/* <ManagerHeader /> */}
       <div className={styles.manager_main_wrap}>
         <div className={styles.main_data_wrap}>
           <div className={styles.main_data_inner}>

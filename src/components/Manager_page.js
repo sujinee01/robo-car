@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styles from "../style/Manager_page.module.css";
 import ManagerMain from "./Manager_main";
 import ManagerMember from "./Manager_member";
+import ManagerReserv from "./Manager_reserv";
+import ManagerVehicle from "./Manager_vehicle";
 const ManagerPage = () => {
   const [receiveData, setReceiveData] = useState(""); // DB 요청 저장 변수
 
@@ -79,13 +81,15 @@ const ManagerPage = () => {
           type="radio"
           onClick={memberInfoReq}
         />
-        <header>
-          <label htmlFor="tab1">Home</label>
-          <label htmlFor="tab2">회원관리</label>
-          <label htmlFor="tab3">예약관리</label>
-          <label htmlFor="tab4">운송차량관리</label>
-          <label htmlFor="tab5">공지사항관리</label>
-          <label htmlFor="tab6">이용자 평가 내역</label>
+        <header style={{ width: "1200px" }}>
+          <div>
+            <label htmlFor="tab1">Home</label>
+            <label htmlFor="tab2">회원관리</label>
+            <label htmlFor="tab3">예약관리</label>
+            <label htmlFor="tab4">운송차량관리</label>
+            <label htmlFor="tab5">공지사항관리</label>
+            <label htmlFor="tab6">이용자 평가 내역</label>
+          </div>
           <hr />
         </header>
         <div className={`${styles.tab1_content} ${styles.tab_content}`}>
@@ -95,10 +99,10 @@ const ManagerPage = () => {
           <ManagerMember userData={receiveData} />
         </div>
         <div className={`${styles.tab3_content} ${styles.tab_content}`}>
-          예약관리 링크
+          <ManagerReserv />
         </div>
         <div className={`${styles.tab4_content} ${styles.tab_content}`}>
-          운송차량관리 링크
+          <ManagerVehicle />
         </div>
         <div className={`${styles.tab5_content} ${styles.tab_content}`}>
           공지사항관리 링크
