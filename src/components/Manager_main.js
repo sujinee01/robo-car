@@ -1,5 +1,6 @@
 import styles from "../style/Manager_main.module.css";
 import right from "../assets/right.png";
+
 // import ManagerHeader from "./Manager_header";
 const ManagerMain = () => {
   return (

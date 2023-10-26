@@ -25,6 +25,15 @@ const Header = ({ isLogin, isAdmin }) => {
     }
   };
 
+  const handleLink = () => {
+    isLogin
+      ? navigate("/resv")
+      : (() => {
+          alert("로그인이 필요한 서비스입니다.");
+          navigate("/login");
+        })();
+  };
+
   useEffect(() => {
     const navItems = document.querySelectorAll(`.${nav_item}`);
     const targetHeader = document.querySelectorAll(`.${header}`);
@@ -94,16 +103,7 @@ const Header = ({ isLogin, isAdmin }) => {
           <a href="/ControlMain" className={st.nav_item}>
             차량관제
           </a>
-          <a
-            href="#"
-            className={st.nav_item}
-            onClick={() => {
-              isLogin
-                ? navigate("/resv")
-                : alert("로그인이 필요한 서비스입니다.");
-              navigate("/login");
-            }}
-          >
+          <a href="#!" className={st.nav_item} onClick={handleLink}>
             운송예약
           </a>
           <a href="/noticeMain" className={st.nav_item}>
