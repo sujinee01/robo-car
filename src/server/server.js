@@ -73,6 +73,7 @@ app.post("/ManageMember", (req, res) => {
       sql = "SELECT * FROM user";
     } else if (reqTarget === "Resv") {
     } else if (reqTarget === "Car") {
+      sql = "SELECT * FROM car_list";
     } else if (reqTarget === "Notice") {
     } else if (reqTarget === "Review") {
     } else {

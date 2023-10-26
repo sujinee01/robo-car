@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../style/Manager_vehicle.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -25,41 +25,14 @@ function ManagerVehicle({ vehicleData }) {
   }
 
   function Vehicle({ vehicle, key }) {
-    <div className={styles.vehicle_wrap}>
-      <table>
-        <thead>
-          <tr>
-            <th>No.</th>
-            <th>차량번호</th>
-            <th>차량모델</th>
-            <th>호차</th>
-            <th>시동</th>
-            <th>라이트</th>
-            <th>배터리잔량</th>
-            <th>삭제</th>
-          </tr>
-        </thead>
-        <tbody>
-          {vehicles.map((vehicle, index) => (
-            <Vehicle vehicle={vehicle} key={index} />
-          ))}
-        </tbody>
-      </table>
-      <div className={styles.vehicle_add}>
-        {/* <Link to="/VehicleAdd">
-    <button>차량등록</button>
-  </Link> */}
-        <button onClick={handleAdd}>차량등록</button>
-      </div>
-    </div>;
     return (
       <tr>
         <td>{key}</td>
         <td>{vehicle.car_licenseplt}</td>
         <td>{vehicle.car_model}</td>
         <td>{vehicle.car_id}</td>
-        <td>{vehicle.car_power}</td>
-        <td>{vehicle.car_light}</td>
+        <td>{vehicle.car_power === 1 ? "ON" : "OFF"}</td>
+        <td>{vehicle.car_light === 1 ? "ON" : "OFF"}</td>
         <td>{vehicle.car_battery}</td>
         <td>
           {/*삭제버튼*/}
@@ -102,9 +75,6 @@ function ManagerVehicle({ vehicleData }) {
             </tbody>
           </table>
           <div className={styles.vehicle_add}>
-            {/* <Link to="/VehicleAdd">
-          <button>차량등록</button>
-        </Link> */}
             <button onClick={handleAdd}>차량등록</button>
           </div>
         </div>

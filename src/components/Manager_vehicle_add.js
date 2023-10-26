@@ -64,6 +64,8 @@ const VehicleAdd = ({ addToggle, setAddToggle }) => {
                   <select name="cid">
                     <option value={"car01"}>1호차</option>
                     <option value={"car02"}>2호차</option>
+                    <option value={"car03"}>3호차</option>
+                    <option value={"car04"}>4호차</option>
                   </select>
                 </td>
                 <td>

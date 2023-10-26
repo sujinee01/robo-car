@@ -8,7 +8,7 @@ const ManagerPage = () => {
   const [receiveData, setReceiveData] = useState(""); // DB 요청 저장 변수
 
   /** DB내 데이터 요청 처리 */
-  const memberInfoReq = async (e) => {
+  const infoReq = async (e) => {
     const reqTarget = e.target.value;
 
     try {
@@ -23,7 +23,7 @@ const ManagerPage = () => {
       if (response.ok) {
         const data = await response.json();
         const receiveData = data["rows"]; // 쿼리 수행으로 받아온 테이블 데이터
-        console.log(receiveData);
+        // console.log(receiveData);
         if (data.success) {
           console.log(data.message);
           setReceiveData(receiveData); // 받아온 데이터 useState 변수에 저장
@@ -43,7 +43,7 @@ const ManagerPage = () => {
           id="tab1"
           value="Home"
           type="radio"
-          onClick={memberInfoReq}
+          onClick={infoReq}
           defaultChecked
         />
         <input
@@ -51,35 +51,35 @@ const ManagerPage = () => {
           id="tab2"
           value="Member"
           type="radio"
-          onClick={memberInfoReq}
+          onClick={infoReq}
         />
         <input
           name="tab"
           id="tab3"
           value="Resv"
           type="radio"
-          onClick={memberInfoReq}
+          onClick={infoReq}
         />
         <input
           name="tab"
           id="tab4"
           value="Car"
           type="radio"
-          onClick={memberInfoReq}
+          onClick={infoReq}
         />
         <input
           name="tab"
           id="tab5"
           value="Notice"
           type="radio"
-          onClick={memberInfoReq}
+          onClick={infoReq}
         />
         <input
           name="tab"
           id="tab6"
           value="Review"
           type="radio"
-          onClick={memberInfoReq}
+          onClick={infoReq}
         />
         <header style={{ width: "1200px" }}>
           <div>
@@ -102,7 +102,7 @@ const ManagerPage = () => {
           <ManagerReserv />
         </div>
         <div className={`${styles.tab4_content} ${styles.tab_content}`}>
-          <ManagerVehicle />
+          <ManagerVehicle vehicleData={receiveData} />
         </div>
         <div className={`${styles.tab5_content} ${styles.tab_content}`}>
           공지사항관리 링크
