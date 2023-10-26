@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import styles from "../style/Manager_vehicle.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -8,21 +7,35 @@ import VehicleAdd from "./Manager_vehicle_add";
 
 function ManagerVehicle({ vehicleData }) {
   const [addToggle, setAddToggle] = useState(false);
+  const [receiveData, setReceiveData] = useState([vehicleData]);
 
-  let vehicles = [
-    {
-      id: 1,
-      car_licenseplt: "",
-      car_model: "",
-      car_id: "",
-      car_power: "",
-      car_light: "",
-      car_battery: "",
-    },
-  ];
-  if (vehicleData) {
-    vehicles = vehicleData;
-  }
+  const infoReq = async () => {
+    const reqTarget = "Car";
+
+    try {
+      const response = await fetch("/ManageMember", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ reqTarget }), // 요청하는 데이터
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        if (data.success) {
+          setReceiveData(data["rows"]);
+        }
+      }
+    } catch (error) {
+      console.error("오류:", error);
+    }
+  };
+
+  const handleAdd = () => {
+    setAddToggle(!addToggle);
+  };
 
   function Vehicle({ vehicle, key }) {
     return (
@@ -44,15 +57,32 @@ function ManagerVehicle({ vehicleData }) {
     );
   }
 
-  const handleAdd = () => {
-    setAddToggle(!addToggle);
-  };
+  // useEffect 써서 addToggle 변경될때 ,
+  // addToggle이 false 일경우에 infoReq 호출
+  useEffect(() => {
+    if (addToggle === false) {
+      infoReq();
+    }
+  }, [addToggle]);
+
+  // useEffect 써서 addToggle 변경될때 ,
+  // addToggle이 false 일경우에 infoReq 호출
+  useEffect(() => {
+    console.log(">>> ", addToggle);
+    if (addToggle === false) {
+      infoReq();
+    }
+  }, []);
 
   return (
     <>
       {/* <ManagerHeader /> */}
       {addToggle ? (
-        <VehicleAdd addToggle={addToggle} setAddToggle={setAddToggle} />
+        <VehicleAdd
+          addToggle={addToggle}
+          setAddToggle={setAddToggle}
+          infoReq={infoReq}
+        />
       ) : (
         <div className={styles.vehicle_wrap}>
           <table>
@@ -69,7 +99,7 @@ function ManagerVehicle({ vehicleData }) {
               </tr>
             </thead>
             <tbody>
-              {vehicles.map((vehicle, index) => (
+              {receiveData.map((vehicle, index) => (
                 <Vehicle vehicle={vehicle} key={index} />
               ))}
             </tbody>

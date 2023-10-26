@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "../style/Manager_vehicle_add.module.css";
-import ManagerHeader from "./Manager_header";
-const VehicleAdd = ({ addToggle, setAddToggle }) => {
+// import ManagerHeader from "./Manager_header";
+
+const VehicleAdd = ({ addToggle, setAddToggle, infoReq }) => {
   const handleSubmit = async (e) => {
+    e.preventDefault();
     setAddToggle(!addToggle);
 
     const formData = new FormData(e.target);
