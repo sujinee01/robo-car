@@ -1,3 +1,16 @@
+:root {
+  /*콘텐츠내용 width*/
+  --content-width: 1200px;
+  /*메인컬러*/
+  --main-color: #21325e;
+  /*보조컬러*/
+  --sub-color: #f7be16;
+  /*보조컬러-뒤에 깔아주는 연한 회색*/
+  --back-color: #f5f5f5;
+  /*뒤로가기컬러*/
+  --cancel-color:#eb0000;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -15,13 +28,13 @@
   width: 1200px;
   display: flex;
   margin: 0 auto;
-  font-size: 1.1rem;
-  font-weight: 500;
+  font-weight: bold;
   flex-direction: row;
   flex-wrap: nowrap;
-  padding: 5px 0;
-  background-color: #f5f5f5;
-  border-bottom: 1px solid #ababab;
+  padding: 7px 0;
+  background-color: var(--sub-color);
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
 }
 
 .tablenum {
@@ -43,7 +56,10 @@
 /** 아코디언 형식으로 F&Q 구현한 부분*/
 
 .accordionContainer {
+  border: 1px solid #dedfe0;
   width: 1200px;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
 }
 
 .accordionHeader {
@@ -53,10 +69,14 @@
   justify-content: space-between;
 }
 
-.accordionItem:nth-child(odd) .accordionHeader,
-.accordionItem:nth-child(odd) .openontainer {
-  background: #f5f5f5;
+.accordionHeader{
+  border-bottom: 1px solid #dedfe0;
 }
+
+/* .accordionItem:nth-child(even) .accordionHeader,
+.accordionItem:nth-child(even) .openontainer {
+  background: #f5f5f5;
+} */
 
 /** 아코디언 내부 편집 */
 
@@ -65,7 +85,7 @@
 }
 
 .num {
-  padding-left: 4%;
+  padding-left: 3%;
   font-size: 15px;
   font-weight: 600;
 }
@@ -73,7 +93,7 @@
 .reservnum {
   font-size: 15px;
   font-weight: 600;
-  margin-left: 1%;
+  /* margin-left: 1%; */
 }
 
 .person {
@@ -101,6 +121,9 @@
 /** 아코디언 open 되면 보이는 부분*/
 
 .conaiainercontent {
+  /* border: 1px solid #000; */
+  padding: 0px 25px;
+  background-color: var(--back-color);
   display: flex;
   justify-content: space-between;
   width: 1200px;
