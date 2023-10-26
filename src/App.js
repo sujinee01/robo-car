@@ -10,7 +10,7 @@ import NoticeDetail from "./components/Notice_detail";
 import CustomerHelpCenter from "./components/Customer_help_center";
 import ManagerPage from "./components/Manager_page";
 import AboutUs from "./components/About_us";
-import MyPage from "./components/My_page";
+import MyPage from "./components/Mypage";
 import Reservation from "./components/Reservation";
 
 function App() {

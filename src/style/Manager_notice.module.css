@@ -1,0 +1,125 @@
+:root {
+  /*콘텐츠내용 width*/
+  --content-width: 1200px;
+  /*메인컬러*/
+  --main-color: #21325e;
+  /*보조컬러*/
+  --sub-color: #f7be16;
+  /*보조컬러-뒤에 깔아주는 연한 회색*/
+  --back-color: #f5f5f5;
+}
+* {
+  padding: 0;
+  margin: 0;
+}
+.notice_wrap { 
+  /* border: 1px solid #000; */
+  width: var(--content-width);
+  margin: auto;
+  margin-top: 30px;
+}
+
+/*테이블 디자인*/
+.notice_wrap table {
+  /* border: 1px solid #000; */
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 1150px;
+  margin: auto;
+}
+.notice_wrap th,
+.notice_wrap td {
+  padding: 6px 15px;
+  text-align: center;
+}
+.notice_wrap th {
+  background: var(--sub-color);
+  color: #000;
+  text-align: left;
+  text-align: center;
+}
+.notice_wrap th:nth-child(1){
+  width: 30px;
+}
+.notice_wrap th:nth-child(2){
+  width: 100px;
+}
+.notice_wrap th:nth-child(3){
+  width: 200px;
+}
+.notice_wrap th:nth-child(4){
+  width: 90px;
+}
+.notice_wrap th:nth-child(5){
+  width: 50px;
+}
+.notice_wrap th:nth-child(6){
+  width: 50px;
+}
+.notice_wrap tr:first-child th:first-child {
+  border-top-left-radius: 6px;
+}
+.notice_wrap tr:first-child th:last-child {
+  border-top-right-radius: 6px;
+}
+.notice_wrap td {
+  border-right: 1px solid #dedfe0;
+  border-bottom: 1px solid #dedfe0;
+  height: 50px;
+}
+.notice_wrap td:first-child {
+  border-left: 1px solid #c6c9cc;
+}
+.notice_wrap tr:nth-child(even) td {
+  background-color: var(--back-color);
+}
+.notice_wrap tr:last-child td:first-child {
+  border-bottom-left-radius: 6px;
+}
+.notice_wrap tr:last-child td:last-child {
+  border-bottom-right-radius: 6px;
+}
+
+/*수정 삭제 버튼 디자인*/
+.notice_wrap button{
+  border: none;
+  background-color: unset;
+  cursor: pointer;
+}
+.faXmark,
+.faPenToSquare{
+  color: var(--main-color);
+  transition: 0.3s;
+}
+.faXmark{
+ font-size: 25px;
+}
+.faPenToSquare{
+  font-size: 22px;
+}
+.faXmark:hover,
+.faPenToSquare:hover{
+  color: var(--sub-color);
+}
+ 
+/*공지사항등록 버튼*/
+.notice_add{
+  /* border: 1px solid #000; */
+  width: 1150px;
+  margin: auto;
+  margin-top: 30px;
+}
+.notice_add button{
+  border: 2px solid var(--main-color);
+  float: right;
+  padding: 15px 60px;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.notice_add button:hover{
+  border: 2px solid var(--main-color);
+  background-color: var(--main-color);
+  color: #fff;
+}
