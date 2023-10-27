@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../style/Manager_member_detail.module.css";
 
-const MemberDetail = () => {
+const MemberDetail = ({ handleDetail, searchId }) => {
   return (
     <>
       {/* <ManagerHeader /> */}
@@ -10,7 +10,10 @@ const MemberDetail = () => {
         <hr />
         <div className={styles.detail_header}>
           <div className={styles.detail_button}>
-            <button className={`${styles.detail_list} ${styles.button_inner}`}>
+            <button
+              className={`${styles.detail_list} ${styles.button_inner}`}
+              onClick={handleDetail}
+            >
               목록
             </button>
             <button
@@ -29,7 +32,7 @@ const MemberDetail = () => {
             </tr>
             <tr>
               <td>아이디</td>
-              <td></td>
+              <td>{searchId}</td>
             </tr>
             <tr>
               <td>비밀번호</td>

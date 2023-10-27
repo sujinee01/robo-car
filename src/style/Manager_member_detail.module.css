@@ -14,6 +14,17 @@
   padding: 0;
   margin: 0;
 }
+
+.reser_keyimage p {
+  position: absolute;
+  /* border: 1px solid #000; */
+  font-size: 30px;
+  font-weight: bold;
+  color: #fff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .member_detail_wrap {
   /* border: 1px solid #000; */
   width: var(--content-width);
@@ -98,7 +109,7 @@
   border-right: 1px solid #dedfe0;
   font-weight: bold;
 }
-.detail_wrap table > tr > td:last-child{
+.detail_wrap table > tr > td:last-child {
   width: 900px;
 }
 .tdfirst {
