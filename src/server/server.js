@@ -59,6 +59,7 @@ app.post("/CarAdd", (req, res) => {
 /** [관리자페이지 - 회원관리] 데이터 요청 처리 */
 app.post("/ManageMember", (req, res) => {
   const reqTarget = req.body.reqTarget;
+  const carId = req.body.carId;
 
   console.log(`관리자 페이지 ${reqTarget} 데이터 요청`);
 
@@ -74,6 +75,8 @@ app.post("/ManageMember", (req, res) => {
     } else if (reqTarget === "Resv") {
     } else if (reqTarget === "Car") {
       sql = "SELECT * FROM car_list";
+    } else if (reqTarget === "delCar") {
+      sql = `DELETE FROM car_list WHERE car_id = "${carId}"`;
     } else if (reqTarget === "Notice") {
     } else if (reqTarget === "Review") {
     } else {

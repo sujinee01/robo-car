@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "../style/Manager_vehicle_add.module.css";
-// import ManagerHeader from "./Manager_header";
 
 const VehicleAdd = ({ addToggle, setAddToggle, infoReq }) => {
   const handleSubmit = async (e) => {
@@ -41,7 +40,6 @@ const VehicleAdd = ({ addToggle, setAddToggle, infoReq }) => {
 
   return (
     <>
-      {/* <ManagerHeader/> */}
       <div className={styles.vehicle_add_wrap}>
         <p>운송차량등록</p>
         <div className={styles.add_wrap}>
