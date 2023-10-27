@@ -7,7 +7,7 @@ import VehicleAdd from "./Manager_vehicle_add";
 
 function ManagerVehicle({ vehicleData }) {
   const [addToggle, setAddToggle] = useState(false);
-  const [receiveData, setReceiveData] = useState([vehicleData]);
+  const [receiveData, setReceiveData] = useState([]);
 
   const infoReq = async () => {
     const reqTarget = "Car";
@@ -33,6 +33,34 @@ function ManagerVehicle({ vehicleData }) {
     }
   };
 
+  const delCar = async (car) => {
+    const reqTarget = "delCar";
+    const carId = car;
+
+    try {
+      const response = await fetch("/ManageMember", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ reqTarget, carId }), // 요청하는 데이터
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        if (data.success) {
+          const updatedData = receiveData.filter(
+            (vehicle) => vehicle.car_id !== carId
+          );
+          setReceiveData(updatedData);
+        }
+      }
+    } catch (error) {
+      console.error("오류:", error);
+    }
+  };
+
   const handleAdd = () => {
     setAddToggle(!addToggle);
   };
@@ -49,7 +77,7 @@ function ManagerVehicle({ vehicleData }) {
         <td>{vehicle.car_battery}</td>
         <td>
           {/*삭제버튼*/}
-          <button>
+          <button onClick={() => delCar(vehicle.car_id)}>
             <FontAwesomeIcon icon={faXmark} className={styles.faXmark} />
           </button>
         </td>
@@ -85,27 +113,67 @@ function ManagerVehicle({ vehicleData }) {
         />
       ) : (
         <div className={styles.vehicle_wrap}>
-          <table>
-            <thead>
-              <tr>
-                <th>No.</th>
-                <th>차량번호</th>
-                <th>차량모델</th>
-                <th>호차</th>
-                <th>시동</th>
-                <th>라이트</th>
-                <th>배터리잔량</th>
-                <th>삭제</th>
-              </tr>
-            </thead>
-            <tbody>
-              {receiveData.map((vehicle, index) => (
-                <Vehicle vehicle={vehicle} key={index} />
-              ))}
-            </tbody>
-          </table>
+          {receiveData ? (
+            receiveData.length === 0 ? (
+              <>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>No.</th>
+                      <th>차량번호</th>
+                      <th>차량모델</th>
+                      <th>호차</th>
+                      <th>시동</th>
+                      <th>라이트</th>
+                      <th>배터리잔량</th>
+                      <th>삭제</th>
+                    </tr>
+                  </thead>
+                </table>
+                <p>차량을 등록해주세요.</p>
+              </>
+            ) : (
+              <table>
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>차량번호</th>
+                    <th>차량모델</th>
+                    <th>호차</th>
+                    <th>시동</th>
+                    <th>라이트</th>
+                    <th>배터리잔량</th>
+                    <th>삭제</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {receiveData.map((vehicle, index) => (
+                    <Vehicle vehicle={vehicle} key={index} />
+                  ))}
+                </tbody>
+              </table>
+            )
+          ) : (
+            <>
+              <table>
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>차량번호</th>
+                    <th>차량모델</th>
+                    <th>호차</th>
+                    <th>시동</th>
+                    <th>라이트</th>
+                    <th>배터리잔량</th>
+                    <th>삭제</th>
+                  </tr>
+                </thead>
+              </table>
+              <p>차량을 등록해주세요.</p>
+            </>
+          )}
           <div className={styles.vehicle_add}>
-            <button onClick={handleAdd}>차량등록</button>
+            <button onClick={() => handleAdd()}>차량등록</button>
           </div>
         </div>
       )}
