@@ -1,0 +1,129 @@
+:root {
+  /*콘텐츠내용 width*/
+  --content-width: 1200px;
+  /*메인컬러*/
+  --main-color: #21325e;
+  /*보조컬러*/
+  --sub-color: #f7be16;
+  /*보조컬러-뒤에 깔아주는 연한 회색*/
+  --back-color: #f5f5f5;
+  /*뒤로가기컬러*/
+  --cancel-color: #eb0000;
+}
+* {
+  padding: 0;
+  margin: 0;
+}
+
+/*footer*/
+.footer_wrap {
+  background-color: var(--main-color);
+  height: 400px;
+  margin-top: 200px;
+}
+
+/*footer 오른쪽-텍스트*/
+.footer_inner {
+  /* border: 1px solid #000; */
+  width: 1300px;
+  margin: auto;
+  color: #fff;
+  box-sizing: content-box;
+  position: relative;
+  top: 45%;
+}
+.footer_info {
+  /* border: 1px solid #fff; */
+  display: inline-block;
+  width: 1100px;
+  height: 200px;
+}
+.footer_info_inner {
+  /* border: 1px solid red; */
+  display: inline-block;
+  bottom: 0px;
+}
+.footer_logo img {
+  width: 100px;
+}
+.footer_service {
+  /* border: 1px solid #000; */
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.footer_service span {
+  font-size: 18px;
+  margin-right: 20px;
+  color:#fff;
+  text-decoration: none;
+}
+.footer_info_inner p {
+  font-size: 13px;
+}
+
+/*footer 왼쪽-아이콘*/
+.footer_icon {
+  /* border: 1px solid #000; */
+  display: inline-block;
+  position: absolute;
+  width: 200px;
+  height: 200px;
+}
+.footer_icon_inner {
+  /* border: 1px solid #fff; */
+  position: absolute;
+  display: inline-block;
+  right: 0;
+  bottom: 0;
+}
+.icon_info,
+.icon_service {
+  background-color: #fff;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+}
+.icon_info {
+  margin-bottom: 20px;
+}
+.faInfo{}
+.icon_info .faInfo,
+.icon_service .faHeadset {
+  /* border: 1px solid #000; */
+  position: absolute;
+  color: #000;
+  width: 25px;
+  top: 20%;
+  left: 30%;
+}
+.icon_info,
+.icon_service {
+  overflow: hidden;
+}
+.icon_info:before,
+.icon_service:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 0;
+  background-color: var(--sub-color);
+  bottom: 0;
+  left: 0;
+  transition: 0.5s;
+}
+.icon_info:hover:before,
+.icon_service:hover:before {
+  height: 100%;
+}
+.icon_info .faInfo,
+.icon_service .faHeadset {
+  position: relative;
+  transition: 0.5s;
+}
+.icon_info:hover .faInfo,
+.icon_service:hover .faHeadset {
+  transform: rotateY(360deg);
+  color: #000;
+}
