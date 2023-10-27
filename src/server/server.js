@@ -1,5 +1,5 @@
 /*
- DB 연결 등 서버에 관련된 JS 파일입니다.
+  DB 연결 등 서버에 관련된 JS 파일입니다.
 */
 const express = require("express");
 const app = express();
@@ -10,6 +10,88 @@ const db = require("./config/db_config.js"); // DB 설정파일
 app.use(express.json());
 // URL-encoded 형식의 요청 데이터 파싱 설정
 app.use(express.urlencoded({ extended: true }));
+
+/** 운송 예약 데이터 처리 */
+app.post("/Resv", (req, res) => {
+  function generateResvNumber() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 1을 더하고 2자리로 만듭니다.
+    const day = String(now.getDate()).padStart(2, "0"); // 날짜를 2자리로 만듭니다.
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    const seconds = String(now.getSeconds()).padStart(2, "0");
+
+    const reservationNumber = `${year}${month}${day}-${hours}${minutes}${seconds}`;
+
+    return reservationNumber;
+  }
+
+  const body = req.body;
+  const subscriber = body.subscriber;
+  const resvNo = generateResvNumber();
+  const origin = body.origin;
+  const consignorPhone = body.consignorPhone;
+  const destination = body.destination;
+  const recepiptPhone = body.recepiptPhone;
+  const date = body.date;
+  const time = body.time;
+  const carOpt = body.carOpt;
+  const delivOpt1 = body.delivOpt1;
+  const delivOpt2 = body.delivOpt2;
+  const freightInfo = body.freightInfo;
+  const memo = body.memo;
+  const price = body.price;
+
+  const mergeDelivOpt = delivOpt1 + "/" + delivOpt2;
+
+  db.getConnection((err, conn) => {
+    console.log("운송예약 요청");
+    if (err) {
+      console.log("MySQL 연결 실패:", err);
+      res.status(500).json({ success: false, message: "MySQL 연결 실패" });
+      return;
+    }
+    console.log("MySQL 연결 성공");
+    const table =
+      "reservation(resv_subscriber, resv_no, resv_date, resv_ord_tel, resv_recip_tel, resv_start, resv_destin, resv_carselect, resv_price, resv_state, resv_info, resv_memo, resv_delivopt)";
+    const sql = `INSERT INTO ${table} VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+    const params = [
+      subscriber,
+      resvNo,
+      date,
+      consignorPhone,
+      recepiptPhone,
+      origin,
+      destination,
+      carOpt,
+      price,
+      "예약완료",
+      freightInfo,
+      memo,
+      mergeDelivOpt,
+    ];
+
+    conn.query(sql, params, (err, result, fields) => {
+      // console.log('실행쿼리: ' + sql);
+      if (err) {
+        console.log("쿼리 실행 실패:");
+        console.dir(err);
+        res.status(500).json({ success: false, message: "쿼리 실행 실패" });
+        return;
+      }
+      if (result) {
+        console.log(result);
+        console.log("예약 성공!");
+        res.status(200).json({ success: true, message: "예약 성공" });
+      } else {
+        res.status(500).json({ success: false, message: "예약 실패" });
+      }
+    });
+
+    conn.release();
+  });
+});
 
 /** [관리자페이지 - 차량 등록] 데이터 처리 */
 app.post("/CarAdd", (req, res) => {
