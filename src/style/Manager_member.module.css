@@ -8,14 +8,14 @@
   /*보조컬러-뒤에 깔아주는 연한 회색*/
   --back-color: #f5f5f5;
   /*뒤로가기컬러*/
-  --cancel-color:#eb0000;
+  --cancel-color: #eb0000;
 }
 
 * {
   padding: 0;
   margin: 0;
 }
-.member_wrap { 
+.member_wrap {
   width: var(--content-width);
   margin: auto;
 }
@@ -38,31 +38,31 @@
   text-align: left;
   text-align: center;
 }
-.member_wrap th:nth-child(1){
+.member_wrap th:nth-child(1) {
   width: 50px;
 }
-.member_wrap th:nth-child(2){
+.member_wrap th:nth-child(2) {
   width: 130px;
 }
-.member_wrap th:nth-child(3){
+.member_wrap th:nth-child(3) {
   width: 150px;
 }
-.member_wrap th:nth-child(4){
+.member_wrap th:nth-child(4) {
   width: 170px;
 }
-.member_wrap th:nth-child(5){
+.member_wrap th:nth-child(5) {
   width: 180px;
 }
-.member_wrap th:nth-child(6){
+.member_wrap th:nth-child(6) {
   width: 200px;
 }
-.member_wrap th:nth-child(7){
+.member_wrap th:nth-child(7) {
   width: 140px;
 }
-.member_wrap th:nth-child(8){
+.member_wrap th:nth-child(8) {
   width: 90px;
 }
-.member_wrap th:nth-child(9){
+.member_wrap th:nth-child(9) {
   width: 90px;
 }
 .member_wrap tr:first-child th:first-child {
@@ -89,23 +89,29 @@
 }
 
 /*삭제 조회 버튼 디자인*/
-.member_wrap button{
+.member_wrap button {
   border: none;
   background-color: unset;
   cursor: pointer;
 }
 .faXmark,
-.faMagnifyingGlass{
+.faMagnifyingGlass {
   color: var(--main-color);
-  transition: 0.3s;
+  transition: 0.2s;
 }
-.faXmark{
- font-size: 25px;
+.faXmark {
+  font-size: 25px;
 }
-.faMagnifyingGlass{
+.faMagnifyingGlass {
   font-size: 20px;
 }
-.faXmark:hover,
-.faMagnifyingGlass:hover{
+.faMagnifyingGlass:hover {
   color: var(--sub-color);
+
+  transition: 0.2s;
+}
+.faXmark:hover {
+  color: var(--cancel-color);
+
+  transition: 0.2s;
 }
