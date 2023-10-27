@@ -83,10 +83,21 @@ function ImgSlider() {
           </ImgText>
         </ImgWrap>
         <ImgWrap>
-          <Img src="./assets/keyimage_01.jpg" />
-        </ImgWrap>
-        <ImgWrap>
-          <Img src="./assets/keyimage_01.jpg" />
+        <Img src="./assets/keyimage_02.jpg" />
+          <ImgText>
+            <ImgTitle>
+              실시간으로 확인 가능한
+              <br />
+              운송차량 관제화면!
+            </ImgTitle>
+            <ImgHr></ImgHr>
+            <ImgPs>
+              한눈에 확인 가능한 운송차량 모니터링으로
+              <br />
+              안심할 수 있는 서비스를 제공합니다.
+              <br />
+            </ImgPs>
+          </ImgText>
         </ImgWrap>
       </StyledSlider>
     </div>
