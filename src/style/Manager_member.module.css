@@ -7,23 +7,24 @@
   --sub-color: #f7be16;
   /*보조컬러-뒤에 깔아주는 연한 회색*/
   --back-color: #f5f5f5;
+  /*뒤로가기컬러*/
+  --cancel-color:#eb0000;
 }
+
 * {
   padding: 0;
   margin: 0;
 }
 .member_wrap { 
-  /* border: 1px solid #000; */
   width: var(--content-width);
   margin: auto;
-  margin-top: 30px;
 }
 
 /*테이블 디자인*/
 .member_wrap table {
   border-collapse: separate;
   border-spacing: 0;
-  width: 1150px;
+  width: var(--content-width);
   margin: auto;
 }
 .member_wrap th,

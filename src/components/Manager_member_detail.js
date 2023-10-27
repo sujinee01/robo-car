@@ -1,12 +1,13 @@
 import React from "react";
 import styles from "../style/Manager_member_detail.module.css";
-import ManagerHeader from "./Manager_header";
 
 const MemberDetail = () => {
   return (
     <>
-      <ManagerHeader />
+      {/* <ManagerHeader /> */}
       <div className={styles.member_detail_wrap}>
+        <p>회원정보 상세조회</p>
+        <hr />
         <div className={styles.detail_header}>
           <div className={styles.detail_button}>
             <button className={`${styles.detail_list} ${styles.button_inner}`}>
@@ -19,49 +20,38 @@ const MemberDetail = () => {
             </button>
           </div>
         </div>
+        {/* 회원테이블 */}
         <div className={styles.detail_wrap}>
-          <div className={styles.input_wrap}>
-            <p>이름</p>
-            <div className={styles.input_info}>
-              <span></span>
-            </div>
-          </div>
-          <div className={styles.input_wrap}>
-            <p>아이디</p>
-            <div className={styles.input_info}>
-              <span></span>
-            </div>
-          </div>
-          <div className={styles.input_wrap}>
-            <p>비밀번호</p>
-            <div className={styles.input_info}>
-              <span></span>
-            </div>
-          </div>
-          <div className={styles.input_wrap}>
-            <p>휴대전화</p>
-            <div className={styles.input_info}>
-              <span></span>
-            </div>
-          </div>
-          <div className={styles.input_wrap}>
-            <p>이메일</p>
-            <div className={styles.input_info}>
-              <span></span>
-            </div>
-          </div>
-          <div className={styles.input_wrap}>
-            <p>주소</p>
-            <div className={styles.input_info}>
-              <span></span>
-            </div>
-          </div>
-          <div className={styles.input_wrap}>
-            <p>회사명</p>
-            <div className={styles.input_info}>
-              <span></span>
-            </div>
-          </div>
+          <table>
+            <tr>
+              <td className={styles.tdfirst}>이름</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>아이디</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>비밀번호</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>휴대전화</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>이메일</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>주소</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td className={styles.tdlast}>회사명</td>
+              <td></td>
+            </tr>
+          </table>
         </div>
       </div>
     </>

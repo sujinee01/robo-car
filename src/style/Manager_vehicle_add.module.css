@@ -10,7 +10,7 @@
 }
 .vehicle_add_wrap p {
   /* border: 1px solid #000; */
-  width: 1150px;
+  width: var(--content-width);
   margin: auto;
   font-size: 20px;
   font-weight: bold;
@@ -23,7 +23,7 @@
 .add_wrap table {
   border-collapse: separate;
   border-spacing: 0;
-  width: 1150px;
+  width: var(--content-width);
   margin: auto;
 }
 .add_wrap th {
@@ -68,7 +68,7 @@
 /*등록버튼*/
 .add_button {
   /* border: 1px solid #000; */
-  width: 1150px;
+  width: var(--content-width);
   margin: auto;
   margin-top: 30px;
   text-align: center;
