@@ -16,7 +16,6 @@
   /* border: 1px solid #000; */
   width: var(--content-width);
   margin: auto;
-  margin-top: 30px;
 }
 
 /*테이블 디자인*/
@@ -24,7 +23,7 @@
   /* border: 1px solid #000; */
   border-collapse: separate;
   border-spacing: 0;
-  width: 1150px;
+  width: var(--content-width);
   margin: auto;
 }
 .vehicle_wrap th,
@@ -110,7 +109,7 @@
 /*차량등록 버튼*/
 .vehicle_add {
   /* border: 1px solid #000; */
-  width: 1150px;
+  width: var(--content-width);
   margin: auto;
   margin-top: 30px;
 }
