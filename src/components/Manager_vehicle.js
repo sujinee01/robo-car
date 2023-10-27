@@ -93,8 +93,6 @@ function ManagerVehicle({ vehicleData }) {
     }
   }, [addToggle]);
 
-  // useEffect 써서 addToggle 변경될때 ,
-  // addToggle이 false 일경우에 infoReq 호출
   useEffect(() => {
     console.log(">>> ", addToggle);
     if (addToggle === false) {
