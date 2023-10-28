@@ -56,6 +56,15 @@
   margin-right: 20px;
   color:#fff;
   text-decoration: none;
+  font-weight: bold;
+}
+.footer_service button{
+  border: none;
+  background-color:transparent; 
+  font-size: 18px;
+  color:#fff;
+  cursor: pointer;
+  font-weight: bold;
 }
 .footer_info_inner p {
   font-size: 13px;
@@ -126,4 +135,85 @@
 .icon_service:hover .faHeadset {
   transform: rotateY(360deg);
   color: #000;
+}
+
+
+/*모달창*/
+.modal_open_button, .modal_close_btn {
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.modal_container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  color: #000;
+}
+.modal_content_wrap {
+  position: relative;
+  background-color: #fff;
+  border-radius: 15px;
+  width: 600px;
+  height: 600px;
+  padding: 15px;
+  margin: auto;
+}
+.modal_content{
+  position: relative;
+}
+.modal_content button{
+  position: absolute;
+  color: #000;
+  right: 0;
+  font-size: 20px;
+  transition: 0.3s;
+}
+.modal_content button:hover{
+  color: var(--cancel-color);
+}
+.modal_content p{
+  position: absolute;
+  font-weight: bold;
+  font-size: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/*개인정보처리방침 textarea*/
+.modal_inner{
+position: absolute;
+margin-top: 50px;
+  height: 550px;
+  border-radius: 15px;
+}
+.policy_content{
+  background-color: var(--back-color);
+  border: 1px solid #dedfe0;
+  width: 570px;
+  height: 520px;
+  padding: 10px;
+  border-radius: 15px;
+  font-size: 13px;
+  color: #000;
+  font-weight: normal;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+.modal_inner textarea{
+  background-color: var(--back-color);
+  border: 1px solid #dedfe0;
+  width: 570px;
+  height: 520px;
+  padding: 10px;
+  border-radius: 15px;
+  font-size: 13px;
+  color: #000;
+  font-weight: normal;
 }
