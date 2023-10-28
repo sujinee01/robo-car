@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styles from "../style/Manager_notice_add.module.css";
 // import axios from "axios";
 
-const NoticeAdd = () => {
-  const navigate = useNavigate();
-
+const NoticeAdd = ({ handleAdd }) => {
   const [notice, setNotice] = useState({
     nb_important: "",
     nb_title: "",
@@ -30,17 +27,12 @@ const NoticeAdd = () => {
   //   });
   // };
 
-  /*공지사항 목록버튼*/
-  const backToList = () => {
-    navigate("/ManageNotice");
-  };
-
   return (
     <div className={styles.notice_add_wrap}>
       <p>공지사항 등록</p>
       <hr />
       <div className={styles.add_wrap}>
-        <form method="post">
+        <form>
           <div className={styles.add_inner}>
             <div className={styles.add_auth}>
               <p>작성자</p>
@@ -84,7 +76,7 @@ const NoticeAdd = () => {
 
           <div className={styles.add_button_wrap}>
             <div className={styles.add_button}>
-              <button onClick={backToList}>돌아가기</button>
+              <button onClick={handleAdd}>돌아가기</button>
               <input type="submit" value={"확인"} />
             </div>
           </div>

@@ -1,7 +1,8 @@
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
 import styles from "../style/Manager_notice.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import NoticeAdd from "./Manager_notice_add";
 
 function ManagerNotice({ noticeData }) {
   let notices = [
@@ -17,10 +18,10 @@ function ManagerNotice({ noticeData }) {
     notices = noticeData;
   }
 
-  /*공지사항 등록버튼*/
-  const navigate = useNavigate();
-  const addNotice = () => {
-    navigate('/NoticeAdd');
+  const [addToggle, setAddToggle] = useState(false);
+
+  const handleAdd = () => {
+    setAddToggle(!addToggle);
   };
 
   function Notice({ notice, key }) {
@@ -51,28 +52,34 @@ function ManagerNotice({ noticeData }) {
   }
 
   return (
-      <div className={styles.notice_wrap}>
-        <table>
-          <thead>
-            <tr>
-              <th>No.</th>
-              <th>중요</th>
-              <th>제목</th>
-              <th>작성자</th>
-              <th>수정</th>
-              <th>삭제</th>
-            </tr>
-          </thead>
-          <tbody>
-            {notices.map((notice, index) => (
-              <Notice notice={notice} key={index} />
-            ))}
-          </tbody>
-        </table>
-        <div className={styles.notice_add}>
-          <button onClick={addNotice}>공지사항 등록</button>
+    <>
+      {addToggle ? (
+        <NoticeAdd handleAdd={handleAdd} />
+      ) : (
+        <div className={styles.notice_wrap}>
+          <table>
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>중요</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>수정</th>
+                <th>삭제</th>
+              </tr>
+            </thead>
+            <tbody>
+              {notices.map((notice, index) => (
+                <Notice notice={notice} key={index} />
+              ))}
+            </tbody>
+          </table>
+          <div className={styles.notice_add}>
+            <button onClick={handleAdd}>공지사항 등록</button>
+          </div>
         </div>
-      </div>
+      )}
+    </>
   );
 }
 export default ManagerNotice;
