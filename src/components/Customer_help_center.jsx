@@ -7,11 +7,11 @@ import CustomerFaq from "./Customer_FAQ";
 import CustomerReviewList from "./Customer_review_list";
 
 const Btn = styled.button`
-  width: 400px;
+  width: 600px;
   height: 50px;
   background: #f5f5f5;
   color: black;
-  font-size: 15px;
+  font-size: 17px;
   border: none;
   font-weight: 500;
   cursor: pointer;
