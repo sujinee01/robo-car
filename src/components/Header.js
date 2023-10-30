@@ -27,6 +27,7 @@ const Header = ({ isLogin, isAdmin }) => {
   };
 
   const handleLink = () => {
+    console.log(isLogin);
     isLogin
       ? navigate("/resv")
       : (() => {
@@ -35,7 +36,7 @@ const Header = ({ isLogin, isAdmin }) => {
           });
           setTimeout(() => {
             navigate("/login");
-          }, 500);
+          }, 300);
         })();
   };
 
@@ -108,7 +109,7 @@ const Header = ({ isLogin, isAdmin }) => {
           <a href="/ControlMain" className={st.nav_item}>
             차량관제
           </a>
-          <a href="/resv" className={st.nav_item} onClick={handleLink}>
+          <a href="#" className={st.nav_item} onClick={handleLink}>
             운송예약
           </a>
           <a href="/noticeMain" className={st.nav_item}>
