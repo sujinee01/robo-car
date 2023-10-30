@@ -169,6 +169,11 @@ function ManagerReview() {
 
   return (
     <div className={styles.customratingcontainer}>
+      <div className={styles.titlecontainer}>
+        <p className={styles.tablenum}>NO.</p>
+        <p className={styles.thnum}>제목</p>
+        <p className={styles.thid}>작성자</p>
+      </div>
       <div className={styles.accordionContainer}>
         {reviews.map((review, index) => (
           <div

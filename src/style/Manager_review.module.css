@@ -1,6 +1,56 @@
+:root {
+  /*콘텐츠내용 width*/
+  --content-width: 1200px;
+  /*메인컬러*/
+  --main-color: #21325e;
+  /*보조컬러*/
+  --sub-color: #f7be16;
+  /*보조컬러-뒤에 깔아주는 연한 회색*/
+  --back-color: #f5f5f5;
+  /*뒤로가기컬러*/
+  --cancel-color: #eb0000;
+}
+
 * {
   padding: 0;
   margin: 0;
+}
+
+/** 표 타이틀 부분 */
+
+.titlecontainer {
+  width: 1200px;
+  display: flex;
+  margin: 0 auto;
+  font-weight: bold;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding: 7px 0;
+  background-color: var(--sub-color);
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+}
+
+.tablenum {
+  /* margin-left: 4%; */
+  /* border: 1px solid #000; */
+  width: 140px;
+  text-align: center;
+}
+
+.thnum {
+  /* margin-left: 18%; */
+  /* border: 1px solid #000; */
+  width: 600px;
+  text-align: center;
+  margin-right: 192px;
+}
+
+.thid {
+  /* margin-left: 61%; */
+  /* border: 1px solid #000; */
+  width: 250px;
+  text-align: center;
 }
 
 /** 타이틀 아래 버튼 디자인 부분 */
@@ -42,29 +92,37 @@
 /** 본문 내용 */
 
 .customratingcontainer {
-  max-width: 800px;
-  margin: 0 auto;
+  width: var(--content-width);
+  margin: auto;
 }
 
 /** 아코디언 형식으로 F&Q 구현한 부분*/
 
 .accordionContainer {
+  /* border: 1px solid #000; */
   /* margin-top: 4%; */
   width: 100%;
+  border: 1px solid #dedfe0;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
 }
 
 .accordionHeader {
-  padding: 15px;
+  padding: 20px 0px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid #dedfe0;
+  transition: 0.3s;
   /* border-top: 2px solid #293462;
   border-bottom: 1px solid #293462; */
 }
 
-/* .accordionHeader:hover {
+.accordionHeader:hover {
   background-color: #f5f5f5;
-} */
+}
 
 .open .accordionHeader {
   background-color: none;
@@ -73,35 +131,55 @@
 /** 아코디언 내부 편집 */
 
 .content {
-  padding: 10px;
+  /* border: 1px solid #000; */
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 20px; 
 }
 
 .num {
-  padding-left: 3%;
+  /* border: 1px solid blue; */
+  width: 140px;
+  text-align: center;
   font-size: 15px;
   font-weight: 600;
 }
 .person {
-  margin-left: 40%;
+  /* border: 1px solid red; */
+  position: absolute;
+  display: inline-block;
+  width: 250px;
+  text-align: center;
   font-size: 15px;
   font-weight: 400;
+  left: 71%;
 }
 
 .title {
-  margin-left: 0%;
+  position: absolute;
+  /* border: 1px solid #000; */
+  width: 600px;
+  text-align: center;
   font-size: 15px;
   font-weight: 400;
+  left:21%;
 }
 
 .accordionItem {
   border-radius: 5px;
 }
 
-.accordionItem:nth-child(odd),
-.accordionItem:nth-child(odd) .content {
-  background: #f5f5f5;
+.accordionItem{
+  background: #fff;
+}
+
+.accordionItem .content{
+  background-color: var(--back-color);
 }
 .triangle {
+  position: absolute;
+  /* border: 1px solid #000; */
+  left: 86%;
   transition: 0.2s;
 }
 .rotate {
@@ -117,10 +195,12 @@
 }
 
 .openstar {
+  /* border: 1px solid #000; */
   display: flex;
   justify-content: right;
   align-items: center;
   font-size: 18px;
+  padding-top: 10px;
   font-weight: 400;
 }
 
@@ -131,7 +211,7 @@
   align-items: center;
   padding-bottom: 1%;
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .opencar {
@@ -140,7 +220,7 @@
   align-items: center;
   padding-bottom: 1%;
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .opensatisfy {
@@ -149,10 +229,14 @@
   align-items: center;
   padding-bottom: 1%;
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .opencontent {
+  border: 1px solid #dedfe0;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
   display: flex;
   justify-content: left;
   margin-top: 2%;
@@ -176,7 +260,8 @@
   transition: background-color 0.3s ease; /* 배경색 전환 효과 */
   border: 0;
   font-weight: 900;
-  margin-left: 85%;
+  margin-top: 20px;
+  margin-left: 91%;
   margin-bottom: 1%;
   right: 0;
 }
@@ -185,11 +270,8 @@
 .btndelt:focus {
   width: 100px;
   height: 40px;
-  background-color: #f7be16; /* 마우스 호버 시 배경색 변경 */
-  color: #293462;
+  background-color: var(--cancel-color); /* 마우스 호버 시 배경색 변경 */
+  color: #fff;
   border: 0;
   font-weight: 900;
-  margin-left: 85%;
-  margin-bottom: 1%;
-  right: 0;
 }

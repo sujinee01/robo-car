@@ -109,7 +109,7 @@
 /*공지사항등록 버튼*/
 .notice_add {
   /* border: 1px solid #000; */
-  width: 1150px;
+  width: var(--content-width);
   margin: auto;
   margin-top: 30px;
 }
