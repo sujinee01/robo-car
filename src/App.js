@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./style/Toast.css";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Header from "./components/Header";
@@ -19,8 +19,8 @@ import NoticeAdd from "./components/Manager_notice_add";
 import MemberDetail from "./components/Manager_member_detail";
 import AboutUs from "./components/About_us";
 import ScrollTop from "./components/Scroll_top";
-// import MyPage from "./components/Mypage";
-// import Reservation from "./components/Reservation";
+import MyPage from "./components/Mypage";
+import Reservation from "./components/Reservation";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -53,8 +53,8 @@ function App() {
         <Route path="/noticeDetail" element={<NoticeDetail />} />
         <Route path="/helpCenter" element={<CustomerHelpCenter />} />
         <Route path="/about" element={<AboutUs />} />
-        {/* <Route path="/mypage" element={<MyPage />} />
-        <Route path="/resv" element={<Reservation />} /> */}
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/resv" element={<Reservation />} />
         <Route path="/manage" element={<ManagerPage />} />
         <Route path="/manageNotice" element={<ManagerNotice />} />
         <Route path="/noticeAdd" element={<NoticeAdd />} />

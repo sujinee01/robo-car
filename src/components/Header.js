@@ -108,7 +108,7 @@ const Header = ({ isLogin, isAdmin }) => {
           <a href="/ControlMain" className={st.nav_item}>
             차량관제
           </a>
-          <a href="#!" className={st.nav_item} onClick={handleLink}>
+          <a href="/resv" className={st.nav_item} onClick={handleLink}>
             운송예약
           </a>
           <a href="/noticeMain" className={st.nav_item}>
