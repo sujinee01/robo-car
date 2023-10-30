@@ -79,7 +79,6 @@
   position: absolute;
   width: 350px;
   height: 100%;
-
   z-index: 10;
 }
 
@@ -91,9 +90,9 @@
   height: 100%;
   z-index: 3;
   background-color: lightgray;
-
   transition: 0.5s ease-in-out;
 }
+
 /* 메뉴 숨기기 */
 .side_menu_hide {
   position: absolute;
@@ -101,6 +100,205 @@
   width: 300px;
   height: 100%;
   z-index: 3;
+}
 
-  transition: 0.5s ease-in-out;
+.slidetext {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.slideinfo {
+  width: 10rem;
+  height: 2rem;
+  border-radius: 20px;
+  background-color: #f1d00a;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.branch {
+  display: flex;
+  margin-left: 10%;
+  margin-top: 1rem;
+  flex-direction: row;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.contzip {
+  width: 8rem;
+  margin-left: 20%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.control1 {
+  display: flex;
+  margin-left: 10%;
+  margin-top: 1rem;
+  flex-direction: column;
+  align-items: center;
+  float: left;
+}
+.control2 {
+  display: flex;
+  margin-left: 10%;
+  margin-top: 1rem;
+  flex-direction: column;
+  align-items: center;
+  float: right;
+}
+
+.carcontrol {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.greenButton1 {
+  background-color: green;
+  color: white;
+}
+
+.redButton1 {
+  background-color: red;
+  color: white;
+}
+
+.greenButton2 {
+  background-color: green;
+  color: white;
+}
+
+.redButton2 {
+  background-color: red;
+  color: white;
+}
+
+.control3 {
+  display: flex;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  flex-direction: column;
+  float: left;
+}
+
+.carbat {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: white;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.move {
+  border: 1px solid black;
+  background-color: #c8c8c8;
+  width: 92%;
+  height: 18vh;
+  margin-left: 1rem;
+}
+
+.locationlist {
+  display: flex;
+  margin-top: 1rem;
+  flex-direction: column;
+  align-items: center;
+}
+
+.locationinfo {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-bottom: 1rem;
+}
+
+.location {
+  font-style: bolder;
+  width: 220px; /* 원하는 너비 */
+  height: 30px; /* 원하는 높이 */
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+
+.time {
+  justify-content: space-between;
+}
+
+.timelist {
+  display: flex;
+  flex-direction: column;
+  float: left;
+  margin-left: 1rem;
+}
+.timlist {
+  display: flex;
+  flex-direction: column;
+  float: right;
+  margin-right: 1rem;
+}
+
+.charge {
+  width: 40px;
+}
+
+.slidestation {
+  text-align: center;
+  margin-top: 10px;
+  width: 90%;
+}
+
+.station {
+  width: 200px;
+  height: 30px;
+  margin-bottom: 0.1rem;
+  margin-left: 2rem;
+}
+.stationlist {
+  width: 200px;
+  margin-left: 3.1rem;
+}
+.textbox {
+  font-style: bolder;
+  place-items: center;
+  width: 200px; /* 원하는 너비 */
+  height: 30px; /* 원하는 높이 */
+  background-color: #f5f5f5;
+}
+
+.stationlook {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #293462;
+}
+
+.stationlook:hover {
+  background-color: #f7be16; /* 마우스 호버 시 배경색 변경 */
+  color: #ffffff;
+
+  transition: 0.2s;
+}
+
+.btntext {
+  font-size: 10px;
+}
+
+.stainfobtn {
+  margin-top: 1.5rem;
+  margin-left: 8rem;
+  text-align: center;
+}
+
+.infoslide {
+  color: black;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 0.5rem;
+  background-color: #f7be16;
 }
