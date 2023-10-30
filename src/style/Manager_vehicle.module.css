@@ -93,7 +93,7 @@
 .faXmark,
 .faMagnifyingGlass {
   color: var(--main-color);
-  transition: 0.3s;
+  transition: 0.2s;
 }
 .faXmark {
   font-size: 25px;
@@ -101,9 +101,13 @@
 .faMagnifyingGlass {
   font-size: 20px;
 }
-.faXmark:hover,
 .faMagnifyingGlass:hover {
   color: var(--sub-color);
+}
+.faXmark:hover {
+  color: var(--cancel-color);
+
+  transition: 0.2s;
 }
 
 /*차량등록 버튼*/
