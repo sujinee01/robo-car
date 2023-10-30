@@ -213,7 +213,7 @@ function CustomerReviewList() {
                           <span className={styles.rating}>{review.rating}</span>
                         </div>
                         <div className={styles.openwriter}>
-                          <p>직성자: </p>
+                          <p>작성자: </p>
                           <span className={styles.author}>{review.author}</span>
                         </div>
                         <div className={styles.opencar}>
@@ -235,18 +235,19 @@ function CustomerReviewList() {
                 </div>
               ))}
             </div>
-            <button className={styles.btnrate} onClick={doRating}>
-              서비스 평가하기
-            </button>
+            <div className={styles.btnrate_wrap}>
+              <button className={styles.btnrate} onClick={doRating}>
+                서비스 평가하기
+              </button>
+            </div>
             <div className={styles.numlist}>
               <button className={styles.btnnum}>1</button>
               <button className={styles.btnnum}>2</button>
             </div>
-            <div className={styles.explantext}>
+            {/* <div className={styles.explantext}>
               <div className={styles.customexplan}>
                 <p className={styles.explantel}>1544-0000 </p>
               </div>
-              <br />
               <div className={styles.customguide}>
                 <p className={styles.explancontent}>
                   상담안내시간
@@ -254,7 +255,7 @@ function CustomerReviewList() {
                   평일(09:00~18:00)주말(10:00~14:00)
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       )}
