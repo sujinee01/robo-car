@@ -1,5 +1,5 @@
 /*
- 페이지 상단 헤더 부분 구현하는 JS 파일입니다.
+  페이지 상단 헤더 부분 구현하는 JS 파일입니다.
 */
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,8 @@ import st from "../style/Header.module.css";
 import logo from "../assets/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "./Sidebar";
 
 /** 헤더 구현 컴포넌트 */
@@ -29,8 +30,12 @@ const Header = ({ isLogin, isAdmin }) => {
     isLogin
       ? navigate("/resv")
       : (() => {
-          alert("로그인이 필요한 서비스입니다.");
-          navigate("/login");
+          toast.info("로그인이 필요한 서비스입니다.", {
+            theme: "colored",
+          });
+          setTimeout(() => {
+            navigate("/login");
+          }, 500);
         })();
   };
 
