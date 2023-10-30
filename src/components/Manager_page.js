@@ -102,7 +102,7 @@ const ManagerPage = () => {
           <ManagerMember userData={receiveData} />
         </div>
         <div className={`${styles.tab3_content} ${styles.tab_content}`}>
-          <ManagerReserv />
+          <ManagerReserv resvData={receiveData} />
         </div>
         <div className={`${styles.tab4_content} ${styles.tab_content}`}>
           <ManagerVehicle vehicleData={receiveData} />
