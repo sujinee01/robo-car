@@ -3,7 +3,6 @@ import styles from "../style/Manager_member.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import MemberDetail from "./Manager_member_detail";
-// import ManagerHeader from "./Manager_header";
 
 function ManagerMember({ userData }) {
   let users = [
@@ -60,7 +59,6 @@ function ManagerMember({ userData }) {
 
   return (
     <>
-      {/* <ManagerHeader /> */}
       {detailToggle ? (
         <MemberDetail handleDetail={handleDetail} searchId={searchId} />
       ) : (
