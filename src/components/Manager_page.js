@@ -5,6 +5,8 @@ import ManagerMember from "./Manager_member";
 import ManagerReserv from "./Manager_reserv";
 import ManagerVehicle from "./Manager_vehicle";
 import ManagerNotice from "./Manager_notice";
+import ManagerReview from "./Manager_review";
+
 const ManagerPage = () => {
   const [receiveData, setReceiveData] = useState(""); // DB 요청 저장 변수
 
@@ -109,7 +111,7 @@ const ManagerPage = () => {
           <ManagerNotice />
         </div>
         <div className={`${styles.tab6_content} ${styles.tab_content}`}>
-          이용자 평가내역 링크
+          <ManagerReview />
         </div>
       </div>
     </>

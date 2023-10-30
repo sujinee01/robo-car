@@ -3,7 +3,7 @@ import styles from "../style/Manager_review.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
-function Manager_review() {
+function ManagerReview() {
   const [openIndex, setOpenIndex] = useState(null);
   const [arrowRotated, setArrowRotated] = useState([]);
   const [doRatingClick, setDoRatingClick] = useState(false);
@@ -226,4 +226,4 @@ function Manager_review() {
   );
 }
 
-export default Manager_review;
+export default ManagerReview;
