@@ -101,8 +101,10 @@ function ReservationPage() {
 
   return (
     <div>
-      <div className={style.image}>IMAGE</div>
-      <h1>운송 예약</h1>
+      <div className={style.reser_keyimage}>
+        <hr />
+        <p>운송예약</p>
+      </div>
       <div className={style.reservation_info_line}>
         <span className={style.reservation_info}>예약정보입력</span>
       </div>
@@ -149,23 +151,27 @@ function ReservationPage() {
           <div>
             <div className={style.title_css}>배송일</div>
             <div>
-              <input
-                className={style.padding_background_1}
-                type="date"
-                placeholder="배송일 선택"
-                name="date"
-              ></input>
+              <div className={style.padding_background_1}>
+                <input
+                  className={style.select_day}
+                  type="date"
+                  placeholder="배송일 선택"
+                  name="date"
+                ></input>
+              </div>
             </div>
           </div>
           <div>
             <div className={style.title_css}>배송시간</div>
             <div>
-              <input
-                className={style.padding_background_1}
-                type="time"
-                placeholder="배송시간 선택"
-                name="time"
-              ></input>
+              <div className={style.padding_background_1}>
+                <input
+                  className={style.select_day}
+                  type="time"
+                  placeholder="배송시간 선택"
+                  name="time"
+                ></input>
+              </div>
             </div>
           </div>
         </div>
