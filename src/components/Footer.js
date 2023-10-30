@@ -12,7 +12,7 @@ const Footer = () => {
   /*모달창*/
   const [modalOpen, setModalOpen] = useState(false);
   const modalBackground = useRef();
-  
+
   return (
     <div className={styles.footer_wrap}>
       <div className={styles.footer_inner}>
