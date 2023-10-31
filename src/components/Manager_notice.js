@@ -7,11 +7,10 @@ import NoticeAdd from "./Manager_notice_add";
 function ManagerNotice({ noticeData }) {
   let notices = [
     {
-      id: 1,
-      nb_idx: "",
-      nb_important: "",
+      nb_idx: 0,
       nb_title: "",
       nb_auth: "",
+      nb_important: "",
     },
   ];
   if (noticeData) {

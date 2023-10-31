@@ -53,7 +53,7 @@ function ManagerReserv({ resvData }) {
   } else {
     reserve = resvData;
   }
-  console.log(reserve);
+
   const [openIndex, setOpenIndex] = useState(null);
   const [arrowRotated, setArrowRotated] = useState([]);
 
@@ -194,7 +194,7 @@ function ManagerReserv({ resvData }) {
                       <div className={styles.rightitem}>
                         <p className={styles.contname}>결재금액</p>
                         <span className={styles.item}>
-                          {reserve.resv_price.toLocaleString()}원
+                          {parseInt(reserve.resv_price).toLocaleString()}원
                         </span>
                       </div>
                     </div>

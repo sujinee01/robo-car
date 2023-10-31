@@ -108,7 +108,7 @@ const ManagerPage = () => {
           <ManagerVehicle vehicleData={receiveData} />
         </div>
         <div className={`${styles.tab5_content} ${styles.tab_content}`}>
-          <ManagerNotice />
+          <ManagerNotice noticeData={receiveData} />
         </div>
         <div className={`${styles.tab6_content} ${styles.tab_content}`}>
           <ManagerReview />

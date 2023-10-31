@@ -31,7 +31,7 @@ function ManagerMember({ userData }) {
   function User({ user, key }) {
     return (
       <tr>
-        <td>{key}</td>
+        <td></td>
         <td>{user.u_name}</td>
         <td>{user.u_id}</td>
         <td>{user.u_phone}</td>
