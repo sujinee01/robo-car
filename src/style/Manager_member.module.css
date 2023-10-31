@@ -115,3 +115,9 @@
 
   transition: 0.2s;
 }
+
+.member_wrap > p {
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 600;
+}
