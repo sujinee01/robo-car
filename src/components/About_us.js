@@ -14,6 +14,7 @@ import fastforward from "../assets/fast-forward.png";
 import lorry from "../assets/lorry.png";
 import answer from "../assets/answer.png";
 import notes from "../assets/notes.png";
+import tickmark from "../assets/tick_mark.png";
 
 const AboutUs = () => {
   return (
@@ -97,13 +98,23 @@ const AboutUs = () => {
           <label htmlFor="tab1">차량관제화면 이용안내</label>
           <label htmlFor="tab2">운송예약 이용안내</label>
         </header>
-        <div className={styles.tab1_content}> 
+        <div className={styles.tab1_content}>
           <div className={styles.info_wrap}>
+            <img
+              src={tickmark}
+              className={styles.checkmark_control}
+              alt="React"
+            />
             <p>차량관제 화면</p>
             <div className={styles.control_image}>
               <img src={controlimage} alt="React" />
             </div>
             <div className={styles.control_step_wrap}>
+              <img
+                src={tickmark}
+                className={styles.checkmark_control_02}
+                alt="React"
+              />
               <p>차량관제 화면 이용안내</p>
               <div className={styles.control_step_inner}>
                 <div className={styles.control_step_info}>
@@ -146,6 +157,7 @@ const AboutUs = () => {
 
         <div className={styles.tab2_content}>
           <div className={styles.info_wrap_02}>
+            <img src={tickmark} className={styles.checkmark} alt="React" />
             <p>운송예약 이용안내</p>
             <div className={styles.book_step_wrap}>
               <div className={styles.book_icon_wrap}>
@@ -222,9 +234,82 @@ const AboutUs = () => {
             </div>
 
             <div className={styles.book_price_wrap}>
+              <img src={tickmark} className={styles.checkmark} alt="React" />
               <p>운송예약 이용요금</p>
               <div className={styles.book_price_inner}>
-                <img src={controlimage} alt="React" />
+                {/* <img src={controlimage} alt="React" /> */}
+                <table className={styles.table_fill}>
+                  <thead>
+                    <tr>
+                      <th className={styles.tooltip}>
+                        1호차
+                        <span
+                          className={`${styles.tooltiptext} ${styles.tooltip_bottom}`}
+                        >
+                          5톤트럭
+                        </span>
+                      </th>
+                      <th className={styles.tooltip}>
+                        2호차
+                        <span
+                          className={`${styles.tooltiptext} ${styles.tooltip_bottom}`}
+                        >
+                          5톤트럭
+                        </span>
+                      </th>
+                      <th className={styles.tooltip}>
+                        3호차
+                        <span
+                          className={`${styles.tooltiptext} ${styles.tooltip_bottom}`}
+                        >
+                          3톤트럭
+                        </span>
+                      </th>
+                      <th className={styles.tooltip}>
+                        4호차
+                        <span
+                          className={`${styles.tooltiptext} ${styles.tooltip_bottom}`}
+                        >
+                          3톤트럭
+                        </span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>200,000원</td>
+                      <td>200,000원</td>
+                      <td>100,000원</td>
+                      <td>100,000원</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <table className={styles.table_fill}>
+                  <thead>
+                    <tr>
+                      <th className={styles.tooltip}>편도</th>
+                      <th className={styles.tooltip}>왕복</th>
+                      <th className={styles.tooltip}>일반</th>
+                      <th className={styles.tooltip}>
+                        특송
+                        <span
+                          className={`${styles.tooltiptext} ${styles.tooltip_top}`}
+                        >
+                          24시간 이내 운송가능
+                        </span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>100,000원</td>
+                      <td>180,000원</td>
+                      <td>50,000원</td>
+                      <td>80,000원</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>

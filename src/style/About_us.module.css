@@ -240,11 +240,28 @@
   margin: auto;
   margin-top: 50px;
 }
-
+.checkmark_control {
+  /* border: 1px solid #000; */
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 20%;
+  margin-top: 3px;
+}
+.checkmark_control_02 {
+  /* border: 1px solid #000; */
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 38.5%;
+  margin-top: 3px;
+}
 .info_wrap > p {
+  /* border: 1px solid #000; */
   display: inline-block;
   font-size: 25px;
   font-weight: bold;
+  margin-left: 65px;
 }
 .info_wrap_02 > p {
   /* border: 1px solid #000; */
@@ -264,7 +281,6 @@
   border-radius: 30px;
   height: 400px;
 }
-
 .control_step_wrap {
   /* border: 1px solid red; */
   text-align: center;
@@ -378,18 +394,147 @@
 .book_price_wrap {
   width: var(--tabmenu-width);
   margin: auto;
-  margin-top: 100px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+.checkmark {
+  /* border: 1px solid #000; */
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 40.5%;
+  margin-top: 3px;
 }
 .book_price_wrap > p {
+  /* border: 1px solid #000; */
   text-align: center;
   font-size: 25px;
   font-weight: bold;
 }
 .book_price_inner {
-  margin-top: 30px;
+  margin-top: 50px;
 }
-.book_price_inner img {
+/* .book_price_inner img {
   width: var(--tabmenu-width);
   border-radius: 30px;
   height: 400px;
+} */
+
+/*이용요금표*/
+.table_fill {
+  background: white;
+  border-radius: 3px;
+  border-collapse: collapse;
+  height: 100px;
+  margin: auto;
+  margin-bottom: 30px;
+  width: 900px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+th {
+  color: #000;
+  background: var(--sub-color);
+  border-bottom: 3px solid var(--back-color);
+  border-right: 1px solid #dedfe0;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 20px;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: 0.3s;
+}
+th:hover {
+  background: #ffd556;
+}
+th:first-child {
+  border-top-left-radius: 3px;
+}
+th:last-child {
+  border-top-right-radius: 3px;
+  border-right: none;
+}
+tr {
+  border-top: 1px solid #c1c3d1;
+  border-bottom: 1px solid #c1c3d1;
+  color: #666b85;
+  font-size: 16px;
+  font-weight: normal;
+  text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+tr:first-child {
+  border-top: none;
+}
+tr:last-child {
+  border-bottom: none;
+}
+tr:nth-child(odd) td {
+  background: var(--back-color);
+}
+tr:last-child td:first-child {
+  border-bottom-left-radius: 3px;
+}
+tr:last-child td:last-child {
+  border-bottom-right-radius: 3px;
+}
+td {
+  background: #ffffff;
+  padding: 30px 20px;
+  text-align: center;
+  font-weight: 300;
+  font-size: 18px;
+  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid #fff;
+}
+
+/*툴팁*/
+.tooltip {
+  position: relative;
+}
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  position: absolute;
+  z-index: 1;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.tooltip .tooltiptext::after {
+  content: " ";
+  position: absolute;
+  border-style: solid;
+  border-width: 5px;
+}
+/*툴팁 위로*/
+.tooltip .tooltip_top {
+  width: 220px;
+  bottom: 120%;
+  left: 28%;
+  margin-left: -60px;
+}
+.tooltip .tooltip_top::after {
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-color: black transparent transparent transparent;
+}
+/*툴팁 아래로*/
+.tooltip .tooltip_bottom {
+  width: 120px;
+  top: 95%;
+  left: 50%;
+  margin-left: -60px;
+}
+.tooltip .tooltip_bottom::after {
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-color: transparent transparent black transparent;
 }
