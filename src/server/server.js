@@ -185,6 +185,7 @@ app.post("/ManageMember", (req, res) => {
   const reqTarget = req.body.reqTarget;
   const carId = req.body.carId;
   const notiIdx = req.body.notiIdx;
+  const u_id = req.body.u_id;
 
   console.log(`관리자 페이지 ${reqTarget} 데이터 요청`);
 
@@ -197,6 +198,8 @@ app.post("/ManageMember", (req, res) => {
       sql = "SELECT * FROM reservation";
     } else if (reqTarget === "Member") {
       sql = "SELECT * FROM user";
+    } else if (reqTarget === "delMember") {
+      sql = `DELETE FROM user WHERE u_id = "${u_id}"`;
     } else if (reqTarget === "Resv") {
       sql = "SELECT * FROM reservation";
     } else if (reqTarget === "Car") {
