@@ -184,6 +184,7 @@ app.post("/CarAdd", (req, res) => {
 app.post("/ManageMember", (req, res) => {
   const reqTarget = req.body.reqTarget;
   const carId = req.body.carId;
+  const notiIdx = req.body.notiIdx;
 
   console.log(`관리자 페이지 ${reqTarget} 데이터 요청`);
 
@@ -204,6 +205,8 @@ app.post("/ManageMember", (req, res) => {
       sql = `DELETE FROM car_list WHERE car_id = "${carId}"`;
     } else if (reqTarget === "Notice") {
       sql = "SELECT * FROM notice_board";
+    } else if (reqTarget === "delNotice") {
+      sql = `DELETE FROM notice_board WHERE nb_idx = "${notiIdx}"`;
     } else if (reqTarget === "Review") {
     } else {
       console.log("요청을 처리할 수 없습니다.");

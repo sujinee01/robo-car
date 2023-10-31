@@ -7,7 +7,6 @@ const NoticeAdd = ({ handleAdd }) => {
     handleAdd();
 
     const formData = new FormData(e.target);
-    console.log(formData);
     const auth = formData.get("nb_auth");
     const title = formData.get("nb_title");
     const content = formData.get("nb_content");
