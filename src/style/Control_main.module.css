@@ -156,14 +156,22 @@
   font-size: 20px;
   font-weight: 600;
 }
-
+.info_wrap{
+  /* border: 1px solid #000; */
+  position: absolute;
+  width: 300px;
+  margin: auto;
+  top:6%;
+}
 .contzip {
   /* border: 1px solid #000; */
+  position: absolute;
   display: inline-block;
   width: 300px;
   margin: auto;
+  top:33%;
   text-align: center;
-  margin-top: 30px;
+  
 }
 
 .control1 {
@@ -235,11 +243,12 @@
 
 .move {
   /* border: 1px solid black; */
+  position: absolute;
   background-color: #d8d8d8;
   width: 280px;
   height: 190px;
-  margin: auto;
-  margin-top: 30px;
+  top: 67%;
+  left: 3%;
   text-align: center;
   border-radius: 10px;
 }
@@ -334,12 +343,14 @@
 }
 .stainfobtn {
   /* border: 1px solid #000; */
+  position: absolute;
   display: inline-block;
-  margin-top: 480px;
   margin-left: 15px;
+  bottom: 2%;
 }
 
 .stationlook {
+  /* border: 1px solid #000; */
   position: relative;
   width: 70px;
   height: 70px;
