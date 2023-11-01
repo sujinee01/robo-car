@@ -7,7 +7,11 @@ import styles from "../style/Control_main.module.css";
 import BatteryStatus from "./Batterystatus";
 import Currenttime from "./Currenttime";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCar, faChargingStation } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCar,
+  faChargingStation,
+  faMapLocationDot,
+} from "@fortawesome/free-solid-svg-icons";
 const { kakao } = window;
 
 /** 사이드 메뉴 선택시 해당하는 내용을 보여주는 부분 */
@@ -30,26 +34,16 @@ const CarListTab = ({ isOpen }) => {
         <div className={styles.infoslide}>운행차량</div>
         <div>
           <div className={styles.branch}>
-            <p className={styles.slidetext}>차량번호&nbsp;</p>
+            <p className={styles.slidetext}>차량번호</p>
             <button className={styles.slideinfo}>12가 2893</button>
           </div>
           <div className={styles.branch}>
-            <p className={styles.slidetext}>소유주명&nbsp;</p>
-            <button className={styles.slideinfo}>소유주명</button>
+            <p className={styles.slidetext}>차량모델</p>
+            <button className={styles.slideinfo}>차량모델</button>
           </div>
           <div className={styles.branch}>
-            <p className={styles.slidetext}>제품명&nbsp;&nbsp;&nbsp;&nbsp;</p>
-            <button className={styles.slideinfo}>제품명</button>
-          </div>
-          <div className={styles.branch}>
-            <p className={styles.slidetext}>제조사&nbsp;&nbsp;&nbsp;&nbsp;</p>
-            <button className={styles.slideinfo}>제조사</button>
-          </div>
-          <div className={styles.branch}>
-            <p className={styles.slidetext}>
-              용도&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </p>
-            <button className={styles.slideinfo}>용도</button>
+            <p className={styles.slidetext}>호차</p>
+            <button className={styles.slideinfo}>호차표시</button>
           </div>
         </div>
         <div className={styles.contzip}>
@@ -69,10 +63,9 @@ const CarListTab = ({ isOpen }) => {
                 )}
               </button>
             </div>
-          </div>
-          <div className={styles.control2}>
-            <p className={styles.slidetext}>라이트</p>
-            <div>
+
+            <div className={styles.control2}>
+              <p className={styles.slidetext}>라이트</p>
               <button
                 className={`${styles.carcontrol} ${
                   areLightsOn ? styles.greenButton2 : styles.redButton2
@@ -86,13 +79,13 @@ const CarListTab = ({ isOpen }) => {
                 )}
               </button>
             </div>
-
-            <div className={styles.control3}>
-              <p className={styles.slidetext}>배터리</p>
-              <BatteryStatus />
-            </div>
+          </div>
+          <div className={styles.control3}>
+            <p className={styles.slidetext}>배터리</p>
+            <BatteryStatus />
           </div>
         </div>
+
         <div className={styles.move}>
           <div className={styles.locationlist}>
             <div className={styles.locationinfo}>
@@ -120,7 +113,7 @@ const CarListTab = ({ isOpen }) => {
               <p className={styles.timetit1}>도착예정시간</p>
               <p className={styles.endtimenum}>14:22</p>
             </div>
-            <div className={styles.timlist}>
+            <div className={styles.timelist}>
               <p className={styles.timetit2}>현재시간</p>
               <p className={styles.presenttime}>
                 <Currenttime />
@@ -139,13 +132,14 @@ const ChargingStationTab = ({ isOpen }) => {
     <div>
       <div className={slide}>
         <div className={styles.infoslide}>충전소 목록</div>
+
         <div className={styles.slidestation}>
           <select className={styles.station}>
             <option>옵션 1</option>
             <option>옵션 2</option>
             {/* 필요한 만큼 옵션을 추가하세요 */}
           </select>
-          <div className={styles.stationlist}>
+          {/* <div className={styles.stationlist}>
             <input
               className={styles.textbox}
               type="text"
@@ -161,11 +155,21 @@ const ChargingStationTab = ({ isOpen }) => {
               type="text"
               placeholder="텍스트박스 3"
             />
-          </div>
+          </div> */}
         </div>
         <div className={styles.stainfobtn}>
-          <button className={styles.stationlook}></button>
-          <p className={styles.btntext}>충전소 지도표시</p>
+          <button className={styles.stationlook}>
+            <FontAwesomeIcon
+              icon={faMapLocationDot}
+              size="2x"
+              className={styles.faMapLocationDot}
+            />
+            <span className={`${styles.tooltiptext} ${styles.tooltip_right}`}>
+              충전소 위치
+              <br />
+              지도표시
+            </span>
+          </button>
         </div>
       </div>
     </div>
@@ -187,13 +191,21 @@ const SideMenu = () => {
         <ul>
           <li>
             <a href="#" onClick={() => toggle("차량목록")}>
-              <FontAwesomeIcon icon={faCar} size="2x" />
+              <FontAwesomeIcon
+                icon={faCar}
+                size="2x"
+                className={styles.faCar}
+              />
               <div>차량목록</div>
             </a>
           </li>
           <li>
             <a href="#" onClick={() => toggle("충전소")}>
-              <FontAwesomeIcon icon={faChargingStation} size="2x" />
+              <FontAwesomeIcon
+                icon={faChargingStation}
+                size="2x"
+                className={styles.faChargingStation}
+              />
               <div>충전소</div>
             </a>
           </li>

@@ -1,5 +1,15 @@
 :root {
   --menu-width: 100px;
+  /*콘텐츠내용 width*/
+  --content-width: 1200px;
+  /*메인컬러*/
+  --main-color: #21325e;
+  /*보조컬러*/
+  --sub-color: #f7be16;
+  /*보조컬러-뒤에 깔아주는 연한 회색*/
+  --back-color: #f5f5f5;
+  /*뒤로가기컬러*/
+  --cancel-color: #eb0000;
 }
 * {
   padding: 0;
@@ -20,7 +30,7 @@
 .side_menu {
   width: var(--menu-width);
   height: 100%;
-  background-color: #f0f0f0;
+  background-color: var(--sub-color);
   float: left;
 
   position: absolute;
@@ -56,23 +66,39 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   width: 70%;
   height: 80%;
   border-radius: 7px;
   background-color: white;
-
   z-index: 100;
 }
 
 .side_menu a:hover {
-  background-color: #f1d00a;
+  background-color: var(--main-color);
   box-shadow: 1px 1px 5px gray;
   transition: 0.3s;
 }
 
+.side_menu a:hover .faCar,
+.side_menu a:hover .faChargingStation {
+  color: #fff;
+}
+
+.side_menu a:hover div {
+  color: #fff;
+}
+
+.faCar,
+.faChargingStation {
+  /* border: 1px solid #000; */
+  font-size: 25px;
+  margin-top: 6px;
+}
+
 .side_menu div {
-  font-size: 9px;
+  /* border: 1px solid #000; */
+  font-size: 12px;
+  margin-top: 5px;
 }
 
 .side_menu_wrapper {
@@ -89,7 +115,7 @@
   width: 300px;
   height: 100%;
   z-index: 3;
-  background-color: lightgray;
+  background-color: #f0f0f0;
   transition: 0.5s ease-in-out;
 }
 
@@ -103,17 +129,22 @@
 }
 
 .slidetext {
-  font-size: 18px;
-  font-weight: 500;
+  /* border: 1px solid #000; */
+  font-size: 16px;
+  font-weight: bold;
+  width: 70px;
+  text-align: center;
 }
 
 .slideinfo {
   width: 10rem;
   height: 2rem;
-  border-radius: 20px;
-  background-color: #f1d00a;
-  font-size: 18px;
+  border-radius: 10px;
+  background-color: #fff;
+  border: none;
+  font-size: 16px;
   font-weight: 500;
+  margin-left: 15px;
 }
 
 .branch {
@@ -127,64 +158,70 @@
 }
 
 .contzip {
-  width: 8rem;
-  margin-left: 20%;
-  display: flex;
-  justify-content: space-between;
+  /* border: 1px solid #000; */
+  display: inline-block;
+  width: 300px;
+  margin: auto;
+  text-align: center;
+  margin-top: 30px;
 }
 
 .control1 {
-  display: flex;
-  margin-left: 10%;
-  margin-top: 1rem;
-  flex-direction: column;
-  align-items: center;
-  float: left;
+  /* border: 1px solid #000; */
+  display: inline-block;
+  text-align: center;
+  margin-right: 25px;
 }
 .control2 {
-  display: flex;
-  margin-left: 10%;
-  margin-top: 1rem;
-  flex-direction: column;
-  align-items: center;
-  float: right;
+  /* border: 1px solid #000; */
+  display: inline-block;
+  text-align: center;
 }
 
 .carcontrol {
-  width: 4rem;
-  height: 4rem;
+  border: none;
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
-
   font-size: 20px;
   font-weight: 900;
+  cursor: pointer;
+  margin-top: 10px;
 }
-
+.carcontrol:hover {
+  border: none;
+}
 .greenButton1 {
   background-color: green;
   color: white;
+  box-shadow: inset 0px 4px 6px #adadadce;
 }
 
 .redButton1 {
-  background-color: red;
-  color: white;
+  /* background-color: red; */
+  background-color: #ea2027;
+  color: #fff;
+  border: 1px solid #adadad;
+  box-shadow: 0px 2px 6px #adadad;
 }
 
 .greenButton2 {
   background-color: green;
   color: white;
+  box-shadow: inset 0px 4px 6px #adadadce;
 }
 
 .redButton2 {
-  background-color: red;
-  color: white;
+  background-color: #ea2027;
+  color: #fff;
+  border: 1px solid #adadad;
+  box-shadow: 0px 2px 6px #adadad;
 }
 
 .control3 {
-  display: flex;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  flex-direction: column;
-  float: left;
+  /* border: 1px solid #000; */
+  margin-top: 20px;
+  display: inline-block;
 }
 
 .carbat {
@@ -197,68 +234,93 @@
 }
 
 .move {
-  border: 1px solid black;
-  background-color: #c8c8c8;
-  width: 92%;
-  height: 18vh;
-  margin-left: 1rem;
-}
-
-.locationlist {
-  display: flex;
-  margin-top: 1rem;
-  flex-direction: column;
-  align-items: center;
-}
-
-.locationinfo {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  margin-bottom: 1rem;
-}
-
-.location {
-  font-style: bolder;
-  width: 220px; /* 원하는 너비 */
-  height: 30px; /* 원하는 높이 */
-  background-color: #f5f5f5;
+  /* border: 1px solid black; */
+  background-color: #d8d8d8;
+  width: 280px;
+  height: 190px;
+  margin: auto;
+  margin-top: 30px;
+  text-align: center;
   border-radius: 10px;
 }
 
+.locationlist {
+  /* border: 1px solid #000; */
+  display: inline-block;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.locationinfo {
+  /* border: 1px solid #000; */
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.place {
+  /* border: 1px solid #000; */
+  display: inline-block;
+  margin-right: 10px;
+  font-weight: bold;
+}
+.location {
+  font-style: bolder;
+  border: none;
+  width: 180px; /* 원하는 너비 */
+  height: 30px; /* 원하는 높이 */
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding-left: 5px;
+}
+
 .time {
-  justify-content: space-between;
+  /* border: 1px solid #000; */
+  margin-top: 20px;
 }
 
 .timelist {
-  display: flex;
-  flex-direction: column;
-  float: left;
-  margin-left: 1rem;
+  /* border: 1px solid #000; */
+  display: inline-block;
+  margin-right: 15px;
+  /* background-color: #fff;
+  padding: 5px;
+  border-radius: 10px; */
 }
-.timlist {
-  display: flex;
-  flex-direction: column;
-  float: right;
-  margin-right: 1rem;
+.timelist:last-child {
+  margin-right: 0px;
 }
-
 .charge {
   width: 40px;
 }
+.timetit1,
+.timetit2 {
+  font-weight: bold;
+}
+.endtimenum,
+.presenttime {
+  border: 1px solid #dedfe0;
+  background-color: #fff;
+  margin-top: 5px;
+  border-radius: 5px;
+  width: 110px;
+  height: 30px;
+  line-height: 30px;
+}
 
 .slidestation {
+  /* border: 1px solid #000; */
   text-align: center;
-  margin-top: 10px;
-  width: 90%;
+  margin-top: 20px;
 }
 
 .station {
-  width: 200px;
-  height: 30px;
+  border: 1px solid #dedfe0;
+  width: 260px;
+  height: 40px;
   margin-bottom: 0.1rem;
-  margin-left: 2rem;
+  border-radius: 10px;
+  cursor: pointer;
 }
+
 .stationlist {
   width: 200px;
   margin-left: 3.1rem;
@@ -270,35 +332,78 @@
   height: 30px; /* 원하는 높이 */
   background-color: #f5f5f5;
 }
+.stainfobtn {
+  /* border: 1px solid #000; */
+  display: inline-block;
+  margin-top: 480px;
+  margin-left: 15px;
+}
 
 .stationlook {
-  width: 50px;
-  height: 50px;
+  position: relative;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   background-color: #293462;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
 }
-
-.stationlook:hover {
-  background-color: #f7be16; /* 마우스 호버 시 배경색 변경 */
-  color: #ffffff;
-
-  transition: 0.2s;
-}
-
-.btntext {
-  font-size: 10px;
-}
-
-.stainfobtn {
-  margin-top: 1.5rem;
-  margin-left: 8rem;
+.stationlook .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: var(--main-color);
+  color: #fff;
   text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  position: absolute;
+  z-index: 1;
+}
+.stationlook:hover .tooltiptext {
+  visibility: visible;
+}
+.stationlook .tooltiptext::after {
+  content: " ";
+  position: absolute;
+  border-style: solid;
+  border-width: 5px;
+}
+/*툴팁 옆으로*/
+.stationlook .tooltip_right {
+  top: 15%;
+  left: 110%;
+}
+
+.stationlook .tooltip_right::after {
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-color: transparent var(--main-color) transparent transparent;
+}
+.faMapLocationDot {
+  color: #fff;
+}
+.stationlook:hover {
+  background-color: var(--sub-color); /* 마우스 호버 시 배경색 변경 */
+  color: #000;
+}
+.stationlook:hover .faMapLocationDot {
+  /* color: #000; */
+}
+
+.btnstation {
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
 .infoslide {
-  color: black;
+  color: #fff;
   font-size: 15px;
-  font-weight: 600;
-  padding: 0.5rem;
-  background-color: #f7be16;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+  background-color: var(--main-color);
 }

@@ -19,7 +19,7 @@ const Btn = styled.button`
 `;
 
 const Mypage = () => {
-  const [activeTab, setActiveTab] = useState("자주 묻는 질문");
+  const [activeTab, setActiveTab] = useState("개인정보 수정");
 
   useEffect(() => {
     if (activeTab) {

@@ -4,6 +4,10 @@
   margin: 0;
 }
 
+.notice{
+  margin-top: 50px;
+}
+
 .notice table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -13,7 +17,7 @@
 }
 
 .notice .pageTitle {
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 .notice .pageTitle h3 {
   font-size: 28px;
