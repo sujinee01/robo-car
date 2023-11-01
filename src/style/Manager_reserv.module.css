@@ -35,9 +35,19 @@
   background-color: var(--sub-color);
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
+
+  justify-content: space-between;
 }
 
-.tablenum {
+.titlecontainer > p {
+  width: 130px;
+  text-align: center;
+}
+.titlecontainer > div {
+  width: 40px;
+}
+
+/* .tablenum {
   margin-left: 5%;
 }
 
@@ -51,7 +61,7 @@
 
 .thdate {
   margin-left: 16%;
-}
+} */
 
 /** 아코디언 형식으로 F&Q 구현한 부분*/
 
@@ -63,13 +73,10 @@
 }
 
 .accordionHeader {
-  padding: 2%;
+  padding: 2% 0;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-}
-
-.accordionHeader {
   border-bottom: 1px solid #dedfe0;
 }
 
@@ -79,12 +86,21 @@
 } */
 
 /** 아코디언 내부 편집 */
-
+.accordionHeader > span,
+.accordionHeader > div {
+  display: block;
+  width: 130px;
+  text-align: center;
+}
+.accordionHeader > div:nth-last-child(1) {
+  width: 10px;
+  padding-right: 40px;
+}
 .content {
   padding: 10px;
 }
 
-.num {
+/* .num {
   padding-left: 3%;
   font-size: 15px;
   font-weight: 600;
@@ -93,19 +109,18 @@
 .reservnum {
   font-size: 15px;
   font-weight: 600;
-  /* margin-left: 1%; */
+  margin-left: 1%;
 }
 
 .person {
   font-size: 15px;
   font-weight: 600;
   margin-left: 7%;
-}
+}  */
 
 .reservtime {
   font-size: 17px;
   font-weight: 600;
-  margin-left: 2%;
 }
 
 .triangle {

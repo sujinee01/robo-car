@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../style/Join.module.css";
+import { toast } from "react-toastify";
 
 function Join() {
   const navigate = useNavigate();
@@ -36,8 +37,12 @@ function Join() {
 
   useEffect(() => {
     if (message) {
-      alert(message);
-      navigate("/login"); // 로그인 페이지로 이동
+      toast.success(message, {
+        theme: "colored",
+      });
+      setTimeout(() => {
+        navigate("/login"); // 로그인 페이지로 이동
+      }, 1000);
     }
   }, [message, navigate]);
 
@@ -77,7 +82,7 @@ function Join() {
         const data = await response.json();
 
         if (data.success) {
-          setMessage(`환영합니다, ${name}님!`);
+          setMessage(`${name}님의 회원가입을 축하합니다!`);
         } else {
           setMessage("회원가입에 실패했습니다.");
         }
@@ -103,19 +108,25 @@ function Join() {
       if (response.ok) {
         const data = await response.json();
         if (isId === false) {
-          alert("유효한 아이디를 입력해 주세요.");
+          toast.error("유효한 아이디를 입력해 주세요.", {
+            theme: "colored",
+          });
         } else {
           if (data.success && data.overlap) {
             // 중복 검사 통과
             setIdPass(true);
             setIsId(true);
             setIdMessage(data.message);
-            alert(data.message);
+            toast.success(data.message, {
+              theme: "colored",
+            });
           } else {
             // 아이디 중복
             setIdPass(false);
             setIsId(false);
-            alert(data.message);
+            toast.error(data.message, {
+              theme: "colored",
+            });
           }
         }
       }

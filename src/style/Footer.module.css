@@ -54,15 +54,15 @@
 .footer_service span {
   font-size: 18px;
   margin-right: 20px;
-  color:#fff;
+  color: #fff;
   text-decoration: none;
   font-weight: bold;
 }
-.footer_service button{
+.footer_service button {
   border: none;
-  background-color:transparent; 
+  background-color: transparent;
   font-size: 18px;
-  color:#fff;
+  color: #fff;
   cursor: pointer;
   font-weight: bold;
 }
@@ -97,7 +97,8 @@
 .icon_info {
   margin-bottom: 20px;
 }
-.faInfo{}
+.faInfo {
+}
 .icon_info .faInfo,
 .icon_service .faHeadset {
   /* border: 1px solid #000; */
@@ -137,9 +138,9 @@
   color: #000;
 }
 
-
 /*모달창*/
-.modal_open_button, .modal_close_btn {
+.modal_open_button,
+.modal_close_btn {
   cursor: pointer;
   margin-left: auto;
 }
@@ -165,20 +166,20 @@
   padding: 15px;
   margin: auto;
 }
-.modal_content{
+.modal_content {
   position: relative;
 }
-.modal_content button{
+.modal_content button {
   position: absolute;
   color: #000;
   right: 0;
   font-size: 20px;
   transition: 0.3s;
 }
-.modal_content button:hover{
+.modal_content button:hover {
   color: var(--cancel-color);
 }
-.modal_content p{
+.modal_content p {
   position: absolute;
   font-weight: bold;
   font-size: 20px;
@@ -187,13 +188,13 @@
 }
 
 /*개인정보처리방침 textarea*/
-.modal_inner{
-position: absolute;
-margin-top: 50px;
+.modal_inner {
+  position: absolute;
+  margin-top: 50px;
   height: 550px;
   border-radius: 15px;
 }
-.policy_content{
+.policy_content {
   background-color: var(--back-color);
   border: 1px solid #dedfe0;
   width: 570px;
@@ -206,7 +207,7 @@ margin-top: 50px;
   overflow: scroll;
   overflow-x: hidden;
 }
-.modal_inner textarea{
+.modal_inner textarea {
   background-color: var(--back-color);
   border: 1px solid #dedfe0;
   width: 570px;

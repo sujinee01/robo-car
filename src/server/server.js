@@ -11,6 +11,48 @@ app.use(express.json());
 // URL-encoded 형식의 요청 데이터 파싱 설정
 app.use(express.urlencoded({ extended: true }));
 
+/** 공지사항 등록 요청 처리 */
+app.post("/NotiAdd", (req, res) => {
+  const body = req.body;
+
+  const auth = body.auth;
+  const title = body.title;
+  const content = body.content;
+  const important = body.important;
+  console.log(title, content, auth, important);
+  db.getConnection((err, conn) => {
+    console.log("운송예약 요청");
+    if (err) {
+      console.log("MySQL 연결 실패:", err);
+      res.status(500).json({ success: false, message: "MySQL 연결 실패" });
+      return;
+    }
+    console.log("MySQL 연결 성공");
+    const sql = `INSERT INTO notice_board(nb_title,nb_content,nb_auth,nb_important) VALUES (?,?,?,?)`;
+    const params = [title, content, auth, important];
+
+    conn.query(sql, params, (err, result, fields) => {
+      console.log(params);
+      console.log("실행쿼리: " + sql);
+      if (err) {
+        console.log("쿼리 실행 실패:");
+        console.dir(err);
+        res.status(500).json({ success: false, message: "쿼리 실행 실패" });
+        return;
+      }
+      if (result) {
+        console.log(result);
+        console.log("공지 등록 성공!");
+        res.status(200).json({ success: true, message: "예약 성공" });
+      } else {
+        res.status(500).json({ success: false, message: "예약 실패" });
+      }
+    });
+
+    conn.release();
+  });
+});
+
 /** 운송 예약 데이터 처리 */
 app.post("/Resv", (req, res) => {
   function generateResvNumber() {
@@ -142,6 +184,8 @@ app.post("/CarAdd", (req, res) => {
 app.post("/ManageMember", (req, res) => {
   const reqTarget = req.body.reqTarget;
   const carId = req.body.carId;
+  const notiIdx = req.body.notiIdx;
+  const u_id = req.body.u_id;
 
   console.log(`관리자 페이지 ${reqTarget} 데이터 요청`);
 
@@ -154,12 +198,18 @@ app.post("/ManageMember", (req, res) => {
       sql = "SELECT * FROM reservation";
     } else if (reqTarget === "Member") {
       sql = "SELECT * FROM user";
+    } else if (reqTarget === "delMember") {
+      sql = `DELETE FROM user WHERE u_id = "${u_id}"`;
     } else if (reqTarget === "Resv") {
+      sql = "SELECT * FROM reservation";
     } else if (reqTarget === "Car") {
       sql = "SELECT * FROM car_list";
     } else if (reqTarget === "delCar") {
       sql = `DELETE FROM car_list WHERE car_id = "${carId}"`;
     } else if (reqTarget === "Notice") {
+      sql = "SELECT * FROM notice_board";
+    } else if (reqTarget === "delNotice") {
+      sql = `DELETE FROM notice_board WHERE nb_idx = "${notiIdx}"`;
     } else if (reqTarget === "Review") {
     } else {
       console.log("요청을 처리할 수 없습니다.");

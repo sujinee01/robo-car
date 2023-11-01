@@ -127,3 +127,10 @@
   background-color: var(--main-color);
   color: #fff;
 }
+
+/* 공지 사항 없을 때 안내 */
+.notice_wrap > p {
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 600;
+}

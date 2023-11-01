@@ -26,9 +26,7 @@ const ManagerPage = () => {
       if (response.ok) {
         const data = await response.json();
         const receiveData = data["rows"]; // 쿼리 수행으로 받아온 테이블 데이터
-        // console.log(receiveData);
         if (data.success) {
-          console.log(data.message);
           setReceiveData(receiveData); // 받아온 데이터 useState 변수에 저장
         }
       }
@@ -46,7 +44,7 @@ const ManagerPage = () => {
           id="tab1"
           value="Home"
           type="radio"
-          onClick={infoReq}
+          onClick={(e) => infoReq(e)}
           defaultChecked
         />
         <input
@@ -54,35 +52,35 @@ const ManagerPage = () => {
           id="tab2"
           value="Member"
           type="radio"
-          onClick={infoReq}
+          onClick={(e) => infoReq(e)}
         />
         <input
           name="tab"
           id="tab3"
           value="Resv"
           type="radio"
-          onClick={infoReq}
+          onClick={(e) => infoReq(e)}
         />
         <input
           name="tab"
           id="tab4"
           value="Car"
           type="radio"
-          onClick={infoReq}
+          onClick={(e) => infoReq(e)}
         />
         <input
           name="tab"
           id="tab5"
           value="Notice"
           type="radio"
-          onClick={infoReq}
+          onClick={(e) => infoReq(e)}
         />
         <input
           name="tab"
           id="tab6"
           value="Review"
           type="radio"
-          onClick={infoReq}
+          onClick={(e) => infoReq(e)}
         />
         <header style={{ width: "1200px" }}>
           <div>
@@ -102,13 +100,13 @@ const ManagerPage = () => {
           <ManagerMember userData={receiveData} />
         </div>
         <div className={`${styles.tab3_content} ${styles.tab_content}`}>
-          <ManagerReserv />
+          <ManagerReserv resvData={receiveData} />
         </div>
         <div className={`${styles.tab4_content} ${styles.tab_content}`}>
           <ManagerVehicle vehicleData={receiveData} />
         </div>
         <div className={`${styles.tab5_content} ${styles.tab_content}`}>
-          <ManagerNotice />
+          <ManagerNotice noticeData={receiveData} />
         </div>
         <div className={`${styles.tab6_content} ${styles.tab_content}`}>
           <ManagerReview />

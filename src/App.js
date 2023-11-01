@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./style/Toast.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import MainPage from "./components/Main_page";
@@ -14,9 +18,9 @@ import ManagerNotice from "./components/Manager_notice";
 import NoticeAdd from "./components/Manager_notice_add";
 import MemberDetail from "./components/Manager_member_detail";
 import AboutUs from "./components/About_us";
-import ScrollTop from './components/Scroll_top';
-// import MyPage from "./components/Mypage";
-// import Reservation from "./components/Reservation";
+import ScrollTop from "./components/Scroll_top";
+import MyPage from "./components/Mypage";
+import Reservation from "./components/Reservation";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -36,7 +40,7 @@ function App() {
 
   return (
     <Router>
-      <ScrollTop/>
+      <ScrollTop />
       <div style={{ height: "100px" }}>
         <Header isLogin={isLogin} isAdmin={isAdmin} />
       </div>
@@ -49,16 +53,24 @@ function App() {
         <Route path="/noticeDetail" element={<NoticeDetail />} />
         <Route path="/helpCenter" element={<CustomerHelpCenter />} />
         <Route path="/about" element={<AboutUs />} />
-        {/* <Route path="/mypage" element={<MyPage />} />
-        <Route path="/resv" element={<Reservation />} /> */}
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/resv" element={<Reservation />} />
         <Route path="/manage" element={<ManagerPage />} />
         <Route path="/manageNotice" element={<ManagerNotice />} />
         <Route path="/noticeAdd" element={<NoticeAdd />} />
         <Route path="/memberDetail" element={<MemberDetail />} />
       </Routes>
       <div>
-        <Footer/>
+        <Footer />
       </div>
+      <ToastContainer
+        position="top-center" // 알람 위치 지정
+        autoClose={2000} // 자동 off 시간
+        hideProgressBar={true} // 진행시간바 숨김
+        closeOnClick // 클릭으로 알람 닫기
+        theme="light"
+        limit={3} // 개수 제한
+      />
     </Router>
   );
 }

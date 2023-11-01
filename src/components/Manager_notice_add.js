@@ -1,76 +1,64 @@
 import React, { useState } from "react";
 import styles from "../style/Manager_notice_add.module.css";
-// import axios from "axios";
 
 const NoticeAdd = ({ handleAdd }) => {
-  const [notice, setNotice] = useState({
-    nb_important: "",
-    nb_title: "",
-    nb_content: "",
-    nb_auth: "",
-  });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    handleAdd();
 
-  const { nb_important, nb_title, nb_content, nb_auth } = notice;
+    const formData = new FormData(e.target);
+    const auth = formData.get("nb_auth");
+    const title = formData.get("nb_title");
+    const content = formData.get("nb_content");
+    const important = formData.get("nb_important");
 
-  const onChange = (event) => {
-    const { value, name } = event.target;
-    setNotice({
-      ...notice,
-      [name]: value,
-    });
+    try {
+      const response = await fetch("/NotiAdd", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          auth,
+          title,
+          content,
+          important,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+      }
+    } catch {
+      console.log("차량 등록 오류");
+    }
   };
-
-  // const saveNotice = async () => {
-  //   await axios.post(`//localhost:4000/ManageNotice`, notice).then((res) => {
-  //     alert("등록되었습니다.");
-  //     navigate("/ManageNotice");
-  //   });
-  // };
 
   return (
     <div className={styles.notice_add_wrap}>
       <p>공지사항 등록</p>
       <hr />
       <div className={styles.add_wrap}>
-        <form>
+        <form action="/NotiAdd" method="post" onSubmit={handleSubmit}>
           <div className={styles.add_inner}>
             <div className={styles.add_auth}>
               <p>작성자</p>
-              <input
-                type="text"
-                name="nb_auth"
-                value={nb_auth}
-                onChange={onChange}
-              />
+              <input type="text" name="nb_auth" value="admin" />
             </div>
             <div className={styles.add_import}>
-              <p>중요표시</p>
-              <input
-                type="text"
-                name="nb_important"
-                value={nb_important}
-                onChange={onChange}
-              />
+              <p>중요도</p>
+              <input type="text" name="nb_important" />
             </div>
           </div>
 
           <div className={styles.add_inner_02}>
             <div className={styles.add_title}>
               <p>제목</p>
-              <input
-                type="text"
-                name="nb_title"
-                value={nb_title}
-                onChange={onChange}
-              />
+              <input type="text" name="nb_title" />
             </div>
             <div className={styles.add_content}>
               <p>내용</p>
-              <textarea
-                name="nb_content"
-                value={nb_content}
-                onChange={onChange}
-              ></textarea>
+              <textarea name="nb_content"></textarea>
             </div>
           </div>
 

@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import styles from "../style/Login.module.css";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [loginMessage, setLoginMessage] = useState(""); // 로그인 메시지 상태
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (loginMessage) {
-      alert(loginMessage);
+      toast.error(loginMessage, {
+        theme: "colored",
+      }); // 로그인 관련 안내 토스트
       setLoginMessage("");
     }
   }, [loginMessage]);
@@ -34,8 +39,13 @@ function Login() {
           localStorage.setItem("id", id);
           localStorage.setItem("name", data.u_name);
           // 로그인 성공 시 메시지 설정
-          alert(`환영합니다, ${data.u_name}님!`);
-          window.location.href = "/"; // 로그인 성공 시 Home 페이지로 리다이렉트
+          toast.success(`환영합니다, ${data.u_name}님!`, {
+            theme: "colored",
+          });
+          // 토스트 창 확인을 위한 1초 딜레이 설정
+          setTimeout(() => {
+            window.location.href = "/";
+          }, 1000);
         } else {
           // 로그인 실패 시 메시지 설정
           if (data.info === "pw") {
@@ -48,6 +58,15 @@ function Login() {
     } catch (error) {
       console.error("로그인 오류:", error);
     }
+  };
+
+  const signUpToast = () => {
+    toast.info("회원가입 페이지로 이동합니다.", { theme: "colored" });
+
+    // 1초 후에 페이지를 이동합니다.
+    setTimeout(() => {
+      navigate("/join"); // 지정된 URL로 이동합니다.
+    }, 1000);
   };
 
   return (
@@ -82,9 +101,9 @@ function Login() {
           </button>
           <br />
           <br />
-          <button className={styles.go_join}>
-            <a href="/join">회원가입</a>
-          </button>
+          <a href="#" className={styles.go_join} onClick={signUpToast}>
+            회원가입
+          </a>
         </form>
         {/* )} */}
       </div>

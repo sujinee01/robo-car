@@ -4,7 +4,7 @@ import Select from "react-select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
-function ManagerReserv() {
+function ManagerReserv({ resvData }) {
   const CATEGORY_LIST = [
     { label: "특급", value: null },
     { label: "일반", value: "0001" },
@@ -30,55 +30,29 @@ function ManagerReserv() {
     }),
   };
 
-  const reserve = [
-    // 예약 데이터...
-    {
-      num: "05.",
-      reservnum: "23523-232424",
-      reservid: "gildong12",
-      reservtime: "2023-10-10",
-      depart: "서울고속버스터미널",
-      arrive: "국립중앙도서관",
-      car: "1톤 트럭",
-      option: CATEGORY_LIST[0],
-      sendtel: "010-2453-0000",
-      receitel: "010-8565-0000",
-      thing: "중고서적 200권",
-      memo: "중고서적 200권",
-      cost: "55000원",
-    },
-    {
-      num: "06.",
-      reservnum: "23523-232424",
-      reservid: "gildong12",
-      reservtime: "2023-10-10",
-      depart: "서울고속버스터미널",
-      arrive: "국립중앙도서관",
-      car: "1톤 트럭",
-      option: CATEGORY_LIST[0],
-      sendtel: "010-2453-0000",
-      receitel: "010-8565-0000",
-      thing: "중고서적 200권",
-      memo: "중고서적 200권",
-      cost: "55000원",
-    },
-    {
-      num: "07.",
-      reservnum: "23523-232424",
-      reservid: "gildong12",
-      reservtime: "2023-10-10",
-      depart: "서울고속버스터미널",
-      arrive: "국립중앙도서관",
-      car: "1톤 트럭",
-      option: CATEGORY_LIST[0],
-      sendtel: "010-2453-0000",
-      receitel: "010-8565-0000",
-      thing: "중고서적 200권",
-      memo: "중고서적 200권",
-      cost: "55000원",
-    },
-    // 다른 리뷰 데이터 추가
-  ];
+  let reserve = "";
+  if (!resvData) {
+    reserve = [
+      // 예약 데이터...
+      {
+        num: "05.",
+        reservnum: "23523-232424",
+        reservid: "gildong12",
+        reservtime: "2023-10-10",
+        depart: "서울고속버스터미널",
+        arrive: "국립중앙도서관",
+        car: "1톤 트럭",
+        option: CATEGORY_LIST[0],
+        sendtel: "010-2453-0000",
+        receitel: "010-8565-0000",
+        thing: "중고서적 200권",
+        memo: "중고서적 200권",
+        cost: "55000",
+      },
+    ];
+  } else {
+    reserve = resvData;
+  }
 
   const [openIndex, setOpenIndex] = useState(null);
   const [arrowRotated, setArrowRotated] = useState([]);
@@ -113,10 +87,11 @@ function ManagerReserv() {
       <div className={styles.listcontainer}>
         {/* 제목 테이블 */}
         <div className={styles.titlecontainer}>
-          <p className={styles.tablenum}>NO.</p>
+          <p className={styles.tablenum}>배송현황</p>
           <p className={styles.thnum}>예약번호</p>
           <p className={styles.thid}>예약자 아이디</p>
           <p className={styles.thdate}>예약일시</p>
+          <div></div>
         </div>
 
         {/* 예약 아이템들 */}
@@ -132,12 +107,14 @@ function ManagerReserv() {
                 className={styles.accordionHeader}
                 onClick={() => handleItemClick(index)}
               >
-                <span className={styles.num}>{reserve.num}</span>
-                <span className={styles.reservnum}>{reserve.reservnum}</span>
+                <span className={styles.num}>{reserve.resv_state}</span>
+                <span className={styles.reservnum}>{reserve.resv_no}</span>
                 <div className={styles.person}>
-                  <span className={styles.reservid}>{reserve.reservid}</span>
+                  <span className={styles.reservid}>
+                    {reserve.resv_subscriber}
+                  </span>
                 </div>
-                <span className={styles.reservtime}>{reserve.reservtime}</span>
+                <span className={styles.reservtime}>{reserve.resv_date}</span>
                 <div className={styles.triangleContainer}>
                   <p
                     className={`${styles.triangle} ${
@@ -157,19 +134,25 @@ function ManagerReserv() {
                         <p className={styles.contname}>
                           출발지 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         </p>
-                        <span className={styles.item}>{reserve.depart}</span>
+                        <span className={styles.item}>
+                          {reserve.resv_start}
+                        </span>
                       </div>
                       <div className={styles.reservlist}>
                         <p className={styles.contname}>
                           도착지 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         </p>
-                        <span className={styles.item}>{reserve.arrive}</span>
+                        <span className={styles.item}>
+                          {reserve.resv_destin}
+                        </span>
                       </div>
                       <div className={styles.reservlist}>
                         <p className={styles.contname}>
                           배송 차량 &nbsp; &nbsp; &nbsp;
                         </p>
-                        <span className={styles.item}>{reserve.car}</span>
+                        <span className={styles.item}>
+                          {reserve.resv_carselect}
+                        </span>
                       </div>
                       <div className={styles.reservlist}>
                         <p className={styles.contname}>
@@ -188,25 +171,31 @@ function ManagerReserv() {
                       </div>
                       <div className={styles.reservlist}>
                         <p className={styles.contname}>발송인 연락처 </p>
-                        <span className={styles.item}>{reserve.sendtel}</span>
+                        <span className={styles.item}>
+                          {reserve.resv_ord_tel}
+                        </span>
                       </div>
                       <div className={styles.reservlist}>
                         <p className={styles.contname}>수령인 연락처 </p>
-                        <span className={styles.item}>{reserve.receitel}</span>
+                        <span className={styles.item}>
+                          {reserve.resv_recip_tel}
+                        </span>
                       </div>
                     </div>
                     <div className={styles.rightlist}>
                       <div className={styles.rightitem}>
                         <p className={styles.contname}>배송물품설명</p>
-                        <span className={styles.item}>{reserve.thing}</span>
+                        <span className={styles.item}>{reserve.resv_info}</span>
                       </div>
                       <div className={styles.rightitem}>
                         <p className={styles.contname}>메모</p>
-                        <span className={styles.item}>{reserve.memo}</span>
+                        <span className={styles.item}>{reserve.resv_memo}</span>
                       </div>
                       <div className={styles.rightitem}>
                         <p className={styles.contname}>결재금액</p>
-                        <span className={styles.item}>{reserve.cost}</span>
+                        <span className={styles.item}>
+                          {parseInt(reserve.resv_price).toLocaleString()}원
+                        </span>
                       </div>
                     </div>
                     <button className={styles.btncomp}>수정 완료</button>
