@@ -5,7 +5,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 // import ManagerHeader from "./Manager_header";
 import VehicleAdd from "./Manager_vehicle_add";
 
-function ManagerVehicle({ vehicleData }) {
+function ManagerVehicle() {
   const [addToggle, setAddToggle] = useState(false);
   const [receiveData, setReceiveData] = useState([]);
 
@@ -48,7 +48,7 @@ function ManagerVehicle({ vehicleData }) {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+
         if (data.success) {
           const updatedData = receiveData.filter(
             (vehicle) => vehicle.car_id !== carId
@@ -65,10 +65,10 @@ function ManagerVehicle({ vehicleData }) {
     setAddToggle(!addToggle);
   };
 
-  function Vehicle({ vehicle, key }) {
+  function Vehicle({ vehicle }) {
     return (
       <tr>
-        <td>{key}</td>
+        <td></td>
         <td>{vehicle.car_licenseplt}</td>
         <td>{vehicle.car_model}</td>
         <td>{vehicle.car_id}</td>
@@ -94,7 +94,6 @@ function ManagerVehicle({ vehicleData }) {
   }, [addToggle]);
 
   useEffect(() => {
-    console.log(">>> ", addToggle);
     if (addToggle === false) {
       infoReq();
     }

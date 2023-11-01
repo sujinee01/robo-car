@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import NoticeAdd from "./Manager_notice_add";
 
-function ManagerNotice({ noticeData }) {
+function ManagerNotice() {
   const [addToggle, setAddToggle] = useState(false);
   const [receiveData, setReceiveData] = useState([]);
 
@@ -71,7 +71,6 @@ function ManagerNotice({ noticeData }) {
   }, [addToggle]);
 
   useEffect(() => {
-    console.log(">>> ", addToggle);
     if (addToggle === false) {
       infoReq();
     }

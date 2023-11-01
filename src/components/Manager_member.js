@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import MemberDetail from "./Manager_member_detail";
 
-function ManagerMember({ userData }) {
+function ManagerMember() {
   const [searchId, setSearchId] = useState("");
   const [detailToggle, setDetailToggle] = useState(false);
   const [receiveData, setReceiveData] = useState([]);
@@ -68,7 +68,7 @@ function ManagerMember({ userData }) {
     infoReq();
   }, []);
 
-  function User({ user, key }) {
+  function User({ user }) {
     return (
       <tr>
         <td></td>
