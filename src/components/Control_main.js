@@ -32,7 +32,7 @@ const CarListTab = ({ isOpen }) => {
     <div className={styles.slidebar}>
       <div className={slide}>
         <div className={styles.infoslide}>운행차량</div>
-        <div>
+        <div className={styles.info_wrap}>
           <div className={styles.branch}>
             <p className={styles.slidetext}>차량번호</p>
             <button className={styles.slideinfo}>12가 2893</button>
