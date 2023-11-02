@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import MemberDetail from "./Manager_member_detail";
 
+import ConfirmFunc from "./Confirm_func";
+
 function ManagerMember() {
   const [searchId, setSearchId] = useState("");
   const [detailToggle, setDetailToggle] = useState(false);
@@ -80,7 +82,11 @@ function ManagerMember() {
         <td>{user.u_office}</td>
         <td>
           {/*삭제버튼*/}
-          <button onClick={() => delMember(user.u_id)}>
+          <button
+            onClick={() => {
+              ConfirmFunc(() => delMember(user.u_id));
+            }}
+          >
             <FontAwesomeIcon icon={faXmark} className={styles.faXmark} />
           </button>
         </td>

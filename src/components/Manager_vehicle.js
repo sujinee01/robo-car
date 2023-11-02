@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 // import ManagerHeader from "./Manager_header";
 import VehicleAdd from "./Manager_vehicle_add";
+import ConfirmFunc from "./Confirm_func";
 
 function ManagerVehicle() {
   const [addToggle, setAddToggle] = useState(false);
@@ -77,7 +78,7 @@ function ManagerVehicle() {
         <td>{vehicle.car_battery}</td>
         <td>
           {/*삭제버튼*/}
-          <button onClick={() => delCar(vehicle.car_id)}>
+          <button onClick={() => ConfirmFunc(() => delCar(vehicle.car_id))}>
             <FontAwesomeIcon icon={faXmark} className={styles.faXmark} />
           </button>
         </td>
