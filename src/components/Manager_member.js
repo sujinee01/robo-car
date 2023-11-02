@@ -5,6 +5,7 @@ import { faXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import MemberDetail from "./Manager_member_detail";
 
 import ConfirmFunc from "./Confirm_func";
+import { toast } from "react-toastify";
 
 function ManagerMember() {
   const [searchId, setSearchId] = useState("");
@@ -55,15 +56,25 @@ function ManagerMember() {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+
         if (data.success) {
           const updatedData = receiveData.filter((user) => user.u_id !== u_id);
           setReceiveData(updatedData);
+        } else if (
+          data.err.code &&
+          data.err.code === "ER_ROW_IS_REFERENCED_2"
+        ) {
+          toast.error(data.message, {
+            theme: "colored",
+          });
+          return true;
+        } else {
         }
       }
     } catch (error) {
       console.error("오류:", error);
     }
+    infoReq();
   };
 
   useEffect(() => {

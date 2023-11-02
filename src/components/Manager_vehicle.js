@@ -60,6 +60,7 @@ function ManagerVehicle() {
     } catch (error) {
       console.error("오류:", error);
     }
+    infoReq();
   };
 
   const handleAdd = () => {
