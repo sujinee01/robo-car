@@ -1,11 +1,11 @@
 /*
 운송 예약 페이지
 */
-
 import React, { useState } from "react";
 import style from "../style/Reservation.module.css";
 // import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { toast } from "react-toastify";
 
 function ReservationPage() {
   const [selectedCar, setSelectedCar] = useState(""); // 선택한 배송차량 상태
@@ -91,8 +91,12 @@ function ReservationPage() {
       });
 
       if (response.ok) {
-        alert(`${subscriber}님, 예약이 정상적으로 처리되었습니다.`);
-        window.location.href = "/"; // 로그인 성공 시 Home 페이지로 리다이렉트
+        toast.success(`${subscriber}님, 예약이 정상적으로 처리되었습니다.`, {
+          theme: "colored",
+        });
+        setTimeout(() => {
+          window.location.href = "/"; // 로그인 성공 시 Home 페이지로 리다이렉트
+        }, 1000);
       }
     } catch (error) {
       console.error("회원가입 오류:", error);
