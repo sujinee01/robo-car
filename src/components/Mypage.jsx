@@ -20,14 +20,41 @@ const Btn = styled.button`
 
 const Mypage = () => {
   const [activeTab, setActiveTab] = useState("개인정보 수정");
+  const [receiveData, setReceiveData] = useState(""); // DB 요청 저장 변수
 
   useEffect(() => {
-    if (activeTab) {
-    }
+    infoReq(activeTab);
   }, [activeTab]);
 
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
+    infoReq(tabName);
+  };
+
+  const infoReq = async (tab) => {
+    const reqTarget = tab;
+    const userId = localStorage.getItem("id");
+
+    try {
+      const response = await fetch("/Mypage", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ reqTarget, userId }), // 요청하는 데이터
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const receiveData = data["rows"]; // 쿼리 수행으로 받아온 테이블 데이터
+        if (data.success) {
+          setReceiveData(receiveData); // 받아온 데이터 useState 변수에 저장
+          console.log(receiveData);
+        }
+      }
+    } catch (error) {
+      console.error("오류:", error);
+    }
   };
 
   return (
@@ -42,6 +69,7 @@ const Mypage = () => {
               className={` ${mys.btn} ${
                 activeTab === "개인정보 수정" ? mys.active : ""
               }`}
+              value="개인정보수정"
               onClick={() => handleTabClick("개인정보 수정")}
             >
               개인정보 수정
@@ -52,6 +80,7 @@ const Mypage = () => {
               className={` ${mys.btn} ${
                 activeTab === "예약내역" ? mys.active : ""
               }`}
+              value="예약내역"
               onClick={() => handleTabClick("예약내역")}
             >
               예약내역
