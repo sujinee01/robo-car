@@ -3,6 +3,7 @@ import styles from "../style/Manager_notice.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import NoticeAdd from "./Manager_notice_add";
+import ConfirmFunc from "./Confirm_func";
 
 function ManagerNotice() {
   const [addToggle, setAddToggle] = useState(false);
@@ -51,7 +52,7 @@ function ManagerNotice() {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+
         if (data.success) {
           const updatedData = receiveData.filter(
             (notice) => notice.nb_idx !== notiIdx
@@ -62,6 +63,7 @@ function ManagerNotice() {
     } catch (error) {
       console.error("오류:", error);
     }
+    infoReq();
   };
 
   useEffect(() => {
@@ -76,10 +78,9 @@ function ManagerNotice() {
     }
   }, []);
 
-  function Notice({ notice, key }) {
+  function Notice({ notice }) {
     return (
       <tr>
-        {key}
         <td>{notice.nb_idx}</td>
         <td>{notice.nb_important}</td>
         <td>{notice.nb_title}</td>
@@ -95,7 +96,7 @@ function ManagerNotice() {
         </td>
         <td>
           {/*삭제버튼*/}
-          <button onClick={() => delNotice(notice.nb_idx)}>
+          <button onClick={() => ConfirmFunc(() => delNotice(notice.nb_idx))}>
             <FontAwesomeIcon icon={faXmark} className={styles.faXmark} />
           </button>
         </td>

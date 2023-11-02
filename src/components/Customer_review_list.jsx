@@ -184,6 +184,7 @@ function CustomerReviewList() {
                   openIndex === index ? styles.open : ""
                 }`}
               >
+
                 <div
                   className={styles.accordionHeader}
                   onClick={() => toggleAccordion(index)}

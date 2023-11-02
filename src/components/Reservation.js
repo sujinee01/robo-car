@@ -1,11 +1,11 @@
 /*
 운송 예약 페이지
 */
-
 import React, { useState } from "react";
 import style from "../style/Reservation.module.css";
 // import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { toast } from "react-toastify";
 
 function ReservationPage() {
   const [selectedCar, setSelectedCar] = useState(""); // 선택한 배송차량 상태
@@ -31,7 +31,7 @@ function ReservationPage() {
 
   // 옵션별 가격 책정하는 부분
   let carOptPrice =
-    selectedCar === "차량1" || selectedCar === "차량2"
+    selectedCar === "1호차" || selectedCar === "2호차"
       ? 200000
       : selectedCar !== ""
       ? 100000
@@ -91,8 +91,12 @@ function ReservationPage() {
       });
 
       if (response.ok) {
-        alert(`${subscriber}님, 예약이 정상적으로 처리되었습니다.`);
-        window.location.href = "/"; // 로그인 성공 시 Home 페이지로 리다이렉트
+        toast.success(`${subscriber}님, 예약이 정상적으로 처리되었습니다.`, {
+          theme: "colored",
+        });
+        setTimeout(() => {
+          window.location.href = "/"; // 로그인 성공 시 Home 페이지로 리다이렉트
+        }, 1000);
       }
     } catch (error) {
       console.error("회원가입 오류:", error);
@@ -179,59 +183,59 @@ function ReservationPage() {
         <div className={style.delivery_car_choice}>
           <label
             className={`${style.padding_background_3} ${
-              selectedCar === "차량1" ? style["car-selected"] : ""
+              selectedCar === "1호차" ? style["car-selected"] : ""
             }`}
           >
             <input
               type="radio"
               name="deliveryCar"
-              value="차량1"
-              checked={selectedCar === "차량1"} // 선택 상태 확인
+              value="1호차"
+              checked={selectedCar === "1호차"} // 선택 상태 확인
               onChange={handleCarChange}
             />
-            <span>차량1</span>
+            <span>1호차</span>
           </label>
           <label
             className={`${style.padding_background_3} ${
-              selectedCar === "차량2" ? style["car-selected"] : ""
+              selectedCar === "2호차" ? style["car-selected"] : ""
             }`}
           >
             <input
               type="radio"
               name="deliveryCar"
-              value="차량2"
-              checked={selectedCar === "차량2"}
+              value="2호차"
+              checked={selectedCar === "2호차"}
               onChange={handleCarChange}
             />
-            <span>차량2</span>
+            <span>2호차</span>
           </label>
           <label
             className={`${style.padding_background_3} ${
-              selectedCar === "차량3" ? style["car-selected"] : ""
+              selectedCar === "3호차" ? style["car-selected"] : ""
             }`}
           >
             <input
               type="radio"
               name="deliveryCar"
-              value="차량3"
-              checked={selectedCar === "차량3"}
+              value="3호차"
+              checked={selectedCar === "3호차"}
               onChange={handleCarChange}
             />
-            <span>차량3</span>
+            <span>3호차</span>
           </label>
           <label
             className={`${style.padding_background_3} ${
-              selectedCar === "차량4" ? style["car-selected"] : ""
+              selectedCar === "4호차" ? style["car-selected"] : ""
             }`}
           >
             <input
               type="radio"
               name="deliveryCar"
-              value="차량4"
-              checked={selectedCar === "차량4"}
+              value="4호차"
+              checked={selectedCar === "4호차"}
               onChange={handleCarChange}
             />
-            <span>차량4</span>
+            <span>4호차</span>
           </label>
         </div>
         <div className={style.title_css}>배송옵션</div>
