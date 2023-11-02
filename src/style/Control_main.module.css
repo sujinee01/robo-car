@@ -61,6 +61,7 @@
   justify-content: end;
 }
 
+/*버튼 디자인*/
 .side_menu a {
   display: flex;
   flex-direction: column;
@@ -71,25 +72,42 @@
   border-radius: 7px;
   background-color: white;
   z-index: 100;
-}
-
-.side_menu a:hover {
-  background-color: var(--main-color);
-  box-shadow: 1px 1px 5px gray;
   transition: 0.3s;
 }
 
-.side_menu a:hover .faCar,
-.side_menu a:hover .faChargingStation {
+.btn{
+  background-color: #fff;
+  color: #000;
   color: #fff;
+}
+
+.active{
+  background: var(--main-color) !important;
+  font-weight: 900 !important;
+  transition: 0.2s;
+  color: #fff !important;
+}
+.activecancel{
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
+.side_menu a:hover {
+  box-shadow: 3px 6px 5px gray;
+}
+
+/* .side_menu a:hover .faCar,
+.side_menu a:hover .faChargingStation {
+  color: #000;
 }
 
 .side_menu a:hover div {
-  color: #fff;
-}
+  color: #000;
+} */
 
 .faCar,
-.faChargingStation {
+.faChargingStation,
+.faEye {
   /* border: 1px solid #000; */
   font-size: 25px;
   margin-top: 6px;
