@@ -11,6 +11,7 @@ import {
   faCar,
   faChargingStation,
   faMapLocationDot,
+  faEye,
 } from "@fortawesome/free-solid-svg-icons";
 const { kakao } = window;
 
@@ -177,7 +178,7 @@ const ChargingStationTab = ({ isOpen }) => {
 };
 
 const SideMenu = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState("관제화면");
   const [selectedTab, setSelectedTab] = useState(); // 초기값을 차량목록으로 설정
 
   const toggle = (tab) => {
@@ -185,12 +186,47 @@ const SideMenu = () => {
     setSelectedTab(tab); // 선택된 탭을 상태에 설정
   };
 
+  const toggleHandler = (tabName) => {
+    setIsOpen(tabName);
+    // setSelectedTab(selectedTab);
+    // setIsOn(tabName);
+    // setSelectedTab(tabName);
+    // isOpen ? selectedTab(false) : selectedTab(true)
+  };
   return (
     <div>
       <div className={styles.side_menu}>
         <ul>
           <li>
-            <a href="#" onClick={() => toggle("차량목록")}>
+            <a
+              href="#"
+              onClick={() => {
+                toggle("관제화면");
+                toggleHandler("관제화면");
+              }}
+              className={` ${styles.btn} ${
+                isOpen === "관제화면" ? styles.active : styles.activecancel
+              }`}
+            >
+              <FontAwesomeIcon
+                icon={faEye}
+                size="2x"
+                className={styles.faCar}
+              />
+              <div>관제화면</div>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              onClick={() => {
+                toggle("차량목록");
+                toggleHandler("차량목록");
+              }}
+              className={` ${styles.btn} ${
+                isOpen === "차량목록" ? styles.active : styles.activecancel
+              }`}
+            >
               <FontAwesomeIcon
                 icon={faCar}
                 size="2x"
@@ -200,7 +236,16 @@ const SideMenu = () => {
             </a>
           </li>
           <li>
-            <a href="#" onClick={() => toggle("충전소")}>
+            <a
+              href="#"
+              onClick={() => {
+                toggle("충전소");
+                toggleHandler("충전소");
+              }}
+              className={` ${styles.btn} ${
+                isOpen === "충전소" ? styles.active : styles.activecancel
+              }`}
+            >
               <FontAwesomeIcon
                 icon={faChargingStation}
                 size="2x"
