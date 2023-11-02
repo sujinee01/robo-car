@@ -88,10 +88,10 @@ function CustomerFaq() {
           </div>
         ))}
       </div>
-      <div className={styles.numlist}>
+      {/* <div className={styles.numlist}>
         <button className={styles.btnnum}>1</button>
         <button className={styles.btnnum}>2</button>
-      </div>
+      </div> */}
     </div>
   );
 }

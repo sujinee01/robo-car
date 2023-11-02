@@ -7,7 +7,7 @@ import MypageInfo from "./Mypage_info";
 import MypageConf from "./Mypage_confirm";
 
 const Btn = styled.button`
-  width: 400px;
+  width: 600px;
   height: 50px;
   background: #f5f5f5;
   color: black;

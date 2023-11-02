@@ -11,9 +11,9 @@ const Btn = styled.button`
   height: 50px;
   background: #f5f5f5;
   color: black;
-  font-size: 17px;
+  font-size: 18px;
   border: none;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: 0.2s;
 `;

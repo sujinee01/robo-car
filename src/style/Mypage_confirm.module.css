@@ -4,23 +4,43 @@
 }
 
 .mypageconfcontainer {
+  /* border: 1px solid #000; */
   display: flex;
   justify-content: center; /* 수평 가운데 정렬 */
   align-items: center;
   margin-top: 50px;
 }
 
+.mypageconfirmcontainer {
+  /* border: 1px solid #000; */
+  display: flex;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center;
+  margin-top: 50px;  margin: 0 auto;
+}
+
 .myconfcontain {
-  width: 800px;
+  width: 1200px;
   margin: 0 auto;
+  /* border: 1px solid #000; */
+}
+
+.myconfirmcontain {
+  width: 1200px;
+  margin: 0 auto;
+  /* border: 1px solid #000; */
 }
 
 .conftopic {
-  font-size: 35px;
-  font-weight: 800;
-  margin-bottom: 3%;
+  /* border: 1px solid #000; */
+  font-size: 28px;
+  font-weight: 900;
+  margin-bottom: 2%;
 }
 
+.confirmtopic{
+  /* border: 1px solid #000; */
+}
 /** 타이틀 아래 버튼 디자인 부분 */
 
 /* .choosebtn {
@@ -57,13 +77,13 @@
 } */
 
 .pagetopic {
-  font-size: 16px;
+  font-size: 20px;
   color: black;
   font-weight: 600;
 }
 
 .hline {
-  width: 800px;
+  width: 1200px;
   border: 2px solid #293462; /* 수평선의 두께와 색상을 설정합니다. */
   margin: 20px 0; /* 수평선 위아래 여백을 조절합니다. */
 }
@@ -105,15 +125,22 @@
 /** 본문 내용 */
 
 .customratingcontainer {
+  border: 1px solid #dedfe0;
   max-width: 800px;
   margin: 0 auto;
 }
 
 .accordionContainer {
+  border: 1px solid #dedfe0;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
   width: 100%;
 }
 
 .accordionHeader {
+  /* border: 1px solid #000; */
   padding: 15px;
   cursor: pointer;
   display: flex;
@@ -128,19 +155,25 @@
 }
 
 .accordionItem {
-  border-radius: 5px;
+  background-color: #fff;
+  border-bottom: 1px solid #dedfe0;
 }
 
-.accordionItem:nth-child(odd),
-.accordionItem:nth-child(odd) .content {
+.accordionItem:first-child{
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+}
+
+.accordionItem .content {
   background: #f5f5f5;
+ padding-top: 20px;
 }
 
 /* 아코디언 헤더 내용*/
 
 .opennum {
+  /* border: 1px solid #000; */
   font-size: 15px;
-  font-size: 800;
 }
 
 .vline {
@@ -149,15 +182,15 @@
 }
 
 .opendate {
+  /* border: 1px solid #000; */
   font-size: 15px;
-  font-size: 800;
 }
 
 .btnstate {
   display: inline-block;
   width: 110px;
   height: 40px;
-  padding: 10px 20px;
+  line-height: 40px;
   border-radius: 20px; /* 반원 형태를 만들기 위해 큰 값 사용 */
   background-color: #293462; /* 버튼 배경색 */
   color: #fff; /* 텍스트 색상 */
@@ -165,11 +198,8 @@
   text-decoration: none;
   cursor: pointer;
   font-size: 17px;
-  font-size: 600;
-  transition: background-color 0.3s ease; /* 배경색 전환 효과 */
-  border: 0;
-  margin-bottom: 1%;
-  right: 0;
+  transition: background-color 0.3s ease;
+  border: none; /* 배경색 전환 효과 */
 }
 
 .triangle {
@@ -186,20 +216,26 @@
 .opencontainer {
   display: flex;
   justify-content: space-between;
-  width: 800px;
+  width: 1200px;
 }
 
 .opencontent {
+  /* border: 1px solid green; */
   display: flex;
   margin-top: 2%;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   align-items: center;
   flex-direction: row;
   flex-wrap: nowrap;
-  margin-bottom: 1rem;
+  margin-bottom: 30px;
 }
-
+.opencontent p{
+  /* border: 1px solid #000; */
+  font-size: 17px;
+  font-weight: bold;
+  width: 135px;
+}
 .openleft {
   width: 48%;
   float: left;
@@ -207,23 +243,60 @@
 }
 
 .openright {
-  width: 48%;
-  margin-left: 29rem;
+  width: 55%;
+  margin-left: 30rem;
   font-size: 13px;
   font-weight: 500;
 }
 
 .rescontent {
-  margin-left: 4rem;
+  /* border: 1px solid red; */
+  width: 350px;
+  font-weight: normal;
 }
 
 .costshow {
   margin-top: 12rem;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: bold;
   display: flex;
   align-items: center;
   flex-direction: row;
   flex-wrap: nowrap;
   margin-bottom: 1rem;
+}
+.costshow span{
+  font-weight: bold;
+}
+
+
+/** 페이지 하단 number 버튼 디자인 부분 */
+.btnrate_wrap {
+  /* border: 1px solid red; */
+  position: relative;
+  width: 1200px;
+  margin-top: -30px;
+}
+
+.btnrate_wrap .btnrate {
+  float: right;
+  margin-right: 55px;
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 10px; /* 반원 형태를 만들기 위해 큰 값 사용 */
+  background-color: #fff; /* 버튼 배경색 */
+  color: #293462; /* 텍스트 색상 */
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid #293462;
+  font-weight: 900;
+  transition: 0.3s;
+  margin-bottom: 30px;
+}
+
+.btnrate:hover {
+  background-color: #293462; /* 마우스 호버 시 배경색 변경 */
+  color: #f5f5f5;
+  border: 2px solid #293462;
 }

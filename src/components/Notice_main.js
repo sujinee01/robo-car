@@ -97,14 +97,14 @@ function NoticeMain() {
         </div>
       </div>
       <br />
-      <div className={styles.pageList}>
+      {/* <div className={styles.pageList}>
         <div className={styles.numBtn}>
           <button className={`${styles.btn} ${styles.btnPage}`}>1</button>
         </div>
         <div className={styles.numBtn}>
           <button className={`${styles.btn} ${styles.btnPage}`}>2</button>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }
