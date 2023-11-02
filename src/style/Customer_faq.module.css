@@ -65,7 +65,9 @@
 }
 
 .triangle {
+  /* border: 1px solid #000; */
   float: right;
+  margin-right: 18px;
   transition: 0.2s;
 }
 
