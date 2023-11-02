@@ -164,23 +164,16 @@ function CustomerReviewList() {
   };
 
   const doRating = () => {
-    if (!doRatingClick) {
-      setDoRatingClick(true);
-    }
+    setDoRatingClick(!doRatingClick);
   };
 
   return (
     <div>
       {doRatingClick ? (
-        <CustomRating />
+        <CustomRating doRating={doRating} />
       ) : (
         <div className={styles.customratingcontainer}>
           <div className={styles.listcontainer}>
-            {/* <h1 className={styles.ratingtopic}>고객센터</h1>
-          <div className={styles.listbtn}>
-            <button className={styles.lockbtn}>자주 묻는 질문</button>
-            <button className={styles.checkbtn}>서비스 평가</button>
-          </div> */}
             <div className={styles.accordionContainer}>
               {reviews.map((review, index) => (
                 <div

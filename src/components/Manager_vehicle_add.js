@@ -62,10 +62,10 @@ const VehicleAdd = ({ addToggle, setAddToggle, infoReq }) => {
                 </td>
                 <td>
                   <select name="cid">
-                    <option value={"car01"}>1호차</option>
-                    <option value={"car02"}>2호차</option>
-                    <option value={"car03"}>3호차</option>
-                    <option value={"car04"}>4호차</option>
+                    <option value={"1호차"}>1호차</option>
+                    <option value={"2호차"}>2호차</option>
+                    <option value={"3호차"}>3호차</option>
+                    <option value={"4호차"}>4호차</option>
                   </select>
                 </td>
                 <td>
