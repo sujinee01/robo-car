@@ -11,6 +11,7 @@ app.use(express.json());
 // URL-encoded 형식의 요청 데이터 파싱 설정
 app.use(express.urlencoded({ extended: true }));
 
+/** [마이페이지] 데이터 요청 */
 app.post("/Mypage", (req, res) => {
   const reqTarget = req.body.reqTarget;
   const userId = req.body.userId;
@@ -262,7 +263,7 @@ app.post("/CarAdd", (req, res) => {
   });
 });
 
-/** [관리자페이지 - 회원관리] 데이터 요청 처리 */
+/** [관리자페이지] 데이터 요청 처리 */
 app.post("/ManageMember", (req, res) => {
   const reqTarget = req.body.reqTarget;
   const carId = req.body.carId;
@@ -300,8 +301,17 @@ app.post("/ManageMember", (req, res) => {
     conn.query(sql, (err, rows, fields) => {
       if (err) {
         console.log("쿼리 실행 실패: ", err);
-        res.status(500).json({ success: false, message: "쿼리 실행 오류" });
-        return;
+        if (reqTarget === "delMember") {
+          res.status(200).json({
+            success: false,
+            err,
+            message: "예약이 존재하는 계정입니다.",
+          });
+          return;
+        } else {
+          res.status(500).json({ success: false, message: "쿼리 실행 오류" });
+          return;
+        }
       }
 
       if (rows.length > 0) {
@@ -310,7 +320,8 @@ app.post("/ManageMember", (req, res) => {
           .json({ success: true, rows, message: `${reqTarget}요청 완료` });
       } else {
         res.status(200).json({
-          success: true,
+          success: false,
+          rows,
           message: `${reqTarget}요청 실패`,
         });
       }

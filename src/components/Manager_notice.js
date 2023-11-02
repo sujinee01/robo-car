@@ -52,7 +52,7 @@ function ManagerNotice() {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+
         if (data.success) {
           const updatedData = receiveData.filter(
             (notice) => notice.nb_idx !== notiIdx
@@ -63,6 +63,7 @@ function ManagerNotice() {
     } catch (error) {
       console.error("오류:", error);
     }
+    infoReq();
   };
 
   useEffect(() => {
@@ -77,10 +78,9 @@ function ManagerNotice() {
     }
   }, []);
 
-  function Notice({ notice, key }) {
+  function Notice({ notice }) {
     return (
       <tr>
-        {key}
         <td>{notice.nb_idx}</td>
         <td>{notice.nb_important}</td>
         <td>{notice.nb_title}</td>

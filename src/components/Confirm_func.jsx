@@ -12,13 +12,20 @@ const ConfirmFunc = (action) => {
     buttons: [
       {
         label: "삭제", // "예" 버튼
-        onClick: () => {
+        onClick: async () => {
           // "예"를 클릭했을 때 실행할 동작을 여기에 추가
           console.log("예를 클릭했습니다");
-          toast.success("삭제가 완료되었습니다.", {
-            theme: "colored",
-          });
-          action();
+          const chk = await action();
+
+          if (chk !== true) {
+            toast.success("삭제가 완료되었습니다.", {
+              theme: "colored",
+            });
+          }
+          // action();
+          // toast.success("삭제가 완료되었습니다.", {
+          //   theme: "colored",
+          // });
         },
       },
       {
