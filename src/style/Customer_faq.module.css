@@ -78,8 +78,7 @@
 
 /** 페이지 하단 number 버튼 디자인 부분 */
 
-.numlist {
-  /* border: 1px solid #000; */
+/* .numlist {
   width: 1200px;
   margin: auto;
   font-size: 15px;
@@ -103,4 +102,4 @@
 .btnnum:focus {
   background: #f7be16;
   color: black;
-}
+} */

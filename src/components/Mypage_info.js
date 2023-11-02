@@ -15,54 +15,57 @@ function Mypage_info() {
         </div>
         <div className={styles.hline}></div>
         <div className={styles.infocontainer}>
-          <div className={styles.infoblock}>
-            <p className={styles.infolist}>아이디</p>
-            <input className={styles.textbox} />
-          </div>
-          <br />
-          <div className={styles.infoblock}>
-            <p className={styles.infolist}>비밀번호</p>
-            <input className={styles.textbox} />
-          </div>
+          <div className={styles.infoblock_wrap}>
+            <div className={styles.infoblock}>
+              <p className={styles.infolist}>아이디</p>
+              <input className={styles.textbox} />
+            </div>
+            <div className={styles.infoblock}>
+              <p className={styles.infolist}>비밀번호</p>
+              <input className={styles.textbox} />
+            </div>
 
-          <div className={styles.infoblock}>
-            <p className={styles.infolist}>이름</p>
-            <input className={styles.textbox} />
-          </div>
+            <div className={styles.infoblock}>
+              <p className={styles.infolist}>이름</p>
+              <input className={styles.textbox} />
+            </div>
 
-          <div className={styles.infoblock}>
-            <p className={styles.infolist}>전화번호</p>
-            <input className={styles.textbox} />
-          </div>
+            <div className={styles.infoblock}>
+              <p className={styles.infolist}>전화번호</p>
+              <input className={styles.textbox} />
+            </div>
 
-          <div className={styles.infoblock}>
-            <p className={styles.infolist}>이메일</p>
-            <input className={styles.textbox} />
-          </div>
+            <div className={styles.infoblock}>
+              <p className={styles.infolist}>이메일</p>
+              <input className={styles.textbox} />
+            </div>
 
-          <div className={styles.infoblock}>
-            <p className={styles.infolist}>주소</p>
-            <div className={styles.addr_form}>
-              <input
-                className={styles.addr_input}
-                type="text"
-                name="addr1"
-                required
-              ></input>
-              <button className={styles.addrnumfind} type="submit">
-                우편번호
-              </button>
-              <br />
-              <input
-                className={styles.textbox}
-                type="text"
-                name="addr2"
-                required
-              ></input>
+            <div className={styles.infoblock}>
+              <p className={styles.infolist}>주소</p>
+              <div className={styles.addr_form}>
+                <input
+                  className={styles.addr_input}
+                  type="text"
+                  name="addr1"
+                  required
+                ></input>
+                <button className={styles.addrnumfind} type="submit">
+                  우편번호
+                </button>
+                <br />
+                <input
+                  className={styles.textbox}
+                  type="text"
+                  name="addr2"
+                  required
+                ></input>
+              </div>
             </div>
           </div>
         </div>
-        <button className={styles.modify}>수정하기</button>
+        <div className={styles.modify_wrap}>
+          <button className={styles.modify}>수정하기</button>
+        </div>
       </div>
     </div>
   );

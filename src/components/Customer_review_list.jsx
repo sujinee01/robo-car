@@ -3,7 +3,7 @@ import styles from "../style/Customer_review_list.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
-import CustomRating from "./Customer_rating";
+// import CustomRating from "./Customer_rating";
 
 function CustomerReviewList() {
   const reviews = [
@@ -142,7 +142,7 @@ function CustomerReviewList() {
 
   const [openIndex, setOpenIndex] = useState(null);
   const [arrowRotated, setArrowRotated] = useState([]);
-  const [doRatingClick, setDoRatingClick] = useState(false);
+  // const [doRatingClick, setDoRatingClick] = useState(false);
 
   const toggleAccordion = (index) => {
     // 모든 삼각형 초기화
@@ -163,88 +163,81 @@ function CustomerReviewList() {
     });
   };
 
-  const doRating = () => {
-    if (!doRatingClick) {
-      setDoRatingClick(true);
-    }
-  };
+  // const doRating = () => {
+  //   if (!doRatingClick) {
+  //     setDoRatingClick(true);
+  //   }
+  // };
 
   return (
     <div>
-      {doRatingClick ? (
+      {/* {doRatingClick ? (
         <CustomRating />
-      ) : (
-        <div className={styles.customratingcontainer}>
-          <div className={styles.listcontainer}>
-            {/* <h1 className={styles.ratingtopic}>고객센터</h1>
-          <div className={styles.listbtn}>
-            <button className={styles.lockbtn}>자주 묻는 질문</button>
-            <button className={styles.checkbtn}>서비스 평가</button>
-          </div> */}
-            <div className={styles.accordionContainer}>
-              {reviews.map((review, index) => (
+      ) : ( */}
+      <div className={styles.customratingcontainer}>
+        <div className={styles.listcontainer}>
+          <div className={styles.accordionContainer}>
+            {reviews.map((review, index) => (
+              <div
+                key={index}
+                className={`${styles.accordionItem} ${
+                  openIndex === index ? styles.open : ""
+                }`}
+              >
                 <div
-                  key={index}
-                  className={`${styles.accordionItem} ${
-                    openIndex === index ? styles.open : ""
-                  }`}
+                  className={styles.accordionHeader}
+                  onClick={() => toggleAccordion(index)}
                 >
-                  <div
-                    className={styles.accordionHeader}
-                    onClick={() => toggleAccordion(index)}
+                  <span className={styles.num}>{review.num}</span>
+                  <span className={styles.title}>{review.title}</span>
+                  <div className={styles.person}>
+                    <span className={styles.author}>{review.author}</span>
+                  </div>
+                  <p
+                    className={`${styles.triangle} ${
+                      arrowRotated[index] ? styles.rotate : ""
+                    }`}
                   >
-                    <span className={styles.num}>{review.num}</span>
-                    <span className={styles.title}>{review.title}</span>
-                    <div className={styles.person}>
-                      <span className={styles.author}>{review.author}</span>
-                    </div>
-                    <p
-                      className={`${styles.triangle} ${
-                        arrowRotated[index] ? styles.rotate : ""
-                      }`}
-                    >
-                      <FontAwesomeIcon icon={faChevronLeft} />
-                    </p>
-                  </div>
-                  <div className={styles.openontainer}>
-                    {openIndex === index && (
-                      <div className={styles.content}>
-                        <div className={styles.openstar}>
-                          <span className={styles.rating}>{review.rating}</span>
-                        </div>
-                        <div className={styles.openwriter}>
-                          <p>작성자: </p>
-                          <span className={styles.author}>{review.author}</span>
-                        </div>
-                        <div className={styles.opencar}>
-                          <p>이용 차량번호: </p>
-                          <span className={styles.car}>{review.car}</span>
-                        </div>
-                        <div className={styles.opensatisfy}>
-                          <p>만족도: </p>
-                          <span className={styles.satisfy}>
-                            {review.satisfy}
-                          </span>
-                        </div>
-                        <div className={styles.opencontent}>
-                          <p>{review.content}</p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
+                    <FontAwesomeIcon icon={faChevronLeft} />
+                  </p>
                 </div>
-              ))}
-            </div>
-            <div className={styles.btnrate_wrap}>
+                <div className={styles.openontainer}>
+                  {openIndex === index && (
+                    <div className={styles.content}>
+                      <div className={styles.openstar}>
+                        <span className={styles.rating}>{review.rating}</span>
+                      </div>
+                      <div className={styles.openwriter}>
+                        <p>작성자: </p>
+                        <span className={styles.author}>{review.author}</span>
+                      </div>
+                      <div className={styles.opencar}>
+                        <p>이용 차량번호: </p>
+                        <span className={styles.car}>{review.car}</span>
+                      </div>
+                      <div className={styles.opensatisfy}>
+                        <p>만족도: </p>
+                        <span className={styles.satisfy}>{review.satisfy}</span>
+                      </div>
+                      <div className={styles.opencontent}>
+                        <p>{review.content}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+          {/* <div className={styles.btnrate_wrap}>
               <button className={styles.btnrate} onClick={doRating}>
                 서비스 평가하기
               </button>
-            </div>
-            <div className={styles.numlist}>
+            </div> */}
+          {/* <div className={styles.numlist}>
               <button className={styles.btnnum}>1</button>
               <button className={styles.btnnum}>2</button>
-            </div>
-            {/* <div className={styles.explantext}>
+            </div> */}
+          {/* <div className={styles.explantext}>
               <div className={styles.customexplan}>
                 <p className={styles.explantel}>1544-0000 </p>
               </div>
@@ -256,9 +249,9 @@ function CustomerReviewList() {
                 </p>
               </div>
             </div> */}
-          </div>
         </div>
-      )}
+      </div>
+      {/* )} */}
     </div>
   );
 }
