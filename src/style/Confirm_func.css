@@ -1,0 +1,32 @@
+.react-confirm-alert-body > h1 {
+  margin-top: 0;
+  color: var(--cancel-color);
+}
+
+.react-confirm-alert-button-group > button {
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.react-confirm-alert-button-group > button[label="삭제"] {
+  border: 2px solid var(--cancel-color);
+  background-color: white;
+  color: black;
+}
+.react-confirm-alert-button-group > button[label="삭제"]:hover {
+  background-color: var(--cancel-color);
+  color: white;
+  transition: 0.3s;
+}
+
+.react-confirm-alert-button-group > button[label="돌아가기"] {
+  border: 2px solid var(--main-color);
+  background-color: var(--main-color);
+  color: white;
+}
+.react-confirm-alert-button-group > button[label="돌아가기"]:hover {
+  border: 2px solid var(--sub-color);
+  background-color: var(--sub-color);
+  color: black;
+  transition: 0.3s;
+}
