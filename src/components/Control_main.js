@@ -2,6 +2,11 @@
  파일명 = 언더바 사용
  컴포넌트(모듈)명 = 낙타형 선언
 */
+/*
+아래에 2개 install 해줘야 에러가 나지 않습니다
+npm install http-proxy-middleware // npm 사용 일 경우
+npm install axios
+*/
 import React, { useEffect, useState } from "react";
 import styles from "../style/Control_main.module.css";
 import BatteryStatus from "./Batterystatus";
@@ -13,6 +18,7 @@ import {
   faMapLocationDot,
   faEye,
 } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 const { kakao } = window;
 
 /** 사이드 메뉴 선택시 해당하는 내용을 보여주는 부분 */
@@ -266,6 +272,39 @@ const SideMenu = () => {
 
 /** 관제화면 지도 생성 및 사이드바/차량 정보 확인 관련 기능 */
 const ControlMain = () => {
+  // src/App.js
+  useEffect(() => {
+    const fetchdata = async () => {
+      // const  data  = await axios.get("/service/EvInfoServiceV2", {
+      //   params: {
+      //     serviceKey:
+      //       "Qv4x3BQfuVNWucObH5c5ozxzFaZgcDGsM89ELePqaBGVVt6NvIZpEw1MEL9cofLNgckCDIP4fk1%2FDaUWsTEcxg%3D%3D",
+      //     numOfRows: 1,
+      //     pageNo: 10,
+      //     addr: "서울특별시",
+      //   },
+      // });
+      console.log("======================");
+      const data2 = await axios
+        .get("/service/EvInfoServiceV2/getEvSearchList", {
+          params: {
+            serviceKey:
+              "JKivvxMVQ+mDxqbBrdCvF8UQtFJUsQBKZlrCiULVIaqyBYb3MtzsJxLx8/5lSmcCjkQEWa/xC12eu0xHqerA1Q==",
+            numOfRows: 10,
+            pageNo: 1,
+            addr: "서울특별시",
+          },
+          withCredentials: true,
+        })
+        .then((res) => {
+          console.log(res.data);
+          console.log("성공");
+        });
+      // console.log(data);
+    };
+    fetchdata();
+  }, []);
+
   useEffect(() => {
     var mapContainer = document.getElementById("map"), // 지도를 표시할 div
       mapOption = {
