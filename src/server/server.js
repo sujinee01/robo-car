@@ -47,6 +47,7 @@ app.post("/Mypage", (req, res) => {
         });
       }
     });
+    conn.release();
   });
 });
 
@@ -59,6 +60,7 @@ app.post("/ReviewAdd", (req, res) => {
   const car = body.car;
   const rating = body.rating;
   const content = body.content;
+  const resvNo = body.resvNo;
 
   db.getConnection((err, conn) => {
     console.log("리뷰등록 요청");
@@ -68,8 +70,8 @@ app.post("/ReviewAdd", (req, res) => {
       return;
     }
     console.log("MySQL 연결 성공");
-    const sql = `INSERT INTO review_board(rb_title, rb_auth, rb_content, rb_rating, rb_usedCarId) VALUES (?,?,?,?,?)`;
-    const params = [title, auth, content, rating, car];
+    const sql = `INSERT INTO review_board(rb_title, rb_auth, rb_content, rb_rating, rb_usedCarId, reservation_resv_no) VALUES (?,?,?,?,?,?)`;
+    const params = [title, auth, content, rating, car, resvNo];
 
     conn.query(sql, params, (err, result, fields) => {
       console.log(params);
@@ -83,7 +85,33 @@ app.post("/ReviewAdd", (req, res) => {
       if (result) {
         console.log(result);
         console.log("리뷰 등록 성공!");
-        res.status(200).json({ success: true, message: "리뷰 등록 성공" });
+        res.status(200).json({
+          success: true,
+          message: "리뷰 등록이 완료 되었습니다!",
+        });
+
+        // reservation 테이블 업데이트 쿼리
+        const updateSQL =
+          "UPDATE reservation SET resv_review_chk = 1 WHERE resv_no = ?";
+        conn.query(updateSQL, [resvNo], (err, result, fields) => {
+          if (err) {
+            console.log("reservation 테이블 업데이트 실패:");
+            console.dir(err);
+            res.status(500).json({
+              success: false,
+              message: "reservation 테이블 업데이트 실패",
+            });
+            return;
+          }
+          if (result) {
+            console.log("reservation 테이블 업데이트 성공!");
+          } else {
+            res.status(500).json({
+              success: false,
+              message: "reservation 테이블 업데이트 실패",
+            });
+          }
+        });
       } else {
         res.status(500).json({ success: false, message: "리뷰 등록 실패" });
       }

@@ -87,7 +87,11 @@ const Mypage = () => {
             </Btn>
           </div>
         </div>
-        {activeTab === "개인정보 수정" ? <MypageInfo /> : <MypageConf />}
+        {activeTab === "개인정보 수정" ? (
+          <MypageInfo />
+        ) : (
+          <MypageConf resvData={receiveData} />
+        )}
       </div>
     </div>
   );
