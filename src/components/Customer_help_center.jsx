@@ -21,14 +21,39 @@ const Btn = styled.button`
 /** 고객 센터 페이지 */
 const CustomerHelpCenter = () => {
   const [activeTab, setActiveTab] = useState("자주 묻는 질문");
+  const [receiveData, setReceiveData] = useState([]);
 
   useEffect(() => {
-    if (activeTab) {
-    }
+    if (activeTab === "서비스 평가") infoReq();
   }, [activeTab]);
 
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
+  };
+
+  const infoReq = async () => {
+    const reqTarget = "review";
+
+    try {
+      const response = await fetch("/Review", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ reqTarget }), // 요청하는 데이터
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const receiveData = data["rows"]; // 쿼리 수행으로 받아온 테이블 데이터
+        if (data.success) {
+          setReceiveData(receiveData); // 받아온 데이터 useState 변수에 저장
+          console.log(receiveData);
+        }
+      }
+    } catch (error) {
+      console.error("오류:", error);
+    }
   };
 
   return (
@@ -61,7 +86,7 @@ const CustomerHelpCenter = () => {
       {activeTab === "자주 묻는 질문" ? (
         <CustomerFaq />
       ) : (
-        <CustomerReviewList />
+        <CustomerReviewList reviewData={receiveData} />
       )}
     </div>
   );

@@ -5,7 +5,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 // import CustomRating from "./Customer_rating";
 
-function CustomerReviewList() {
+function CustomerReviewList({ reviewData }) {
   const reviews = [
     {
       num: "05.",
@@ -34,110 +34,6 @@ function CustomerReviewList() {
       ),
       content: "운송예약 잘 이용했습니다. 다음에도 이용할게요.",
     },
-    // 다른 리뷰 데이터 추가
-
-    {
-      num: "04.",
-      title: "만족스러운 이용",
-      author: "김철수",
-      car: "12가 1234",
-      satisfy: "4",
-      rating: (
-        <div>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-        </div>
-      ),
-      content: "운송예약 잘 이용했습니다.",
-    },
-    {
-      num: "03.",
-      title: "만족스러운 이용",
-      author: "한민성",
-      car: "98미4532",
-      satisfy: "5",
-      rating: (
-        <div>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-        </div>
-      ),
-      content: "간편하니 좋네요. 다음에도 이용하겠습니다",
-    },
-    {
-      num: "02.",
-      title: "만족스러운 이용",
-      author: "박다라",
-      car: "12가1234",
-      satisfy: "5",
-      rating: (
-        <div>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-        </div>
-      ),
-      content: "간편하니 이용하기 좋네요 감사합니다",
-    },
-    {
-      num: "01.",
-      title: "만족스러운 이용",
-      author: "박하나",
-      car: "21다4356",
-      satisfy: "4",
-      rating: (
-        <div>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-        </div>
-      ),
-      content: "운송예약부터 배송까지 빠르고 좋습니다.",
-    },
   ];
 
   const [openIndex, setOpenIndex] = useState(null);
@@ -163,21 +59,12 @@ function CustomerReviewList() {
     });
   };
 
-  // const doRating = () => {
-  //   if (!doRatingClick) {
-  //     setDoRatingClick(true);
-  //   }
-  // };
-
   return (
     <div>
-      {/* {doRatingClick ? (
-        <CustomRating />
-      ) : ( */}
       <div className={styles.customratingcontainer}>
         <div className={styles.listcontainer}>
           <div className={styles.accordionContainer}>
-            {reviews.map((review, index) => (
+            {reviewData.map((review, index) => (
               <div
                 key={index}
                 className={`${styles.accordionItem} ${
@@ -188,10 +75,13 @@ function CustomerReviewList() {
                   className={styles.accordionHeader}
                   onClick={() => toggleAccordion(index)}
                 >
-                  <span className={styles.num}>{review.num}</span>
-                  <span className={styles.title}>{review.title}</span>
+                  <span className={styles.num}>No.{review.rb_idx}</span>
+                  <span className={styles.title}>{review.rb_title}</span>
+                  <div className={styles.rating_box}>
+                    별점 {"⭐️".repeat(review.rb_rating)}
+                  </div>
                   <div className={styles.person}>
-                    <span className={styles.author}>{review.author}</span>
+                    <span className={styles.author}>{review.rb_auth}</span>
                   </div>
                   <p
                     className={`${styles.triangle} ${
@@ -205,22 +95,26 @@ function CustomerReviewList() {
                   {openIndex === index && (
                     <div className={styles.content}>
                       <div className={styles.openstar}>
-                        <span className={styles.rating}>{review.rating}</span>
+                        <span className={styles.rating}></span>
                       </div>
                       <div className={styles.openwriter}>
                         <p>작성자: </p>
-                        <span className={styles.author}>{review.author}</span>
+                        <span className={styles.author}>{review.rb_auth}</span>
                       </div>
                       <div className={styles.opencar}>
                         <p>이용 차량번호: </p>
-                        <span className={styles.car}>{review.car}</span>
+                        <span className={styles.car}>
+                          {review.rb_usedCarId}
+                        </span>
                       </div>
                       <div className={styles.opensatisfy}>
                         <p>만족도: </p>
-                        <span className={styles.satisfy}>{review.satisfy}</span>
+                        <span className={styles.satisfy}>
+                          {review.rb_rating}
+                        </span>
                       </div>
                       <div className={styles.opencontent}>
-                        <p>{review.content}</p>
+                        <p>{review.rb_content}</p>
                       </div>
                     </div>
                   )}
