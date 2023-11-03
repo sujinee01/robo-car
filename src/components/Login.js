@@ -97,12 +97,12 @@ function Login() {
           <input className={styles.password} type="password" name="password" />
           <br />
           <button className={styles.login_comple} type="submit">
-            <strong>로그인</strong>
+           로그인
           </button>
           <br />
           <br />
           <a href="#" className={styles.go_join} onClick={signUpToast}>
-            회원가입
+            <span>회원가입</span>
           </a>
         </form>
         {/* )} */}
