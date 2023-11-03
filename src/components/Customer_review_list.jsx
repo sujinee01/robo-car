@@ -184,7 +184,6 @@ function CustomerReviewList() {
                   openIndex === index ? styles.open : ""
                 }`}
               >
-
                 <div
                   className={styles.accordionHeader}
                   onClick={() => toggleAccordion(index)}
@@ -229,30 +228,8 @@ function CustomerReviewList() {
               </div>
             ))}
           </div>
-          {/* <div className={styles.btnrate_wrap}>
-              <button className={styles.btnrate} onClick={doRating}>
-                서비스 평가하기
-              </button>
-            </div> */}
-          {/* <div className={styles.numlist}>
-              <button className={styles.btnnum}>1</button>
-              <button className={styles.btnnum}>2</button>
-            </div> */}
-          {/* <div className={styles.explantext}>
-              <div className={styles.customexplan}>
-                <p className={styles.explantel}>1544-0000 </p>
-              </div>
-              <div className={styles.customguide}>
-                <p className={styles.explancontent}>
-                  상담안내시간
-                  <br />
-                  평일(09:00~18:00)주말(10:00~14:00)
-                </p>
-              </div>
-            </div> */}
         </div>
       </div>
-      {/* )} */}
     </div>
   );
 }

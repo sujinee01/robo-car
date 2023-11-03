@@ -16,7 +16,8 @@
   display: flex;
   justify-content: center; /* 수평 가운데 정렬 */
   align-items: center;
-  margin-top: 50px;  margin: 0 auto;
+  margin-top: 50px;
+  margin: 0 auto;
 }
 
 .myconfcontain {
@@ -38,16 +39,15 @@
   margin-bottom: 2%;
 }
 
-.confirmtopic{
+.confirmtopic {
   /* border: 1px solid #000; */
 }
 /** 타이틀 아래 버튼 디자인 부분 */
 
-/* .choosebtn {
-  margin-top: 2%;
-  margin-bottom: 3%;
+.choosebtn {
+  height: 50px;
 }
-
+/*
 .selectbtn {
   width: 400px;
   height: 50px;
@@ -159,14 +159,14 @@
   border-bottom: 1px solid #dedfe0;
 }
 
-.accordionItem:first-child{
+.accordionItem:first-child {
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
 }
 
 .accordionItem .content {
   background: #f5f5f5;
- padding-top: 20px;
+  padding-top: 20px;
 }
 
 /* 아코디언 헤더 내용*/
@@ -230,7 +230,7 @@
   flex-wrap: nowrap;
   margin-bottom: 30px;
 }
-.opencontent p{
+.opencontent p {
   /* border: 1px solid #000; */
   font-size: 17px;
   font-weight: bold;
@@ -265,10 +265,9 @@
   flex-wrap: nowrap;
   margin-bottom: 1rem;
 }
-.costshow span{
+.costshow span {
   font-weight: bold;
 }
-
 
 /** 페이지 하단 number 버튼 디자인 부분 */
 .btnrate_wrap {
@@ -299,4 +298,9 @@
   background-color: #293462; /* 마우스 호버 시 배경색 변경 */
   color: #f5f5f5;
   border: 2px solid #293462;
+}
+.btnrate:disabled {
+  color: white;
+  background-color: var(--main-color);
+  cursor: auto;
 }

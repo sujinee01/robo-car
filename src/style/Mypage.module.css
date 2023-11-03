@@ -1,6 +1,6 @@
 .btn:hover,
 .active {
   background: #f7be16 !important;
-  font-weight: 900 !important;
+  /* font-weight: 900 !important; */
   transition: 0.2s;
 }

@@ -1,21 +1,19 @@
 import React from "react";
 import styles from "../style/Customer_rating.module.css";
+import { toast } from "react-toastify";
 
-function CustomRating({ doRating }) {
-  const backToReview = () => {
-    doRating();
-  };
-
+function CustomRating({ doRating, targetResv }) {
+  console.log(targetResv);
   const addReview = async (e) => {
     e.preventDefault();
-    doRating();
 
     const formData = new FormData(e.target);
     const auth = localStorage.getItem("id");
     const title = formData.get("title");
-    const car = formData.get("car");
+    const car = targetResv.resv_carselect;
     const rating = formData.get("rating");
     const content = formData.get("content");
+    const resvNo = targetResv.resv_no;
 
     try {
       const response = await fetch("/ReviewAdd", {
@@ -29,14 +27,21 @@ function CustomRating({ doRating }) {
           car,
           rating,
           content,
+          resvNo,
         }),
       });
 
       if (response.ok) {
         const data = await response.json();
+        toast.success(`${data.message}`, {
+          theme: "colored",
+        });
+        setTimeout(() => {
+          doRating();
+        }, 1000);
       }
     } catch {
-      console.log("차량 등록 오류");
+      console.log("리뷰 등록 오류");
     }
   };
 
@@ -56,13 +61,11 @@ function CustomRating({ doRating }) {
           </div>
           <div className={styles.rating_car}>
             <p>이용차량</p>
-            <select className={styles.carinput} name="car" id="car">
-              <option value="car1">12가1234</option>
-              <option value="car2">23나2345</option>
-              <option value="car3">21다4356</option>
-              <option value="car4">98미4532</option>
-              <option value="car5">12가9834</option>
-            </select>
+            <div className={styles.carinput} name="car" id="car">
+              <div value={targetResv.resv_carselect}>
+                {targetResv.resv_carselect}_{targetResv.resv_no}
+              </div>
+            </div>
           </div>
           <div className={styles.rating_satis}>
             <p>이용만족도</p>
@@ -93,7 +96,7 @@ function CustomRating({ doRating }) {
         <button className={styles.sendrating} type="submit">
           등록
         </button>
-        <button className={styles.sendrating_back} onClick={backToReview}>
+        <button className={styles.sendrating_back} onClick={doRating}>
           돌아가기
         </button>
       </div>

@@ -4,14 +4,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import CustomRating from "./Customer_rating";
 
-function Mypage_confirm() {
+function Mypage_confirm({ resvData }) {
   const [openIndex, setOpenIndex] = useState(null);
   const [arrowRotated, setArrowRotated] = useState([]);
   const [doRatingClick, setDoRatingClick] = useState(false);
+  const [reviews, setReviews] = useState([]);
+  const [selectedResv, setSelectedResv] = useState("");
+
+  if (resvData && resvData !== reviews) {
+    setReviews(resvData);
+  }
 
   const toggleAccordion = (index) => {
     // 모든 삼각형 초기화
-    setArrowRotated(Array(confirms.length).fill(false));
+    setArrowRotated(Array(reviews.length).fill(false));
     // 삼각형 회전 상태를 설정
     setArrowRotated((prevArrowRotated) => {
       const newArrowRotated = [...prevArrowRotated];
@@ -29,74 +35,23 @@ function Mypage_confirm() {
   };
 
   const doRating = () => {
-    if (!doRatingClick) {
-      setDoRatingClick(true);
-    }
+    setDoRatingClick(!doRatingClick);
   };
-
-  const confirms = [
-    {
-      state: "예약완료",
-      num: "23523-23424",
-      date: "2023-10-10",
-      depart: "출발지",
-      arrive: "도착지",
-      car: "배송차량",
-      option: "배송옵션",
-      explain: "배송물품설명",
-      sendtel: "발송자연락처",
-      receitel: "수령인연락처",
-      memo: "메모내용",
-      cost: "5000원",
-    },
-    // 다른 리뷰 데이터 추가
-    {
-      state: "배송완료",
-      num: "23523-23424",
-      date: "2023-10-10",
-      depart: "출발지",
-      arrive: "도착지",
-      car: "배송차량",
-      option: "배송옵션",
-      explain: "배송물품설명",
-      sendtel: "발송자연락처",
-      receitel: "수령인연락처",
-      memo: "메모내용",
-      cost: "7000원",
-    },
-    {
-      state: "배송완료",
-      num: "23523-23424",
-      date: "2023-10-10",
-      depart: "출발지",
-      arrive: "도착지",
-      car: "배송차량",
-      option: "배송옵션",
-      explain: "배송물품설명",
-      sendtel: "발송자연락처",
-      receitel: "수령인연락처",
-      memo: "메모내용",
-      cost: "15000원",
-    },
-  ];
+  // 예약 내역 없는 경우 예외처리 필요!!!!!!
+  // reservation 테이블에서 예약 건에 대한 리뷰 작성 여부 확인할 속성 추가 필요!
   return (
     <>
       {doRatingClick ? (
-        <CustomRating />
+        <CustomRating doRating={doRating} targetResv={selectedResv} />
       ) : (
         <div className={styles.mypageconfirmcontainer}>
           <div className={styles.myconfirmcontain}>
             <div className={styles.confirmtopic}>
-              {/* <h1 className={styles.conftopic}>마이페이지</h1>
-          <div className={styles.choosebtn}>
-            <button className={styles.leftbtn}>개인정보 수정</button>
-            <button className={styles.selectbtn}>예약내역</button>
-          </div> */}
               <p className={styles.pagetopic}>예약내역</p>
               <div className={styles.hline}></div>
             </div>
             <div className={styles.accordionContainer}>
-              {confirms.map((confirm, index) => (
+              {reviews.map((review, index) => (
                 <div
                   key={index}
                   className={`${styles.accordionItem} ${
@@ -108,16 +63,16 @@ function Mypage_confirm() {
                     onClick={() => toggleAccordion(index)}
                   >
                     <button className={styles.btnstate}>
-                      <span className={styles.state}>{confirm.state}</span>
+                      <span className={styles.state}>{review.resv_state}</span>
                     </button>
                     <div className={styles.opennum}>
                       <p>예약번호</p>
-                      <span className={styles.author}>{confirm.num}</span>
+                      <span className={styles.author}>{review.resv_no}</span>
                     </div>
                     <div className={styles.vline}></div>
                     <div className={styles.opendate}>
                       <p>예약일시</p>
-                      <span className={styles.date}>{confirm.date}</span>
+                      <span className={styles.date}>{review.resv_date}</span>
                     </div>
                     <p
                       className={`${styles.triangle} ${
@@ -136,7 +91,7 @@ function Mypage_confirm() {
                               발송지&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </p>
                             <span className={styles.rescontent}>
-                              {confirm.depart}
+                              {review.resv_start}
                             </span>
                           </div>
                           <div className={styles.opencontent}>
@@ -144,25 +99,25 @@ function Mypage_confirm() {
                               도착지&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </p>
                             <span className={styles.rescontent}>
-                              {confirm.arrive}
+                              {review.resv_destin}
                             </span>
                           </div>
                           <div className={styles.opencontent}>
                             <p>배송차량&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                             <span className={styles.rescontent}>
-                              {confirm.car}
+                              {review.resv_carselect}
                             </span>
                           </div>
                           <div className={styles.opencontent}>
                             <p>배송옵션&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                             <span className={styles.rescontent}>
-                              {confirm.option}
+                              {review.resv_delivopt}
                             </span>
                           </div>
                           <div className={styles.opencontent}>
                             <p>배송물품설명</p>
                             <span className={styles.rescontent}>
-                              {confirm.explain}
+                              {review.resv_info}
                             </span>
                           </div>
                         </div>
@@ -170,13 +125,13 @@ function Mypage_confirm() {
                           <div className={styles.opencontent}>
                             <p>발송자 연락처</p>
                             <span className={styles.rescontent}>
-                              {confirm.sendtel}
+                              {review.resv_ord_tel}
                             </span>
                           </div>
                           <div className={styles.opencontent}>
                             <p>수령인 연락처</p>
                             <span className={styles.rescontent}>
-                              {confirm.receitel}
+                              {review.resv_recip_tel}
                             </span>
                           </div>
                           <div className={styles.opencontent}>
@@ -184,7 +139,7 @@ function Mypage_confirm() {
                               메모&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </p>
                             <span className={styles.rescontent}>
-                              {confirm.memo}
+                              {review.resv_memo}
                             </span>
                           </div>
                           <div className={styles.opencontent}>
@@ -193,15 +148,27 @@ function Mypage_confirm() {
                                 결제금액:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                               </p>
                               <span className={styles.rescontent}>
-                                {confirm.cost}
+                                {review.resv_price.toLocaleString()}원
                               </span>
                             </div>
                           </div>
                         </div>
                         <div className={styles.btnrate_wrap}>
-                          <button className={styles.btnrate} onClick={doRating}>
-                            서비스 평가하기
-                          </button>
+                          {review.resv_review_chk === 0 ? (
+                            <button
+                              className={styles.btnrate}
+                              onClick={() => {
+                                setSelectedResv(review);
+                                doRating();
+                              }}
+                            >
+                              서비스 평가하기
+                            </button>
+                          ) : (
+                            <button className={styles.btnrate} disabled>
+                              평가완료
+                            </button>
+                          )}
                         </div>
                       </div>
                     )}
