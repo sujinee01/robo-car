@@ -12,13 +12,9 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.0",
     "express": "^4.18.2",
-<<<<<<< HEAD
     "http-proxy-middleware": "^2.0.6",
-=======
     "http": "^0.0.1-security",
-    "http-proxy-middleware": "^2.0.6",
     "https": "^1.0.0",
->>>>>>> 8b0301631050db4bc807230edee57d375d593701
     "mysql2": "^3.6.2",
     "nodemon": "^3.0.1",
     "querystring": "^0.2.1",
