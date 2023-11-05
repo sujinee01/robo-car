@@ -4,13 +4,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import NoticeAdd from "./Manager_notice_add";
 import ConfirmFunc from "./Confirm_func";
+import NoticeModify from "./Manager_notice_modify";
 
 function ManagerNotice() {
   const [addToggle, setAddToggle] = useState(false);
+  const [modiToggle, setModiToggle] = useState(false);
   const [receiveData, setReceiveData] = useState([]);
+  const [targetNotice, setTargetNotice] = useState([]);
 
   const handleAdd = () => {
     setAddToggle(!addToggle);
+  };
+  const handleModify = (notice) => {
+    setTargetNotice(notice);
+    setModiToggle(!modiToggle);
   };
 
   const infoReq = async () => {
@@ -73,6 +80,12 @@ function ManagerNotice() {
   }, [addToggle]);
 
   useEffect(() => {
+    if (modiToggle === false) {
+      infoReq();
+    }
+  }, [modiToggle]);
+
+  useEffect(() => {
     if (addToggle === false) {
       infoReq();
     }
@@ -87,7 +100,7 @@ function ManagerNotice() {
         <td>{notice.nb_auth}</td>
         <td>
           {/*수정버튼*/}
-          <button>
+          <button onClick={() => handleModify(notice)}>
             <FontAwesomeIcon
               icon={faPenToSquare}
               className={styles.faPenToSquare}
@@ -108,6 +121,8 @@ function ManagerNotice() {
     <>
       {addToggle ? (
         <NoticeAdd handleAdd={handleAdd} />
+      ) : modiToggle ? (
+        <NoticeModify handleModify={handleModify} notice={targetNotice} />
       ) : (
         <div className={styles.notice_wrap}>
           {receiveData ? (

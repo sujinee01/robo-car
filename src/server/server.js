@@ -30,14 +30,12 @@ app.post("/ManageHome", (req, res) => {
       if (rows.length > 0) {
         const sql2 = "SELECT COUNT(*) as row_count FROM car_list";
         conn.query(sql2, (err, rows2) => {
-          res
-            .status(200)
-            .json({
-              success: true,
-              rows,
-              rows2,
-              message: `Home 데이터 요청 완료`,
-            });
+          res.status(200).json({
+            success: true,
+            rows,
+            rows2,
+            message: `Home 데이터 요청 완료`,
+          });
         });
       } else {
         res.status(200).json({
@@ -228,42 +226,77 @@ app.post("/ReviewAdd", (req, res) => {
 app.post("/NotiAdd", (req, res) => {
   const body = req.body;
 
+  const modify = body.modify;
+  const targetIdx = body.targetIdx;
+
   const auth = body.auth;
   const title = body.title;
   const content = body.content;
   const important = body.important;
-  console.log(title, content, auth, important);
-  db.getConnection((err, conn) => {
-    console.log("운송예약 요청");
-    if (err) {
-      console.log("MySQL 연결 실패:", err);
-      res.status(500).json({ success: false, message: "MySQL 연결 실패" });
-      return;
-    }
-    console.log("MySQL 연결 성공");
-    const sql = `INSERT INTO notice_board(nb_title,nb_content,nb_auth,nb_important) VALUES (?,?,?,?)`;
-    const params = [title, content, auth, important];
 
-    conn.query(sql, params, (err, result, fields) => {
-      console.log(params);
-      console.log("실행쿼리: " + sql);
+  if (modify) {
+    db.getConnection((err, conn) => {
+      console.log("공지 수정 요청");
       if (err) {
-        console.log("쿼리 실행 실패:");
-        console.dir(err);
-        res.status(500).json({ success: false, message: "쿼리 실행 실패" });
+        console.log("MySQL 연결 실패:", err);
+        res.status(500).json({ success: false, message: "MySQL 연결 실패" });
         return;
       }
-      if (result) {
-        console.log(result);
-        console.log("공지 등록 성공!");
-        res.status(200).json({ success: true, message: "예약 성공" });
-      } else {
-        res.status(500).json({ success: false, message: "예약 실패" });
-      }
-    });
+      console.log("MySQL 연결 성공");
+      const sql = `UPDATE notice_board SET nb_title = "${title}", nb_content = "${content}", nb_auth = "${auth}", nb_important = "${important}" WHERE nb_idx = ${targetIdx}`;
 
-    conn.release();
-  });
+      conn.query(sql, (err, result, fields) => {
+        console.log("실행쿼리: " + sql);
+        if (err) {
+          console.log("쿼리 실행 실패:");
+          console.dir(err);
+          res.status(500).json({ success: false, message: "쿼리 실행 실패" });
+          return;
+        }
+        if (result) {
+          console.log(result);
+          console.log("공지 수정 성공!");
+          res.status(200).json({ success: true, message: "예약 성공" });
+        } else {
+          res.status(500).json({ success: false, message: "예약 실패" });
+        }
+      });
+
+      conn.release();
+    });
+  } else {
+    db.getConnection((err, conn) => {
+      console.log("운송예약 요청");
+      if (err) {
+        console.log("MySQL 연결 실패:", err);
+        res.status(500).json({ success: false, message: "MySQL 연결 실패" });
+        return;
+      }
+      console.log("MySQL 연결 성공");
+      const sql = `INSERT INTO notice_board(nb_title,nb_content,nb_auth,nb_important) VALUES (?,?,?,?)`;
+      const params = [title, content, auth, important];
+
+      conn.query(sql, params, (err, result, fields) => {
+        console.log(params);
+        console.log("실행쿼리: " + sql);
+        if (err) {
+          console.log("쿼리 실행 실패:");
+          console.dir(err);
+          res.status(500).json({ success: false, message: "쿼리 실행 실패" });
+          return;
+        }
+        if (result) {
+          console.log(result);
+          console.log("공지 등록 성공!");
+          res.status(200).json({ success: true, message: "예약 성공" });
+        } else {
+          res.status(500).json({ success: false, message: "예약 실패" });
+        }
+      });
+
+      conn.release();
+    });
+  }
 });
 
 /** 운송 예약 데이터 처리 */
