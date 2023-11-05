@@ -11,6 +11,45 @@ app.use(express.json());
 // URL-encoded 형식의 요청 데이터 파싱 설정
 app.use(express.urlencoded({ extended: true }));
 
+/** [관리자페이지 - Home] 데이터 처리 */
+app.post("/ManageHome", (req, res) => {
+  console.log("관리자 페이지 상황판 요청");
+
+  db.getConnection((err, conn) => {
+    if (err) console.log("MySQL 연결 실패");
+
+    const sql = "SELECT * FROM reservation";
+
+    conn.query(sql, (err, rows) => {
+      if (err) {
+        console.log("쿼리 실행 실패: ", err);
+        res.status(500).json({ success: false, message: "쿼리 실행 오류" });
+        return;
+      }
+
+      if (rows.length > 0) {
+        const sql2 = "SELECT COUNT(*) as row_count FROM car_list";
+        conn.query(sql2, (err, rows2) => {
+          res
+            .status(200)
+            .json({
+              success: true,
+              rows,
+              rows2,
+              message: `Home 데이터 요청 완료`,
+            });
+        });
+      } else {
+        res.status(200).json({
+          success: true,
+          message: `Home 데이터 요청 실패`,
+        });
+      }
+    });
+    conn.release();
+  });
+});
+
 /** [공지사항] 데이터 요청 처리 */
 app.post("/Notice", (req, res) => {
   console.log(`공지사항 데이터 요청`);
