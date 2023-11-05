@@ -272,6 +272,7 @@ const SideMenu = () => {
 
 /** 관제화면 지도 생성 및 사이드바/차량 정보 확인 관련 기능 */
 const ControlMain = () => {
+  const [positions, setPositions] = useState([]);
   // src/App.js
   useEffect(() => {
     const fetchdata = async () => {
@@ -290,9 +291,9 @@ const ControlMain = () => {
           params: {
             serviceKey:
               "JKivvxMVQ+mDxqbBrdCvF8UQtFJUsQBKZlrCiULVIaqyBYb3MtzsJxLx8/5lSmcCjkQEWa/xC12eu0xHqerA1Q==",
-            numOfRows: 10,
-            pageNo: 1,
-            addr: "서울특별시",
+            numOfRows: 10, //표시할 데이터 개수
+            pageNo: 1, //몇 페이지에서 가져올지
+            addr: "서울특별시 종로구", //주소를 구체화하면 차량관제 화면에 보이는 마커가 더 많아질 것 같습니다.
           },
           withCredentials: true,
         })
@@ -303,9 +304,48 @@ const ControlMain = () => {
       // console.log(data);
     };
     fetchdata();
-  }, []);
+    const catchdata = async () => {
+      try {
+        const response = await axios.get(
+          "/service/EvInfoServiceV2/getEvSearchList",
+          {
+            params: {
+              serviceKey:
+                "JKivvxMVQ+mDxqbBrdCvF8UQtFJUsQBKZlrCiULVIaqyBYb3MtzsJxLx8/5lSmcCjkQEWa/xC12eu0xHqerA1Q==",
+              numOfRows: 10, //표시할 데이터 개수
+              pageNo: 1, //몇 페이지에서 가져올지
+              addr: "서울특별시 종로구", //주소를 구체화하면 차량관제 화면에 보이는 마커가 더 많아질 것 같습니다.
+            },
+            withCredentials: true,
+          }
+        ); // API 요청 예시 (실제 엔드포인트에 맞게 수정 필요)
+        const addrs = response.data.response.body.items.item; // API로부터 받아온 주소 데이터 배열
+        // console.log("addrs : ", addrs);
 
-  useEffect(() => {
+        // API로부터 받아온 주소 데이터를 기반으로 positions 배열 업데이트
+        const updatedPositions = addrs.map((addr) => ({
+          // console.log("addr : ", addr);
+          content: `<div>${addr.addr}</div>`, // 주소를 인포윈도우에 표시
+          latlng: new kakao.maps.LatLng(addr.lat, addr.longi), // 주소의 위도와 경도 정보
+        }));
+
+        const mergedPositions = positions.concat(updatedPositions);
+
+        // 기존 positions 배열에 API로부터 받아온 주소 정보를 추가
+        setPositions([...positions, ...updatedPositions]);
+        console.log("=====================1");
+        console.log(updatedPositions);
+        console.log("=====================2");
+
+        console.log("API에서 주소 데이터를 성공적으로 받아왔습니다.");
+      } catch (error) {
+        console.log("API에서 주소 데이터를 불러오는 중 에러가 발생했습니다.");
+        console.log(error);
+      }
+    };
+
+    catchdata();
+
     var mapContainer = document.getElementById("map"), // 지도를 표시할 div
       mapOption = {
         center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
