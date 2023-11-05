@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../style/Manager_review.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
-function ManagerReview() {
+function ManagerReview({ reviewData }) {
   const [openIndex, setOpenIndex] = useState(null);
   const [arrowRotated, setArrowRotated] = useState([]);
   const [doRatingClick, setDoRatingClick] = useState(false);
+  const [receiveData, setReceiveData] = useState([]);
 
   const toggleAccordion = (index) => {
     // 모든 삼각형 초기화
-    setArrowRotated(Array(reviews.length).fill(false));
+    setArrowRotated(Array(receiveData.length).fill(false));
     // 삼각형 회전 상태를 설정
     setArrowRotated((prevArrowRotated) => {
       const newArrowRotated = [...prevArrowRotated];
@@ -27,145 +28,33 @@ function ManagerReview() {
     });
   };
 
-  const doRating = () => {
-    if (!doRatingClick) {
-      setDoRatingClick(true);
+  const infoReq = async () => {
+    const reqTarget = "Review";
+
+    try {
+      const response = await fetch("/ManageMember", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ reqTarget }), // 요청하는 데이터
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const receiveData = data["rows"]; // 쿼리 수행으로 받아온 테이블 데이터
+        if (data.success) {
+          setReceiveData(receiveData); // 받아온 데이터 useState 변수에 저장
+        }
+      }
+    } catch (error) {
+      console.error("오류:", error);
     }
   };
 
-  const reviews = [
-    {
-      num: "05.",
-      title: "만족스러운 이용",
-      author: "홍길동",
-      car: "23나 2345",
-      satisfy: "5",
-      rating: (
-        <div>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-        </div>
-      ),
-      content: "운송예약 잘 이용했습니다. 다음에도 이용할게요.",
-    },
-    // 다른 리뷰 데이터 추가
-
-    {
-      num: "04.",
-      title: "만족스러운 이용",
-      author: "김철수",
-      car: "12가 1234",
-      satisfy: "4",
-      rating: (
-        <div>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-        </div>
-      ),
-      content: "운송예약 잘 이용했습니다.",
-    },
-    {
-      num: "03.",
-      title: "만족스러운 이용",
-      author: "한민성",
-      car: "98미4532",
-      satisfy: "5",
-      rating: (
-        <div>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-        </div>
-      ),
-      content: "간편하니 좋네요. 다음에도 이용하겠습니다",
-    },
-    {
-      num: "02.",
-      title: "만족스러운 이용",
-      author: "박다라",
-      car: "12가1234",
-      satisfy: "5",
-      rating: (
-        <div>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-        </div>
-      ),
-      content: "간편하니 이용하기 좋네요 감사합니다",
-    },
-    {
-      num: "01.",
-      title: "만족스러운 이용",
-      author: "박하나",
-      car: "21다4356",
-      satisfy: "4",
-      rating: (
-        <div>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-          <span role="img" aria-label="star">
-            ⭐️
-          </span>
-        </div>
-      ),
-      content: "운송예약부터 배송까지 빠르고 좋습니다.",
-    },
-  ];
+  useEffect(() => {
+    infoReq();
+  }, []);
 
   return (
     <div className={styles.customratingcontainer}>
@@ -175,7 +64,7 @@ function ManagerReview() {
         <p className={styles.thid}>작성자</p>
       </div>
       <div className={styles.accordionContainer}>
-        {reviews.map((review, index) => (
+        {receiveData.map((review, index) => (
           <div
             key={index}
             className={`${styles.accordionItem} ${
@@ -186,10 +75,10 @@ function ManagerReview() {
               className={styles.accordionHeader}
               onClick={() => toggleAccordion(index)}
             >
-              <span className={styles.num}>{review.num}</span>
-              <span className={styles.title}>{review.title}</span>
+              <span className={styles.num}>{review.rb_idx}</span>
+              <span className={styles.title}>{review.rb_title}</span>
               <div className={styles.person}>
-                <span className={styles.author}>{review.author}</span>
+                <span className={styles.author}>{review.rb_auth}</span>
               </div>
               <p
                 className={`${styles.triangle} ${
@@ -203,22 +92,24 @@ function ManagerReview() {
               {openIndex === index && (
                 <div className={styles.content}>
                   <div className={styles.openstar}>
-                    <span className={styles.rating}>{review.rating}</span>
+                    <span className={styles.rating}>
+                      {"⭐️".repeat(review.rb_rating)}
+                    </span>
                   </div>
                   <div className={styles.openwriter}>
-                    <p>직성자: </p>
-                    <span className={styles.author}>{review.author}</span>
+                    <p>직성자 : </p>
+                    <span className={styles.author}>{review.rb_auth}</span>
                   </div>
                   <div className={styles.opencar}>
-                    <p>이용 차량번호: </p>
-                    <span className={styles.car}>{review.car}</span>
+                    <p>이용 차량 : </p>
+                    <span className={styles.car}>{review.rb_usedCarId}</span>
                   </div>
                   <div className={styles.opensatisfy}>
-                    <p>만족도: </p>
-                    <span className={styles.satisfy}>{review.satisfy}</span>
+                    <p>만족도 : </p>
+                    <span className={styles.satisfy}>{review.rb_rating}</span>
                   </div>
                   <div className={styles.opencontent}>
-                    <p>{review.content}</p>
+                    <p>{review.rb_content}</p>
                   </div>
                   <button className={styles.btndelt}>삭제</button>
                 </div>
