@@ -102,7 +102,7 @@ function CustomerReviewList({ reviewData }) {
                         <span className={styles.author}>{review.rb_auth}</span>
                       </div>
                       <div className={styles.opencar}>
-                        <p>이용 차량번호: </p>
+                        <p>이용 차량: </p>
                         <span className={styles.car}>
                           {review.rb_usedCarId}
                         </span>
