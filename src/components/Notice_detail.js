@@ -15,10 +15,10 @@ function NoticeDetail({ handleDetail, selInfo }) {
                   <tr>
                     <th scope="col" className={styles.th_num}>
                       {selInfo.idx}&nbsp;
-                      <span style={{ color: "red" }}>{selInfo.important}</span>
                     </th>
                     <th scope="col" className={`${styles["th-title"]}`}>
-                      {selInfo.title}
+                    <span style={{ color: "red" }}>{selInfo.important}</span>
+                      [{selInfo.title}]
                     </th>
                     <th scope="col" className={styles.th_date}>
                       {selInfo.auth}

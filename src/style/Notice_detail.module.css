@@ -4,7 +4,7 @@
 }
 
 div.wrap {
-  width: 900px;
+  width: 1150px;
   margin: 0 auto;
 }
 
@@ -36,6 +36,27 @@ nav.nav ul li {
   display: inline-block;
 }
 
+.board_table span{
+  /* border: 1px solid #000; */
+  margin-right: 10px;
+}
+
+.nav{
+  font-size: 18px;
+}
+.th_num{
+  font-size: 15px;
+}
+.th-title{
+  /* border: 1px solid #000; */
+  display: inline-block;
+  text-align: left;
+  font-size: 15px;
+}
+.th_date{
+  font-size: 15px;
+}
+
 /* reset */
 
 .notice_page .clearfix:after {
@@ -44,7 +65,7 @@ nav.nav ul li {
   clear: both;
 }
 .notice_page .container {
-  width: 900px;
+  width: 1150px;
   margin: 0 auto;
 }
 .notice_page .blind {
@@ -71,25 +92,25 @@ nav.nav ul li {
 
 .notice_page .btnlist {
   display: inline-block;
-  width: 100px;
-  height: 40px;
+  width: 120px;
+  height: 50px;
   margin-top: 3%;
   padding: 0 30px;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 900;
   text-align: center;
   float: right;
 
-  background: #f5f5f5;
+  background: #293462;
   border: 0;
   border-radius: 10px;
-  color: black;
+  color: #fff;
   transition: 0.2s;
 }
 
 .notice_page .btnlist:hover {
-  background: #293462;
-  color: #fff;
+  background: var(--sub-color);
+  color: #000;
   cursor: pointer;
   transition: 0.2s;
 }

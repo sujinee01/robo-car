@@ -78,7 +78,7 @@ function CustomerReviewList({ reviewData }) {
                   <span className={styles.num}>No.{review.rb_idx}</span>
                   <span className={styles.title}>{review.rb_title}</span>
                   <div className={styles.rating_box}>
-                    별점 {"⭐️".repeat(review.rb_rating)}
+                  {"⭐️".repeat(review.rb_rating)}
                   </div>
                   <div className={styles.person}>
                     <span className={styles.author}>{review.rb_auth}</span>

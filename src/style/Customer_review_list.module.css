@@ -102,9 +102,15 @@
 /** 아코디언 내부 편집 */
 
 .content {
+  padding-top: 20px;
   padding-left: 50px;
   padding-right: 50px;
   padding-bottom: 20px;
+}
+
+.content p{
+  padding-right: 10px;
+  font-weight: bold;
 }
 
 .num {
