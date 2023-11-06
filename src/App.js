@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./style/Toast.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Modal from "react-modal";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -74,5 +75,7 @@ function App() {
     </Router>
   );
 }
+
+Modal.setAppElement("#root");
 
 export default App;

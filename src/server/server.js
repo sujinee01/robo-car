@@ -11,6 +11,50 @@ app.use(express.json());
 // URL-encoded 형식의 요청 데이터 파싱 설정
 app.use(express.urlencoded({ extended: true }));
 
+/** [마이페이지 - 개인정보수정] 데이터 처리 */
+app.post("/MypageModify", (req, res) => {
+  console.log("마이페이지 개인정보 수정 요청");
+
+  const body = req.body;
+
+  const id = body.id;
+  const name = body.uName;
+  const pw = body.uPw;
+  const phone = body.uPhone;
+  const addr = body.uAddr;
+  const office = body.uOffice;
+
+  db.getConnection((err, conn) => {
+    if (err) {
+      console.log("MySQL 연결 실패:", err);
+      res.status(500).json({ success: false, message: "MySQL 연결 실패" });
+      return;
+    }
+    console.log("MySQL 연결 성공");
+
+    const sql = `UPDATE user SET u_name="${name}",u_pw="${pw}",u_phone="${phone}",u_addr="${addr}",u_office="${office}" WHERE u_id = "${id}"`;
+
+    conn.query(sql, (err, result) => {
+      // console.log('실행쿼리: ' + sql);
+      if (err) {
+        console.log("쿼리 실행 실패:");
+        console.dir(err);
+        res.status(500).json({ success: false, message: "쿼리 실행 실패" });
+        return;
+      }
+      if (result) {
+        console.log(result);
+        console.log("개인정보 수정 성공!");
+        res.status(200).json({ success: true, message: "개인정보 수정 성공!" });
+      } else {
+        res.status(500).json({ success: false, message: "개인정보 수정 실패" });
+      }
+    });
+
+    conn.release();
+  });
+});
+
 /** [관리자페이지 - Home] 데이터 처리 */
 app.post("/ManageHome", (req, res) => {
   console.log("관리자 페이지 상황판 요청");
