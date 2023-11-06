@@ -273,6 +273,7 @@ const SideMenu = () => {
 /** 관제화면 지도 생성 및 사이드바/차량 정보 확인 관련 기능 */
 const ControlMain = () => {
   const [positions, setPositions] = useState([]);
+  const [mergedPositions, setMergedPositions] = useState([]);
   // src/App.js
   useEffect(() => {
     const fetchdata = async () => {
@@ -312,9 +313,9 @@ const ControlMain = () => {
             params: {
               serviceKey:
                 "JKivvxMVQ+mDxqbBrdCvF8UQtFJUsQBKZlrCiULVIaqyBYb3MtzsJxLx8/5lSmcCjkQEWa/xC12eu0xHqerA1Q==",
-              numOfRows: 10, //표시할 데이터 개수
+              numOfRows: 30, //표시할 데이터 개수
               pageNo: 1, //몇 페이지에서 가져올지
-              addr: "서울특별시 종로구", //주소를 구체화하면 차량관제 화면에 보이는 마커가 더 많아질 것 같습니다.
+              addr: "서울특별시 중구", //주소를 구체화하면 차량관제 화면에 보이는 마커가 더 많아질 것 같습니다.
             },
             withCredentials: true,
           }
@@ -329,7 +330,7 @@ const ControlMain = () => {
           latlng: new kakao.maps.LatLng(addr.lat, addr.longi), // 주소의 위도와 경도 정보
         }));
 
-        const mergedPositions = positions.concat(updatedPositions);
+        setMergedPositions(mergedPositions.concat(updatedPositions));
 
         // 기존 positions 배열에 API로부터 받아온 주소 정보를 추가
         setPositions([...positions, ...updatedPositions]);
@@ -364,25 +365,10 @@ const ControlMain = () => {
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
     // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다
-    var positions = [
-      {
-        content: "<div>이화여고 앞 공영주차장</div>",
-        latlng: new kakao.maps.LatLng(37.564136, 126.968772),
-      },
-      {
-        content: "<div>생태연못</div>",
-        latlng: new kakao.maps.LatLng(33.450936, 126.569477),
-      },
-      {
-        content: "<div>텃밭</div>",
-        latlng: new kakao.maps.LatLng(33.450879, 126.56994),
-      },
-      {
-        content: "<div>근린공원</div>",
-        latlng: new kakao.maps.LatLng(33.451393, 126.570738),
-      },
-    ];
-
+    var positions = mergedPositions.map((position) => ({
+      content: position.content,
+      latlng: position.latlng,
+    }));
     for (var i = 0; i < positions.length; i++) {
       // 마커를 생성합니다
       var marker = new kakao.maps.Marker({
