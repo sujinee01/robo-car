@@ -21,10 +21,23 @@ const Btn = styled.button`
 const Mypage = () => {
   const [activeTab, setActiveTab] = useState("개인정보 수정");
   const [receiveData, setReceiveData] = useState(""); // DB 요청 저장 변수
+  const [receiveDataPersonal, setReceiveDataPersonal] = useState("");
+  const [receiveDataReservation, setReceiveDataReservation] = useState("");
+
+  const [modifySucc, setModifySucc] = useState(false);
+
+  useEffect(() => {
+    infoReq(activeTab);
+    console.log(">>>");
+  }, [modifySucc]);
 
   useEffect(() => {
     infoReq(activeTab);
   }, [activeTab]);
+
+  useEffect(() => {
+    infoReq(activeTab);
+  }, []);
 
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
@@ -47,9 +60,12 @@ const Mypage = () => {
       if (response.ok) {
         const data = await response.json();
         const receiveData = data["rows"]; // 쿼리 수행으로 받아온 테이블 데이터
-        if (data.success) {
-          setReceiveData(receiveData); // 받아온 데이터 useState 변수에 저장
-          console.log(receiveData);
+        if (tab === "개인정보 수정") {
+          setReceiveDataPersonal(receiveData);
+          setReceiveData(receiveData);
+        } else {
+          setReceiveDataReservation(receiveData);
+          setReceiveData(receiveData);
         }
       }
     } catch (error) {
@@ -87,10 +103,18 @@ const Mypage = () => {
             </Btn>
           </div>
         </div>
-        {activeTab === "개인정보 수정" ? (
-          <MypageInfo />
+        {receiveData !== "" ? (
+          activeTab === "개인정보 수정" ? (
+            <MypageInfo
+              myData={receiveDataPersonal}
+              modifySucc={modifySucc}
+              setModifySucc={setModifySucc}
+            />
+          ) : (
+            <MypageConf resvData={receiveDataReservation} />
+          )
         ) : (
-          <MypageConf resvData={receiveData} />
+          <p>Loading...</p> // 데이터 로딩 중 메시지
         )}
       </div>
     </div>
