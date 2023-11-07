@@ -133,7 +133,7 @@ const CarListTab = ({ isOpen }) => {
   );
 };
 
-const ChargingStationTab = ({ isOpen }) => {
+const ChargingStationTab = ({ isOpen, positions }) => {
   const slide = isOpen ? styles.side_menu_car_info : styles.side_menu_hide;
 
   return (
@@ -143,7 +143,7 @@ const ChargingStationTab = ({ isOpen }) => {
 
         <div className={styles.slidestation}>
           <select className={styles.station}>
-            <option>옵션 1</option>
+            <option>{positions[0].content}</option>
             <option>옵션 2</option>
             {/* 필요한 만큼 옵션을 추가하세요 */}
           </select>
@@ -167,7 +167,7 @@ const ChargingStationTab = ({ isOpen }) => {
   );
 };
 
-const SideMenu = () => {
+const SideMenu = ({ positions }) => {
   const [isOpen, setIsOpen] = useState("관제화면");
   const [selectedTab, setSelectedTab] = useState(); // 초기값을 차량목록으로 설정
 
@@ -185,7 +185,7 @@ const SideMenu = () => {
         <ul>
           <li>
             <a
-              href="#"
+              href="#!"
               onClick={() => {
                 toggle("관제화면");
                 toggleHandler("관제화면");
@@ -204,7 +204,7 @@ const SideMenu = () => {
           </li>
           <li>
             <a
-              href="#"
+              href="#!"
               onClick={() => {
                 toggle("차량목록");
                 toggleHandler("차량목록");
@@ -223,7 +223,7 @@ const SideMenu = () => {
           </li>
           <li>
             <a
-              href="#"
+              href="#!"
               onClick={() => {
                 toggle("충전소");
                 toggleHandler("충전소");
@@ -244,7 +244,9 @@ const SideMenu = () => {
       </div>
       {selectedTab === "차량목록" && <CarListTab isOpen={isOpen} />}{" "}
       {/* 차량목록 탭을 선택한 경우 CarListTab 컴포넌트를 렌더링 */}
-      {selectedTab === "충전소" && <ChargingStationTab isOpen={isOpen} />}{" "}
+      {selectedTab === "충전소" && (
+        <ChargingStationTab isOpen={isOpen} positions={positions} />
+      )}{" "}
       {/* 충전소 탭을 선택한 경우 ChargingStationTab 컴포넌트를 렌더링 */}
     </div>
   );
@@ -254,54 +256,7 @@ const SideMenu = () => {
 const ControlMain = () => {
   const [positions, setPositions] = useState([]);
   const [mergedPositions, setMergedPositions] = useState([]);
-
-  // var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-  //   mapOption = {
-  //     center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-  //     level: 4, // 지도의 확대 레벨
-  //   };
-
-  // // 지도를 표시할 div와 지도 옵션으로 지도를 생성
-  // var map = new kakao.maps.Map(mapContainer, mapOption);
-
-  // // 일반 지도/스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성
-  // var mapTypeControl = new kakao.maps.MapTypeControl();
-  // map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
-
-  // // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성
-  // var zoomControl = new kakao.maps.ZoomControl();
-  // map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-
-  // // 주소-좌표 변환 객체를 생성합니다
-  // var geocoder = new kakao.maps.services.Geocoder();
-
-  // // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
-  // searchAddrFromCoords(map.getCenter(), displayCenterInfo);
-
-  // // 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
-  // kakao.maps.event.addListener(map, "idle", function () {
-  //   searchAddrFromCoords(map.getCenter(), displayCenterInfo);
-  // });
-
-  // function searchAddrFromCoords(coords, callback) {
-  //   // 좌표로 행정동 주소 정보를 요청합니다
-  //   geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
-  // }
-
-  // // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
-  // function displayCenterInfo(result, status) {
-  //   if (status === kakao.maps.services.Status.OK) {
-  //     var infoDiv = document.getElementById("centerAddr");
-
-  //     for (var i = 0; i < result.length; i++) {
-  //       // 행정동의 region_type 값은 'H' 이므로
-  //       if (result[i].region_type === "H") {
-  //         infoDiv.innerHTML = result[i].address_name;
-  //         break;
-  //       }
-  //     }
-  //   }
-  // }
+  const [map, setMap] = useState(null); // 카카오맵 객체
 
   const catchdata = async () => {
     try {
@@ -341,19 +296,35 @@ const ControlMain = () => {
     }
   };
 
+  /** 페이지가 렌더링 될 때 카카오맵 객체와 지도를 생성하는 Hook */
   useEffect(() => {
-    catchdata();
-  }, []);
-
-  useEffect(() => {
+    // 페이지가 렌더링 될 때 카카오맵 객체를 생성해 화면에 출력해 줌
     var mapContainer = document.getElementById("map"), // 지도를 표시할 div
       mapOption = {
         center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
         level: 4, // 지도의 확대 레벨
       };
 
-    var map = new kakao.maps.Map(mapContainer, mapOption);
+    var kakaomap = new kakao.maps.Map(mapContainer, mapOption);
 
+    // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+    var mapTypeControl = new kakao.maps.MapTypeControl();
+
+    // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+    // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+    kakaomap.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+    // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+    var zoomControl = new kakao.maps.ZoomControl();
+    kakaomap.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+    setMap(kakaomap);
+
+    catchdata();
+  }, []);
+
+  /** 충전소 API에서 받아온 데이터를 이용해 충전소 위치를 출력해주는 Hook */
+  useEffect(() => {
     var imageSrc = "./assets/chargingMarker.png", // 마커이미지의 주소입니다
       imageSize = new kakao.maps.Size(47, 49), // 마커이미지의 크기입니다
       imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
@@ -407,10 +378,46 @@ const ControlMain = () => {
     }
   }, [positions]);
 
+  /** 중심 좌표 변화에 따른 주소를 출력 해주는 Hook */
+  useEffect(() => {
+    if (map) {
+      var geocoder = new kakao.maps.services.Geocoder();
+
+      // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
+      const posi = map.getCenter();
+      searchAddrFromCoords(posi, displayCenterInfo);
+
+      // 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
+      kakao.maps.event.addListener(map, "idle", function () {
+        searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+      });
+
+      function searchAddrFromCoords(coords, callback) {
+        // 좌표로 행정동 주소 정보를 요청합니다
+        geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
+      }
+
+      // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+      function displayCenterInfo(result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+          var infoDiv = document.getElementById("centerAddr");
+
+          for (var i = 0; i < result.length; i++) {
+            // 행정동의 region_type 값은 'H' 이므로
+            if (result[i].region_type === "H") {
+              infoDiv.innerHTML = result[i].address_name;
+              break;
+            }
+          }
+        }
+      }
+    }
+  }, [map]);
+
   return (
     <div>
       <div className={styles.map_wrapper}>
-        <SideMenu />
+        <SideMenu positions={positions} />
         <div id="map" className={styles.kakao_map}>
           <button></button>
         </div>

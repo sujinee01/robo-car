@@ -53,7 +53,7 @@ function App() {
         <Route path="/noticeMain" element={<NoticeMain />} />
         <Route path="/noticeDetail" element={<NoticeDetail />} />
         <Route path="/helpCenter" element={<CustomerHelpCenter />} />
-        <Route path="/about" element={<AboutUs />} />
+        <Route path="/about" element={<AboutUs isLogin={isLogin} />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/resv" element={<Reservation />} />
         <Route path="/manage" element={<ManagerPage />} />

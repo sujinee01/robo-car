@@ -287,9 +287,9 @@ app.post("/NotiAdd", (req, res) => {
         return;
       }
       console.log("MySQL 연결 성공");
-      const sql = `UPDATE notice_board SET nb_title = "${title}", nb_content = "${content}", nb_auth = "${auth}", nb_important = "${important}" WHERE nb_idx = ${targetIdx}`;
-
-      conn.query(sql, (err, result, fields) => {
+      const sql = `UPDATE notice_board SET nb_title = ?, nb_content = ?, nb_auth = ?, nb_important = ? WHERE nb_idx = ?`;
+      const param = [title, content, auth, important, targetIdx];
+      conn.query(sql, param, (err, result, fields) => {
         console.log("실행쿼리: " + sql);
         if (err) {
           console.log("쿼리 실행 실패:");
