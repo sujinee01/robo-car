@@ -134,79 +134,111 @@ const CarListTab = ({ isOpen }) => {
   );
 };
 
-const ChargingStationTab = ({ isOpen, positions }) => {
+const ChargingStationTab = ({ isOpen, positions, map }) => {
   const slide = isOpen ? styles.side_menu_car_info : styles.side_menu_hide;
   const [station, setStation] = useState(null);
+  const [prevMarker, setPrevMarker] = useState(null);
+  const [isMarkersVisible, setIsMarkersVisible] = useState(true);
+  const [allMarkers, setAllMarkers] = useState(null);
+  let allMarker = [];
+  const kmap = map;
 
+  /** 충전소 선택 시 동작 */
   const selectStation = (pick) => {
-    const selectedStation = positions.filter(
+    const selectedStation = positions.find(
       (position) => position.chargerId === parseInt(pick)
     );
-    setStation(selectedStation[0]);
+    setStation(selectedStation);
 
-    var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-      mapOption = {
-        center: new kakao.maps.LatLng(
-          selectedStation[0].latlng.Ma,
-          selectedStation[0].latlng.La
-        ), // 지도의 중심좌표
-        level: 3, // 지도의 확대 레벨
-      };
+    if (prevMarker) {
+      prevMarker.setMap(null); // 이전 마커 삭제
+    }
 
-    // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-    var map = new kakao.maps.Map(mapContainer, mapOption);
+    const moveLatLon = new window.kakao.maps.LatLng(
+      selectedStation.latlng.Ma,
+      selectedStation.latlng.La
+    );
+    kmap.setCenter(moveLatLon);
 
-    var imageSrc = "./assets/chargingMarker.png", // 마커이미지의 주소입니다
-      imageSize = new kakao.maps.Size(47, 49), // 마커이미지의 크기입니다
-      imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-
-    // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-    var markerImage = new kakao.maps.MarkerImage(
+    const imageSrc = "./assets/selectedStn.png";
+    const imageSize = new window.kakao.maps.Size(72, 79);
+    const imageOption = { offset: new window.kakao.maps.Point(40, 80) };
+    const markerImage = new window.kakao.maps.MarkerImage(
       imageSrc,
       imageSize,
       imageOption
     );
 
-    var marker = new kakao.maps.Marker({
-      map: map, // 마커를 표시할 지도
-      position: new kakao.maps.LatLng(
-        selectedStation[0].latlng.Ma,
-        selectedStation[0].latlng.La
-      ), // 마커의 위치
+    const marker = new window.kakao.maps.Marker({
+      map: map,
+      position: moveLatLon,
       image: markerImage,
     });
-    // 마커에 표시할 인포윈도우를 생성합니다
-    var infowindow = new kakao.maps.InfoWindow({
-      content: selectedStation[0].stationName, // 인포윈도우에 표시할 내용
+
+    const infowindow = new window.kakao.maps.InfoWindow({
+      content: selectedStation.stationName,
     });
 
-    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-    // 이벤트 리스너로는 클로저를 만들어 등록합니다
-    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-    kakao.maps.event.addListener(
-      marker,
-      "mouseover",
-      makeOverListener(map, marker, infowindow)
-    );
-    kakao.maps.event.addListener(
-      marker,
-      "mouseout",
-      makeOutListener(infowindow)
+    // 마커에 이벤트 리스너 추가
+    window.kakao.maps.event.addListener(marker, "mouseover", function () {
+      infowindow.open(map, marker);
+    });
+    window.kakao.maps.event.addListener(marker, "mouseout", function () {
+      infowindow.close();
+    });
+
+    setPrevMarker(marker); // 현재 마커를 이전 마커로 설정
+  };
+
+  /** "충전소 위치 지도표시" 버튼 동작 */
+  const viewStations = () => {
+    // 마커 보이기
+    const imageSrc = "./assets/chargingMarker.png";
+    const imageSize = new window.kakao.maps.Size(47, 49);
+    const imageOption = { offset: new window.kakao.maps.Point(27, 69) };
+    const markerImage = new window.kakao.maps.MarkerImage(
+      imageSrc,
+      imageSize,
+      imageOption
     );
 
-    // 인포윈도우를 표시하는 클로저를 만드는 함수입니다
-    function makeOverListener(map, marker, infowindow) {
-      return function () {
+    for (let i = 0; i < positions.length; i++) {
+      const marker = new window.kakao.maps.Marker({
+        map: map,
+        position: positions[i].latlng,
+        image: markerImage,
+      });
+      marker.setMap(map);
+      allMarker.push(marker);
+
+      const infowindow = new window.kakao.maps.InfoWindow({
+        content: positions[i].stationName,
+      });
+
+      // 마커에 이벤트 리스너 추가
+      window.kakao.maps.event.addListener(marker, "mouseover", function () {
         infowindow.open(map, marker);
-      };
-    }
-
-    // 인포윈도우를 닫는 클로저를 만드는 함수입니다
-    function makeOutListener(infowindow) {
-      return function () {
+      });
+      window.kakao.maps.event.addListener(marker, "mouseout", function () {
         infowindow.close();
-      };
+      });
     }
+    setAllMarkers(allMarker);
+    // 토글 변수 값 변경
+    setIsMarkersVisible(!isMarkersVisible);
+  };
+
+  /** "충전소 위치 숨기기" 동작 */
+  const hideStations = () => {
+    console.log("hide", allMarkers);
+    console.log(allMarkers.length);
+    if (prevMarker) {
+      prevMarker.setMap(null);
+    }
+    for (let i = 0; i < allMarkers.length; i++) {
+      allMarkers[i].setMap(null);
+    }
+    setIsMarkersVisible(!isMarkersVisible);
   };
 
   return (
@@ -229,7 +261,9 @@ const ChargingStationTab = ({ isOpen, positions }) => {
         </div>
         <div className={styles.stationInfo}>
           <div className={styles.stationInfoWrap}>
-            {station !== null && (
+            {station === null ? (
+              ""
+            ) : (
               <>
                 <p>주소</p>
                 <span>{station.stationAddr}</span>
@@ -272,16 +306,17 @@ const ChargingStationTab = ({ isOpen, positions }) => {
           </div>
         </div>
         <div className={styles.stainfobtn}>
-          <button className={styles.stationlook}>
+          <button
+            className={styles.stationlook}
+            onClick={isMarkersVisible ? viewStations : hideStations}
+          >
             <FontAwesomeIcon
               icon={faMapLocationDot}
               size="2x"
               className={styles.faMapLocationDot}
             />
             <span className={`${styles.tooltiptext} ${styles.tooltip_right}`}>
-              충전소 위치
-              <br />
-              지도표시
+              {isMarkersVisible ? "충전소 위치 보이기" : "충전소 위치 숨기기"}
             </span>
           </button>
         </div>
@@ -290,7 +325,7 @@ const ChargingStationTab = ({ isOpen, positions }) => {
   );
 };
 
-const SideMenu = ({ positions }) => {
+const SideMenu = ({ positions, map }) => {
   const [isOpen, setIsOpen] = useState("관제화면");
   const [selectedTab, setSelectedTab] = useState(); // 초기값을 차량목록으로 설정
 
@@ -368,7 +403,7 @@ const SideMenu = ({ positions }) => {
       {selectedTab === "차량목록" && <CarListTab isOpen={isOpen} />}{" "}
       {/* 차량목록 탭을 선택한 경우 CarListTab 컴포넌트를 렌더링 */}
       {selectedTab === "충전소" && (
-        <ChargingStationTab isOpen={isOpen} positions={positions} />
+        <ChargingStationTab isOpen={isOpen} positions={positions} map={map} />
       )}{" "}
       {/* 충전소 탭을 선택한 경우 ChargingStationTab 컴포넌트를 렌더링 */}
     </div>
@@ -388,7 +423,7 @@ const ControlMain = () => {
         {
           params: {
             serviceKey:
-              "JKivvxMVQ+mDxqbBrdCvF8UQtFJUsQBKZlrCiULVIaqyBYb3MtzsJxLx8/5lSmcCjkQEWa/xC12eu0xHqerA1Q==",
+              "Qv4x3BQfuVNWucObH5c5ozxzFaZgcDGsM89ELePqaBGVVt6NvIZpEw1MEL9cofLNgckCDIP4fk1/DaUWsTEcxg==",
             numOfRows: 30, //표시할 데이터 개수
             pageNo: 1, //몇 페이지에서 가져올지
             addr: "서울특별시 중구", //주소를 구체화하면 차량관제 화면에 보이는 마커가 더 많아질 것 같습니다.
@@ -457,59 +492,59 @@ const ControlMain = () => {
   }, []);
 
   /** 충전소 API에서 받아온 데이터를 이용해 충전소 위치를 출력해주는 Hook */
-  useEffect(() => {
-    var imageSrc = "./assets/chargingMarker.png", // 마커이미지의 주소입니다
-      imageSize = new kakao.maps.Size(47, 49), // 마커이미지의 크기입니다
-      imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+  // useEffect(() => {
+  //   var imageSrc = "./assets/chargingMarker.png", // 마커이미지의 주소입니다
+  //     imageSize = new kakao.maps.Size(47, 49), // 마커이미지의 크기입니다
+  //     imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
-    // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-    var markerImage = new kakao.maps.MarkerImage(
-      imageSrc,
-      imageSize,
-      imageOption
-    );
+  //   // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+  //   var markerImage = new kakao.maps.MarkerImage(
+  //     imageSrc,
+  //     imageSize,
+  //     imageOption
+  //   );
 
-    for (var i = 0; i < positions.length; i++) {
-      // 마커를 생성합니다
-      var marker = new kakao.maps.Marker({
-        map: map, // 마커를 표시할 지도
-        position: positions[i].latlng, // 마커의 위치
-        image: markerImage,
-      });
-      // 마커에 표시할 인포윈도우를 생성합니다
-      var infowindow = new kakao.maps.InfoWindow({
-        content: positions[i].stationName, // 인포윈도우에 표시할 내용
-      });
+  //   for (var i = 0; i < positions.length; i++) {
+  //     // 마커를 생성합니다
+  //     var marker = new kakao.maps.Marker({
+  //       map: map, // 마커를 표시할 지도
+  //       position: positions[i].latlng, // 마커의 위치
+  //       image: markerImage,
+  //     });
+  //     // 마커에 표시할 인포윈도우를 생성합니다
+  //     var infowindow = new kakao.maps.InfoWindow({
+  //       content: positions[i].stationName, // 인포윈도우에 표시할 내용
+  //     });
 
-      // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-      // 이벤트 리스너로는 클로저를 만들어 등록합니다
-      // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-      kakao.maps.event.addListener(
-        marker,
-        "mouseover",
-        makeOverListener(map, marker, infowindow)
-      );
-      kakao.maps.event.addListener(
-        marker,
-        "mouseout",
-        makeOutListener(infowindow)
-      );
-    }
+  //     // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+  //     // 이벤트 리스너로는 클로저를 만들어 등록합니다
+  //     // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+  //     kakao.maps.event.addListener(
+  //       marker,
+  //       "mouseover",
+  //       makeOverListener(map, marker, infowindow)
+  //     );
+  //     kakao.maps.event.addListener(
+  //       marker,
+  //       "mouseout",
+  //       makeOutListener(infowindow)
+  //     );
+  //   }
 
-    // 인포윈도우를 표시하는 클로저를 만드는 함수입니다
-    function makeOverListener(map, marker, infowindow) {
-      return function () {
-        infowindow.open(map, marker);
-      };
-    }
+  //   // 인포윈도우를 표시하는 클로저를 만드는 함수입니다
+  //   function makeOverListener(map, marker, infowindow) {
+  //     return function () {
+  //       infowindow.open(map, marker);
+  //     };
+  //   }
 
-    // 인포윈도우를 닫는 클로저를 만드는 함수입니다
-    function makeOutListener(infowindow) {
-      return function () {
-        infowindow.close();
-      };
-    }
-  }, [positions]);
+  //   // 인포윈도우를 닫는 클로저를 만드는 함수입니다
+  //   function makeOutListener(infowindow) {
+  //     return function () {
+  //       infowindow.close();
+  //     };
+  //   }
+  // }, [positions]);
 
   /** 중심 좌표 변화에 따른 주소를 출력 해주는 Hook */
   useEffect(() => {
@@ -547,10 +582,54 @@ const ControlMain = () => {
     }
   }, [map]);
 
+  /** 마커 생성 및 positions 배열에 추가 */
+  function createMarkers() {
+    var imageSrc = "./assets/chargingMarker.png";
+    var imageSize = new window.kakao.maps.Size(47, 49);
+    var imageOption = { offset: new window.kakao.maps.Point(27, 69) };
+    var markerImage = new window.kakao.maps.MarkerImage(
+      imageSrc,
+      imageSize,
+      imageOption
+    );
+
+    const updatedPositions = positions.map((position) => {
+      const marker = new window.kakao.maps.Marker({
+        map: map,
+        position: position.latlng,
+        image: markerImage,
+      });
+
+      const infowindow = new window.kakao.maps.InfoWindow({
+        content: position.stationName,
+      });
+
+      window.kakao.maps.event.addListener(marker, "mouseover", function () {
+        infowindow.open(map, marker);
+      });
+      window.kakao.maps.event.addListener(marker, "mouseout", function () {
+        infowindow.close();
+      });
+
+      return {
+        ...position,
+        marker: marker, // 마커를 positions 배열의 객체에 추가
+      };
+    });
+
+    setPositions(updatedPositions);
+  }
+
+  useEffect(() => {
+    if (map) {
+      createMarkers(); // 마커 생성 및 positions 배열 업데이트
+    }
+  }, [map]);
+
   return (
     <div>
       <div className={styles.map_wrapper}>
-        <SideMenu positions={positions} />
+        <SideMenu positions={positions} map={map} />
         <div id="map" className={styles.kakao_map}>
           <button></button>
         </div>
