@@ -51,10 +51,10 @@ const MainPage = () => {
             </div>
             <div className={styles.service_inner}>
               <img src={racingicon} className={styles.racingicon} alt="React" />
-              <p>고객맞춤 운송예약</p>
+              <p>충전소 위치와 배터리 알림 서비스 제공</p>
               <span>
-                배송물품의 종류와 무게에 따라 운송차량선택가능, <br /> 24시간
-                운송서비스로 원하는 픽업시간 선택가능!
+                24시간 운송을 위해 충전소 방문 전 배터리 알림서비스로 <br />
+                충전소의 위치를 확인할 수 있는 안심 서비스!
               </span>
             </div>
           </div>
