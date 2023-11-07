@@ -135,6 +135,7 @@ const CarListTab = ({ isOpen }) => {
 
 const ChargingStationTab = ({ isOpen }) => {
   const slide = isOpen ? styles.side_menu_car_info : styles.side_menu_hide;
+
   return (
     <div>
       <div className={slide}>
@@ -146,23 +147,6 @@ const ChargingStationTab = ({ isOpen }) => {
             <option>옵션 2</option>
             {/* 필요한 만큼 옵션을 추가하세요 */}
           </select>
-          {/* <div className={styles.stationlist}>
-            <input
-              className={styles.textbox}
-              type="text"
-              placeholder="텍스트박스 1"
-            />
-            <input
-              className={styles.textbox}
-              type="text"
-              placeholder="텍스트박스 2"
-            />
-            <input
-              className={styles.textbox}
-              type="text"
-              placeholder="텍스트박스 3"
-            />
-          </div> */}
         </div>
         <div className={styles.stainfobtn}>
           <button className={styles.stationlook}>
@@ -194,10 +178,6 @@ const SideMenu = () => {
 
   const toggleHandler = (tabName) => {
     setIsOpen(tabName);
-    // setSelectedTab(selectedTab);
-    // setIsOn(tabName);
-    // setSelectedTab(tabName);
-    // isOpen ? selectedTab(false) : selectedTab(true)
   };
   return (
     <div>
@@ -274,108 +254,124 @@ const SideMenu = () => {
 const ControlMain = () => {
   const [positions, setPositions] = useState([]);
   const [mergedPositions, setMergedPositions] = useState([]);
-  // src/App.js
-  useEffect(() => {
-    const fetchdata = async () => {
-      // const  data  = await axios.get("/service/EvInfoServiceV2", {
-      //   params: {
-      //     serviceKey:
-      //       "Qv4x3BQfuVNWucObH5c5ozxzFaZgcDGsM89ELePqaBGVVt6NvIZpEw1MEL9cofLNgckCDIP4fk1%2FDaUWsTEcxg%3D%3D",
-      //     numOfRows: 1,
-      //     pageNo: 10,
-      //     addr: "서울특별시",
-      //   },
-      // });
-      console.log("======================");
-      const data2 = await axios
-        .get("/service/EvInfoServiceV2/getEvSearchList", {
+
+  // var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+  //   mapOption = {
+  //     center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+  //     level: 4, // 지도의 확대 레벨
+  //   };
+
+  // // 지도를 표시할 div와 지도 옵션으로 지도를 생성
+  // var map = new kakao.maps.Map(mapContainer, mapOption);
+
+  // // 일반 지도/스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성
+  // var mapTypeControl = new kakao.maps.MapTypeControl();
+  // map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+  // // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성
+  // var zoomControl = new kakao.maps.ZoomControl();
+  // map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+  // // 주소-좌표 변환 객체를 생성합니다
+  // var geocoder = new kakao.maps.services.Geocoder();
+
+  // // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
+  // searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+
+  // // 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
+  // kakao.maps.event.addListener(map, "idle", function () {
+  //   searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+  // });
+
+  // function searchAddrFromCoords(coords, callback) {
+  //   // 좌표로 행정동 주소 정보를 요청합니다
+  //   geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
+  // }
+
+  // // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+  // function displayCenterInfo(result, status) {
+  //   if (status === kakao.maps.services.Status.OK) {
+  //     var infoDiv = document.getElementById("centerAddr");
+
+  //     for (var i = 0; i < result.length; i++) {
+  //       // 행정동의 region_type 값은 'H' 이므로
+  //       if (result[i].region_type === "H") {
+  //         infoDiv.innerHTML = result[i].address_name;
+  //         break;
+  //       }
+  //     }
+  //   }
+  // }
+
+  const catchdata = async () => {
+    try {
+      const response = await axios.get(
+        "/service/EvInfoServiceV2/getEvSearchList",
+        {
           params: {
             serviceKey:
               "JKivvxMVQ+mDxqbBrdCvF8UQtFJUsQBKZlrCiULVIaqyBYb3MtzsJxLx8/5lSmcCjkQEWa/xC12eu0xHqerA1Q==",
-            numOfRows: 10, //표시할 데이터 개수
+            numOfRows: 30, //표시할 데이터 개수
             pageNo: 1, //몇 페이지에서 가져올지
             addr: "서울특별시 종로구", //주소를 구체화하면 차량관제 화면에 보이는 마커가 더 많아질 것 같습니다.
           },
           withCredentials: true,
-        })
-        .then((res) => {
-          console.log(res.data);
-          console.log("성공");
-        });
-      // console.log(data);
-    };
-    fetchdata();
-    const catchdata = async () => {
-      try {
-        const response = await axios.get(
-          "/service/EvInfoServiceV2/getEvSearchList",
-          {
-            params: {
-              serviceKey:
-                "JKivvxMVQ+mDxqbBrdCvF8UQtFJUsQBKZlrCiULVIaqyBYb3MtzsJxLx8/5lSmcCjkQEWa/xC12eu0xHqerA1Q==",
-              numOfRows: 30, //표시할 데이터 개수
-              pageNo: 1, //몇 페이지에서 가져올지
-              addr: "서울특별시 중구", //주소를 구체화하면 차량관제 화면에 보이는 마커가 더 많아질 것 같습니다.
-            },
-            withCredentials: true,
-          }
-        ); // API 요청 예시 (실제 엔드포인트에 맞게 수정 필요)
-        const addrs = response.data.response.body.items.item; // API로부터 받아온 주소 데이터 배열
-        // console.log("addrs : ", addrs);
+        }
+      ); // API 요청 예시 (실제 엔드포인트에 맞게 수정 필요)
+      const addrs = response.data.response.body.items.item; // API로부터 받아온 주소 데이터 배열
+      // console.log("addrs : ", addrs);
 
-        // API로부터 받아온 주소 데이터를 기반으로 positions 배열 업데이트
-        const updatedPositions = addrs.map((addr) => ({
-          // console.log("addr : ", addr);
-          content: `<div>${addr.addr}</div>`, // 주소를 인포윈도우에 표시
-          latlng: new kakao.maps.LatLng(addr.lat, addr.longi), // 주소의 위도와 경도 정보
-        }));
+      // API로부터 받아온 주소 데이터를 기반으로 positions 배열 업데이트
+      const updatedPositions = addrs.map((addr) => ({
+        // console.log("addr : ", addr);
+        content: `<div>${addr.addr}</div>`, // 주소를 인포윈도우에 표시
+        latlng: new kakao.maps.LatLng(addr.lat, addr.longi), // 주소의 위도와 경도 정보
+      }));
 
-        setMergedPositions(mergedPositions.concat(updatedPositions));
+      setMergedPositions(mergedPositions.concat(updatedPositions));
 
-        // 기존 positions 배열에 API로부터 받아온 주소 정보를 추가
-        setPositions([...positions, ...updatedPositions]);
-        console.log("=====================1");
-        console.log(updatedPositions);
-        console.log("=====================2");
+      // 기존 positions 배열에 API로부터 받아온 주소 정보를 추가
+      setPositions([...positions, ...updatedPositions]);
+      console.log(updatedPositions);
 
-        console.log("API에서 주소 데이터를 성공적으로 받아왔습니다.");
-      } catch (error) {
-        console.log("API에서 주소 데이터를 불러오는 중 에러가 발생했습니다.");
-        console.log(error);
-      }
-    };
+      console.log("API에서 주소 데이터를 성공적으로 받아왔습니다.");
+    } catch (error) {
+      console.log("API에서 주소 데이터를 불러오는 중 에러가 발생했습니다.");
+      console.log(error);
+    }
+  };
 
+  useEffect(() => {
     catchdata();
+  }, []);
 
+  useEffect(() => {
     var mapContainer = document.getElementById("map"), // 지도를 표시할 div
       mapOption = {
         center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
         level: 4, // 지도의 확대 레벨
       };
 
-    // 지도를 표시할 div와 지도 옵션으로 지도를 생성
     var map = new kakao.maps.Map(mapContainer, mapOption);
 
-    // 일반 지도/스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성
-    var mapTypeControl = new kakao.maps.MapTypeControl();
-    map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+    var imageSrc = "./assets/chargingMarker.png", // 마커이미지의 주소입니다
+      imageSize = new kakao.maps.Size(47, 49), // 마커이미지의 크기입니다
+      imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
-    // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성
-    var zoomControl = new kakao.maps.ZoomControl();
-    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+    // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+    var markerImage = new kakao.maps.MarkerImage(
+      imageSrc,
+      imageSize,
+      imageOption
+    );
 
-    // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다
-    var positions = mergedPositions.map((position) => ({
-      content: position.content,
-      latlng: position.latlng,
-    }));
     for (var i = 0; i < positions.length; i++) {
       // 마커를 생성합니다
       var marker = new kakao.maps.Marker({
         map: map, // 마커를 표시할 지도
         position: positions[i].latlng, // 마커의 위치
+        image: markerImage,
       });
-
       // 마커에 표시할 인포윈도우를 생성합니다
       var infowindow = new kakao.maps.InfoWindow({
         content: positions[i].content, // 인포윈도우에 표시할 내용
@@ -409,7 +405,7 @@ const ControlMain = () => {
         infowindow.close();
       };
     }
-  }, []);
+  }, [positions]);
 
   return (
     <div>
@@ -418,6 +414,7 @@ const ControlMain = () => {
         <div id="map" className={styles.kakao_map}>
           <button></button>
         </div>
+        <span id="centerAddr" className={styles.addrInfo}></span>
       </div>
     </div>
   );
