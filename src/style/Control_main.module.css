@@ -450,3 +450,33 @@
 
   z-index: 1000;
 }
+
+/* 차량 충전소 상세정보 표시부분 */
+.stationInfo {
+  width: 260px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.stationInfoWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 5px 0 0 0;
+
+  background-color: white;
+  border-radius: 5px;
+}
+
+.stationInfoWrap p {
+  background-color: white;
+  margin-bottom: 3px;
+  font-weight: 900;
+  font-size: 1.1em;
+}
+.stationInfoWrap span {
+  margin-bottom: 10px;
+  font-weight: 400;
+  color: #4d4d4d;
+}

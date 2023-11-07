@@ -19,6 +19,7 @@ import {
   faEye,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import styled from "styled-components";
 const { kakao } = window;
 
 /** 사이드 메뉴 선택시 해당하는 내용을 보여주는 부분 */
@@ -135,6 +136,78 @@ const CarListTab = ({ isOpen }) => {
 
 const ChargingStationTab = ({ isOpen, positions }) => {
   const slide = isOpen ? styles.side_menu_car_info : styles.side_menu_hide;
+  const [station, setStation] = useState(null);
+
+  const selectStation = (pick) => {
+    const selectedStation = positions.filter(
+      (position) => position.chargerId === parseInt(pick)
+    );
+    setStation(selectedStation[0]);
+
+    var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+      mapOption = {
+        center: new kakao.maps.LatLng(
+          selectedStation[0].latlng.Ma,
+          selectedStation[0].latlng.La
+        ), // 지도의 중심좌표
+        level: 3, // 지도의 확대 레벨
+      };
+
+    // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+
+    var imageSrc = "./assets/chargingMarker.png", // 마커이미지의 주소입니다
+      imageSize = new kakao.maps.Size(47, 49), // 마커이미지의 크기입니다
+      imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+    // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+    var markerImage = new kakao.maps.MarkerImage(
+      imageSrc,
+      imageSize,
+      imageOption
+    );
+
+    var marker = new kakao.maps.Marker({
+      map: map, // 마커를 표시할 지도
+      position: new kakao.maps.LatLng(
+        selectedStation[0].latlng.Ma,
+        selectedStation[0].latlng.La
+      ), // 마커의 위치
+      image: markerImage,
+    });
+    // 마커에 표시할 인포윈도우를 생성합니다
+    var infowindow = new kakao.maps.InfoWindow({
+      content: selectedStation[0].stationName, // 인포윈도우에 표시할 내용
+    });
+
+    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+    // 이벤트 리스너로는 클로저를 만들어 등록합니다
+    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+    kakao.maps.event.addListener(
+      marker,
+      "mouseover",
+      makeOverListener(map, marker, infowindow)
+    );
+    kakao.maps.event.addListener(
+      marker,
+      "mouseout",
+      makeOutListener(infowindow)
+    );
+
+    // 인포윈도우를 표시하는 클로저를 만드는 함수입니다
+    function makeOverListener(map, marker, infowindow) {
+      return function () {
+        infowindow.open(map, marker);
+      };
+    }
+
+    // 인포윈도우를 닫는 클로저를 만드는 함수입니다
+    function makeOutListener(infowindow) {
+      return function () {
+        infowindow.close();
+      };
+    }
+  };
 
   return (
     <div>
@@ -142,11 +215,61 @@ const ChargingStationTab = ({ isOpen, positions }) => {
         <div className={styles.infoslide}>충전소 목록</div>
 
         <div className={styles.slidestation}>
-          <select className={styles.station}>
-            <option>{positions[0].content}</option>
-            <option>옵션 2</option>
-            {/* 필요한 만큼 옵션을 추가하세요 */}
+          <select
+            className={styles.station}
+            onChange={(e) => selectStation(e.target.value)}
+          >
+            <option>충전소를 선택하세요.</option>
+            {positions.map((position, idx) => (
+              <option key={idx} value={position.chargerId}>
+                {position.stationName}
+              </option>
+            ))}
           </select>
+        </div>
+        <div className={styles.stationInfo}>
+          <div className={styles.stationInfoWrap}>
+            {station !== null && (
+              <>
+                <p>주소</p>
+                <span>{station.stationAddr}</span>
+                <p>충전기 ID</p>
+                <span>{station.chargerId}</span>
+                <p>충전기 정보</p>
+                <span>{station.chargerName}</span>
+                <p>충전기 상태</p>
+                <span>
+                  {station.chargerStat === 0
+                    ? "상태확인불가"
+                    : 1
+                    ? "충전가능"
+                    : 2
+                    ? "충전중"
+                    : 3
+                    ? "고장/점검"
+                    : 4
+                    ? "통신장애"
+                    : "충전예약"}
+                </span>
+                <p>충전 방식</p>
+                <span>
+                  {station.chargeMethod === 1
+                    ? "B타입(5핀)"
+                    : 2
+                    ? "C타입(5핀)"
+                    : 3
+                    ? "BC타입(5핀)"
+                    : 4
+                    ? "BC타입 (7핀)"
+                    : 5
+                    ? "DC차데모"
+                    : "AC3상"}
+                </span>
+                <p>상태 갱신 시각</p>
+                <span>{station.updateTime}</span>
+              </>
+            )}
+          </div>
         </div>
         <div className={styles.stainfobtn}>
           <button className={styles.stationlook}>
@@ -268,19 +391,29 @@ const ControlMain = () => {
               "JKivvxMVQ+mDxqbBrdCvF8UQtFJUsQBKZlrCiULVIaqyBYb3MtzsJxLx8/5lSmcCjkQEWa/xC12eu0xHqerA1Q==",
             numOfRows: 30, //표시할 데이터 개수
             pageNo: 1, //몇 페이지에서 가져올지
-            addr: "서울특별시 종로구", //주소를 구체화하면 차량관제 화면에 보이는 마커가 더 많아질 것 같습니다.
+            addr: "서울특별시 중구", //주소를 구체화하면 차량관제 화면에 보이는 마커가 더 많아질 것 같습니다.
           },
           withCredentials: true,
         }
       ); // API 요청 예시 (실제 엔드포인트에 맞게 수정 필요)
       const addrs = response.data.response.body.items.item; // API로부터 받아온 주소 데이터 배열
-      // console.log("addrs : ", addrs);
+      console.log("addrs : ", addrs);
 
+      setMergedPositions([]);
+      setPositions([]);
       // API로부터 받아온 주소 데이터를 기반으로 positions 배열 업데이트
       const updatedPositions = addrs.map((addr) => ({
         // console.log("addr : ", addr);
         content: `<div>${addr.addr}</div>`, // 주소를 인포윈도우에 표시
         latlng: new kakao.maps.LatLng(addr.lat, addr.longi), // 주소의 위도와 경도 정보
+        stationAddr: addr.addr, // 충전소 주소
+        stationName: addr.csNm, // 충전소 이름
+        chargerName: addr.cpNm, // 충전기 명칭
+        chargerType: addr.chargeTp, // 충전기 타입
+        chargeMethod: addr.cpTp, // 충전 방식
+        chargerStat: addr.cpStat, // 충전기 상태 코드
+        chargerId: addr.cpId, // 충전기 ID
+        updateTime: addr.statUpdateDatetime, // 충전기 상태 갱신 시각
       }));
 
       setMergedPositions(mergedPositions.concat(updatedPositions));
@@ -345,7 +478,7 @@ const ControlMain = () => {
       });
       // 마커에 표시할 인포윈도우를 생성합니다
       var infowindow = new kakao.maps.InfoWindow({
-        content: positions[i].content, // 인포윈도우에 표시할 내용
+        content: positions[i].stationName, // 인포윈도우에 표시할 내용
       });
 
       // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
