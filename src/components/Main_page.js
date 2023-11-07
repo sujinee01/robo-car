@@ -1,4 +1,6 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import styles from "../style/Main_page.module.css";
 import racingicon from "../assets/racing.png";
 import calendar from "../assets/calendar.png";
@@ -12,7 +14,22 @@ import effectimage02 from "../assets/effectimage_02.jpg";
 // import ImageSlider from "./Image_slider";
 import ImgSlider from "./Img_slider";
 
-const MainPage = () => {
+const MainPage = ({ isLogin }) => {
+  const navigate = useNavigate();
+  const handleLink = () => {
+    console.log(isLogin);
+    isLogin
+      ? navigate("/resv")
+      : (() => {
+          toast.info("로그인이 필요한 서비스입니다.", {
+            theme: "colored",
+          });
+          setTimeout(() => {
+            navigate("/login");
+          }, 300);
+        })();
+  };
+
   return (
     <>
       <ImgSlider />
@@ -60,7 +77,7 @@ const MainPage = () => {
           </div>
           <div className={styles.service_button_wrap}>
             <div className={styles.service_button}>
-              <a href="#">서비스 더보기</a>
+              <a href="/about">서비스 더보기</a>
             </div>
           </div>
         </div>
@@ -141,7 +158,9 @@ const MainPage = () => {
           </div>
           <div className={styles.step_button_wrap}>
             <div className={styles.step_button}>
-              <a href="#">운송 예약하기</a>
+              <a href="#!" onClick={handleLink}>
+                운송 예약하기
+              </a>
             </div>
           </div>
         </div>
