@@ -41,6 +41,8 @@
   width: calc(100% - var(--menu-width));
   height: 100%;
   float: right;
+
+  z-index: 300;
 }
 
 .side_menu a {
@@ -75,19 +77,19 @@
   transition: 0.3s;
 }
 
-.btn{
+.btn {
   background-color: #fff;
   color: #000;
   color: #fff;
 }
 
-.active{
+.active {
   background: var(--main-color) !important;
   font-weight: 900 !important;
   transition: 0.2s;
   color: #fff !important;
 }
-.activecancel{
+.activecancel {
   background-color: #fff !important;
   color: #000 !important;
 }
@@ -175,12 +177,12 @@
   font-size: 20px;
   font-weight: 600;
 }
-.info_wrap{
+.info_wrap {
   /* border: 1px solid #000; */
   position: absolute;
   width: 300px;
   margin: auto;
-  top:6%;
+  top: 6%;
 }
 .contzip {
   /* border: 1px solid #000; */
@@ -188,9 +190,8 @@
   display: inline-block;
   width: 300px;
   margin: auto;
-  top:33%;
+  top: 33%;
   text-align: center;
-  
 }
 
 .control1 {
@@ -436,4 +437,18 @@
   padding: 10px;
   text-align: center;
   background-color: var(--main-color);
+}
+
+.addrInfo {
+  position: absolute;
+  right: 30px;
+  bottom: 20px;
+  border-radius: 2px;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.6);
+
+  font-weight: bold;
+  padding: 3px;
+
+  z-index: 1000;
 }
