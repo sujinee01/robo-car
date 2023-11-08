@@ -6,7 +6,7 @@ import truck01 from "../assets/truck_01.png";
 import truck02 from "../assets/truck_02.png";
 import outlineimage01 from "../assets/outlineimage_01.jpg";
 import outlineimage02 from "../assets/outlineimage_02.jpg";
-import controlimage from "../assets/controlimage.jpg";
+import controlmain from "../assets/controlmain.png";
 import info from "../assets/info.png";
 import calendar from "../assets/calendar.png";
 import packagepick from "../assets/packagepick.png";
@@ -107,7 +107,7 @@ const AboutUs = () => {
             />
             <p>차량관제 화면</p>
             <div className={styles.control_image}>
-              <img src={controlimage} alt="React" />
+              <img src={controlmain} alt="React" />
             </div>
             <div className={styles.control_step_wrap}>
               <img

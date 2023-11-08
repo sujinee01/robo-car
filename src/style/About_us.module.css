@@ -239,13 +239,13 @@
   width: var(--tabmenu-width);
   margin: auto;
   margin-top: 50px;
+  position: relative;
 }
 .checkmark_control {
-  /* border: 1px solid #000; */
   position: absolute;
   width: 30px;
   height: 30px;
-  left: 20%;
+  left: 2%;
   margin-top: 3px;
 }
 .checkmark_control_02 {
@@ -253,7 +253,7 @@
   position: absolute;
   width: 30px;
   height: 30px;
-  left: 38.5%;
+  left: 32%;
   margin-top: 3px;
 }
 .info_wrap > p {
@@ -271,15 +271,14 @@
 }
 /*차량관제 화면 이용안내*/
 .control_image {
-  /* border: 1px solid #000; */
   width: 100%;
   text-align: center;
   margin-top: 20px;
 }
 .control_image img {
-  width: var(--tabmenu-width);
+  width: 950px;
   border-radius: 30px;
-  height: 400px;
+  height: 500px;
 }
 .control_step_wrap {
   /* border: 1px solid red; */
@@ -398,11 +397,10 @@
   margin-bottom: 100px;
 }
 .checkmark {
-  /* border: 1px solid #000; */
   position: absolute;
   width: 30px;
   height: 30px;
-  left: 40.5%;
+  left: 35%;
   margin-top: 3px;
 }
 .book_price_wrap > p {
