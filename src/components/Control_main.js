@@ -23,35 +23,141 @@ import styled from "styled-components";
 const { kakao } = window;
 
 /** 사이드 메뉴 선택시 해당하는 내용을 보여주는 부분 */
-const CarListTab = ({ isOpen }) => {
-  const [isEngineOn, setIsEngineOn] = useState(false);
-  const [areLightsOn, setAreLightsOn] = useState(false);
+const CarListTab = ({ isOpen, carList, map }) => {
+  const slide = isOpen ? styles.side_menu_car_info : styles.side_menu_hide;
+  const [isEngineOn, setIsEngineOn] = useState(false); // 시동 버튼 상태
+  const [areLightsOn, setAreLightsOn] = useState(false); // 라이트 버튼 상태
+
+  const carInfo = carList; // 받아온 차량 정보
+  const [selectedCar, setSelectedCar] = useState([]);
+  const [carPath, setCarPath] = useState([]);
+  const kmap = map;
 
   const toggleEngine = () => {
     setIsEngineOn(!isEngineOn);
+    if (isEngineOn) {
+    }
   };
-
   const toggleLights = () => {
     setAreLightsOn(!areLightsOn);
   };
 
-  const slide = isOpen ? styles.side_menu_car_info : styles.side_menu_hide;
+  /** 선택된 차량의 주행 기록 가져오는 함수 */
+  const infoReq = async (id) => {
+    const target = id;
+
+    try {
+      const response = await fetch("/PathReq", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ target }), // 요청하는 데이터
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const path = data["rows"];
+        if (data.success) {
+          setCarPath(path);
+        } else {
+          setCarPath([]);
+        }
+      }
+    } catch (error) {
+      console.error("오류:", error);
+    }
+  };
+
+  const selectCar = async (choice) => {
+    if (choice === undefined) {
+      return;
+    } else {
+      await infoReq(choice.car_id);
+      setSelectedCar(choice);
+      carMarker();
+    }
+  };
+
+  const carMarker = () => {
+    console.log(selectedCar);
+    console.log(carPath);
+    if (selectedCar && carPath.length > 0) {
+      const moveLatLon = new window.kakao.maps.LatLng(
+        selectedCar.car_lat,
+        selectedCar.car_lng
+      );
+      kmap.setCenter(moveLatLon);
+
+      const imageSrc = "./assets/car.png";
+      const imageSize = new window.kakao.maps.Size(47, 49);
+      const imageOption = { offset: new window.kakao.maps.Point(27, 69) };
+      const markerImage = new window.kakao.maps.MarkerImage(
+        imageSrc,
+        imageSize,
+        imageOption
+      );
+
+      const marker = new window.kakao.maps.Marker({
+        map: map,
+        position: new kakao.maps.LatLng(
+          selectedCar.car_lat,
+          selectedCar.car_lng
+        ),
+        image: markerImage,
+      });
+
+      const infowindow = new window.kakao.maps.InfoWindow({
+        content: `${selectedCar.car_id}_${carPath[0].cp_resv_no}`,
+      });
+
+      // 마커에 이벤트 리스너 추가
+      window.kakao.maps.event.addListener(marker, "mouseover", function () {
+        infowindow.open(map, marker);
+      });
+      window.kakao.maps.event.addListener(marker, "mouseout", function () {
+        infowindow.close();
+      });
+
+      marker.setMap(map);
+    }
+  };
+
   return (
     <div className={styles.slidebar}>
       <div className={slide}>
         <div className={styles.infoslide}>운행차량</div>
         <div className={styles.info_wrap}>
+          <div className={styles.carOptWrap}>
+            <select
+              className={styles.carOption}
+              onChange={(e) =>
+                selectCar(carInfo.find((car) => car.car_id === e.target.value))
+              }
+            >
+              <option value="none">차량을 선택하세요</option>
+              {carInfo.map((car) => (
+                <option value={car.car_id} key={car.car_id}>
+                  {car.car_id}_{car.car_licenseplt}
+                </option>
+              ))}
+            </select>
+          </div>
           <div className={styles.branch}>
             <p className={styles.slidetext}>차량번호</p>
-            <button className={styles.slideinfo}>12가 2893</button>
+            <button className={styles.slideinfo}>
+              {selectedCar.car_licenseplt}
+            </button>
           </div>
           <div className={styles.branch}>
             <p className={styles.slidetext}>차량모델</p>
-            <button className={styles.slideinfo}>차량모델</button>
+            <button className={styles.slideinfo}>
+              {selectedCar.car_model}
+            </button>
           </div>
           <div className={styles.branch}>
             <p className={styles.slidetext}>호차</p>
-            <button className={styles.slideinfo}>호차표시</button>
+            <button className={styles.slideinfo}>{selectedCar.car_id}</button>
           </div>
         </div>
         <div className={styles.contzip}>
@@ -103,6 +209,8 @@ const CarListTab = ({ isOpen }) => {
                 className={styles.location}
                 type="text"
                 placeholder="텍스트박스 1"
+                value={carPath.length !== 0 ? carPath[0].cp_origin : ""}
+                readOnly
               />
             </div>
             <div className={styles.locationinfo}>
@@ -111,6 +219,8 @@ const CarListTab = ({ isOpen }) => {
                 className={styles.location}
                 type="text"
                 placeholder="텍스트박스 2"
+                value={carPath.length !== 0 ? carPath[0].cp_destination : ""}
+                readOnly
               />
             </div>
           </div>
@@ -119,7 +229,7 @@ const CarListTab = ({ isOpen }) => {
           <div className={styles.time}>
             <div className={styles.timelist}>
               <p className={styles.timetit1}>도착예정시간</p>
-              <p className={styles.endtimenum}>14:22</p>
+              <p className={styles.endtimenum}>--:--</p>
             </div>
             <div className={styles.timelist}>
               <p className={styles.timetit2}>현재시간</p>
@@ -325,7 +435,7 @@ const ChargingStationTab = ({ isOpen, positions, map }) => {
   );
 };
 
-const SideMenu = ({ positions, map }) => {
+const SideMenu = ({ positions, map, carList }) => {
   const [isOpen, setIsOpen] = useState("관제화면");
   const [selectedTab, setSelectedTab] = useState(); // 초기값을 차량목록으로 설정
 
@@ -400,7 +510,9 @@ const SideMenu = ({ positions, map }) => {
           </li>
         </ul>
       </div>
-      {selectedTab === "차량목록" && <CarListTab isOpen={isOpen} />}{" "}
+      {selectedTab === "차량목록" && (
+        <CarListTab isOpen={isOpen} carList={carList} map={map} />
+      )}{" "}
       {/* 차량목록 탭을 선택한 경우 CarListTab 컴포넌트를 렌더링 */}
       {selectedTab === "충전소" && (
         <ChargingStationTab isOpen={isOpen} positions={positions} map={map} />
@@ -487,64 +599,37 @@ const ControlMain = () => {
     kakaomap.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
     setMap(kakaomap);
-
     catchdata();
   }, []);
 
-  /** 충전소 API에서 받아온 데이터를 이용해 충전소 위치를 출력해주는 Hook */
-  // useEffect(() => {
-  //   var imageSrc = "./assets/chargingMarker.png", // 마커이미지의 주소입니다
-  //     imageSize = new kakao.maps.Size(47, 49), // 마커이미지의 크기입니다
-  //     imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+  const [carList, setCarList] = useState(null);
+  const infoReq = async () => {
+    const reqTarget = "Car";
 
-  //   // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-  //   var markerImage = new kakao.maps.MarkerImage(
-  //     imageSrc,
-  //     imageSize,
-  //     imageOption
-  //   );
+    try {
+      const response = await fetch("/ManageMember", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ reqTarget }), // 요청하는 데이터
+      });
 
-  //   for (var i = 0; i < positions.length; i++) {
-  //     // 마커를 생성합니다
-  //     var marker = new kakao.maps.Marker({
-  //       map: map, // 마커를 표시할 지도
-  //       position: positions[i].latlng, // 마커의 위치
-  //       image: markerImage,
-  //     });
-  //     // 마커에 표시할 인포윈도우를 생성합니다
-  //     var infowindow = new kakao.maps.InfoWindow({
-  //       content: positions[i].stationName, // 인포윈도우에 표시할 내용
-  //     });
+      if (response.ok) {
+        const data = await response.json();
 
-  //     // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-  //     // 이벤트 리스너로는 클로저를 만들어 등록합니다
-  //     // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-  //     kakao.maps.event.addListener(
-  //       marker,
-  //       "mouseover",
-  //       makeOverListener(map, marker, infowindow)
-  //     );
-  //     kakao.maps.event.addListener(
-  //       marker,
-  //       "mouseout",
-  //       makeOutListener(infowindow)
-  //     );
-  //   }
+        if (data.success) {
+          setCarList(data["rows"]);
+        }
+      }
+    } catch (error) {
+      console.error("오류:", error);
+    }
+  };
 
-  //   // 인포윈도우를 표시하는 클로저를 만드는 함수입니다
-  //   function makeOverListener(map, marker, infowindow) {
-  //     return function () {
-  //       infowindow.open(map, marker);
-  //     };
-  //   }
-
-  //   // 인포윈도우를 닫는 클로저를 만드는 함수입니다
-  //   function makeOutListener(infowindow) {
-  //     return function () {
-  //       infowindow.close();
-  //     };
-  //   }
-  // }, [positions]);
+  useEffect(() => {
+    infoReq();
+  }, []);
 
   /** 중심 좌표 변화에 따른 주소를 출력 해주는 Hook */
   useEffect(() => {
@@ -629,7 +714,7 @@ const ControlMain = () => {
   return (
     <div>
       <div className={styles.map_wrapper}>
-        <SideMenu positions={positions} map={map} />
+        <SideMenu positions={positions} map={map} carList={carList} />
         <div id="map" className={styles.kakao_map}>
           <button></button>
         </div>
