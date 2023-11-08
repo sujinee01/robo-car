@@ -8,13 +8,13 @@ import ConfirmFunc from "./Confirm_func";
 import { toast } from "react-toastify";
 
 function ManagerMember() {
-  const [searchId, setSearchId] = useState("");
+  const [search, setSearch] = useState("");
   const [detailToggle, setDetailToggle] = useState(false);
   const [receiveData, setReceiveData] = useState([]);
 
-  const handleDetail = (searchId) => {
+  const handleDetail = (search) => {
     setDetailToggle(!detailToggle);
-    setSearchId(searchId);
+    setSearch(search);
   };
 
   const infoReq = async () => {
@@ -84,12 +84,12 @@ function ManagerMember() {
   function User({ user }) {
     return (
       <tr>
-        <td></td>
+        {/* <td></td> */}
         <td>{user.u_name}</td>
         <td>{user.u_id}</td>
         <td>{user.u_phone}</td>
         <td>{user.u_email}</td>
-        <td>{user.u_addr}</td>
+        {/* <td>{user.u_addr}</td> */}
         <td>{user.u_office}</td>
         <td>
           {/*삭제버튼*/}
@@ -103,7 +103,7 @@ function ManagerMember() {
         </td>
         <td>
           {/*상세조회버튼*/}
-          <button onClick={() => handleDetail(user.u_id)}>
+          <button onClick={() => handleDetail(user)}>
             <FontAwesomeIcon
               icon={faMagnifyingGlass}
               className={styles.faMagnifyingGlass}
@@ -117,7 +117,7 @@ function ManagerMember() {
   return (
     <>
       {detailToggle ? (
-        <MemberDetail handleDetail={handleDetail} searchId={searchId} />
+        <MemberDetail handleDetail={handleDetail} search={search} />
       ) : (
         <div className={styles.member_wrap}>
           {receiveData ? (
@@ -126,12 +126,12 @@ function ManagerMember() {
                 <table>
                   <thead>
                     <tr>
-                      <th>No.</th>
+                      {/* <th>No.</th> */}
                       <th>이름</th>
                       <th>아이디</th>
                       <th>휴대전화</th>
                       <th>이메일</th>
-                      <th>주소</th>
+                      {/* <th>주소</th> */}
                       <th>회사</th>
                       <th>삭제</th>
                       <th>조회</th>
@@ -144,12 +144,12 @@ function ManagerMember() {
               <table>
                 <thead>
                   <tr>
-                    <th>No.</th>
+                    {/* <th>No.</th> */}
                     <th>이름</th>
                     <th>아이디</th>
                     <th>휴대전화</th>
                     <th>이메일</th>
-                    <th>주소</th>
+                    {/* <th>주소</th> */}
                     <th>회사</th>
                     <th>삭제</th>
                     <th>조회</th>
@@ -167,12 +167,12 @@ function ManagerMember() {
               <table>
                 <thead>
                   <tr>
-                    <th>No.</th>
+                    {/* <th>No.</th> */}
                     <th>이름</th>
                     <th>아이디</th>
                     <th>휴대전화</th>
                     <th>이메일</th>
-                    <th>주소</th>
+                    {/* <th>주소</th> */}
                     <th>회사</th>
                     <th>삭제</th>
                     <th>조회</th>

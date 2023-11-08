@@ -1,7 +1,8 @@
 import React from "react";
 import styles from "../style/Manager_member_detail.module.css";
 
-const MemberDetail = ({ handleDetail, searchId }) => {
+const MemberDetail = ({ handleDetail, search }) => {
+  console.log(search);
   return (
     <>
       {/* <ManagerHeader /> */}
@@ -16,11 +17,11 @@ const MemberDetail = ({ handleDetail, searchId }) => {
             >
               목록
             </button>
-            <button
+            {/* <button
               className={`${styles.detail_delete} ${styles.button_inner}`}
             >
               삭제
-            </button>
+            </button> */}
           </div>
         </div>
         {/* 회원테이블 */}
@@ -28,31 +29,31 @@ const MemberDetail = ({ handleDetail, searchId }) => {
           <table>
             <tr>
               <td className={styles.tdfirst}>이름</td>
-              <td></td>
+              <td>{search.u_id}</td>
             </tr>
             <tr>
               <td>아이디</td>
-              <td>{searchId}</td>
+              <td>{search.u_name}</td>
             </tr>
             <tr>
               <td>비밀번호</td>
-              <td></td>
+              <td>{[...search.u_pw].map((s) => (s = "*"))}</td>
             </tr>
             <tr>
               <td>휴대전화</td>
-              <td></td>
+              <td>{search.u_phone}</td>
             </tr>
             <tr>
               <td>이메일</td>
-              <td></td>
+              <td>{search.u_email}</td>
             </tr>
             <tr>
               <td>주소</td>
-              <td></td>
+              <td>{search.u_addr}</td>
             </tr>
             <tr>
               <td className={styles.tdlast}>회사명</td>
-              <td></td>
+              <td>{search.u_office}</td>
             </tr>
           </table>
         </div>
