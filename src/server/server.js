@@ -11,6 +11,38 @@ app.use(express.json());
 // URL-encoded 형식의 요청 데이터 파싱 설정
 app.use(express.urlencoded({ extended: true }));
 
+/** [차량관제] 차량 주행 기록 요청 */
+app.post("/PathReq", (req, res) => {
+  console.log("주행기록요청");
+  const carId = req.body.target;
+
+  db.getConnection((err, conn) => {
+    if (err) console.log("MySQL 연결 실패");
+
+    const sql = `SELECT * FROM car_path WHERE cp_carId = "${carId}"`;
+
+    conn.query(sql, (err, rows) => {
+      if (err) {
+        console.log("쿼리 실행 실패: ", err);
+        res.status(500).json({ success: false, message: "쿼리 실행 오류" });
+        return;
+      }
+
+      if (rows.length > 0) {
+        res
+          .status(200)
+          .json({ success: true, rows, message: `주행기록 요청 완료` });
+      } else {
+        res.status(200).json({
+          success: false,
+          message: `주행기록 요청 실패`,
+        });
+      }
+    });
+    conn.release();
+  });
+});
+
 /** [마이페이지 - 개인정보수정] 데이터 처리 */
 app.post("/MypageModify", (req, res) => {
   console.log("마이페이지 개인정보 수정 요청");
@@ -404,6 +436,9 @@ app.post("/Resv", (req, res) => {
       mergeDelivOpt,
       carOpt,
     ];
+    const sql2 =
+      "INSERT INTO car_path(cp_origin,cp_destination,cp_carId,cp_resv_no) VALUES(?,?,?,?)";
+    const params2 = [origin, destination, carOpt, resvNo];
 
     conn.query(sql, params, (err, result, fields) => {
       // console.log('실행쿼리: ' + sql);
@@ -422,6 +457,21 @@ app.post("/Resv", (req, res) => {
       }
     });
 
+    conn.query(sql2, params2, (err, result, fields) => {
+      // console.log('실행쿼리: ' + sql);
+      if (err) {
+        console.log("쿼리 실행 실패:");
+        console.dir(err);
+        res.status(500).json({ success: false, message: "쿼리 실행 실패" });
+        return;
+      }
+      if (result) {
+        console.log(result);
+        console.log("차량주행 기록 성공!");
+      } else {
+        res.status(500).json({ success: false, message: "주행기록 저장 실패" });
+      }
+    });
     conn.release();
   });
 });
