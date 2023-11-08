@@ -490,3 +490,12 @@
 .carOption {
   margin: 0 auto;
 }
+
+.batWrap {
+  display: flex;
+  align-items: center;
+}
+.batWrap p {
+  display: inline-block;
+  font-weight: bold;
+}
