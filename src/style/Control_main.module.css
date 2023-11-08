@@ -188,7 +188,7 @@
   display: inline-block;
   width: 300px;
   margin: auto;
-  top: 33%;
+  top: 40%;
   text-align: center;
 }
 
@@ -206,8 +206,8 @@
 
 .carcontrol {
   border: none;
-  width: 5rem;
-  height: 5rem;
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
   font-size: 20px;
   font-weight: 900;
@@ -246,7 +246,7 @@
 
 .control3 {
   /* border: 1px solid #000; */
-  margin-top: 20px;
+  margin-top: 10px;
   display: inline-block;
 }
 
@@ -265,7 +265,7 @@
   background-color: #d8d8d8;
   width: 280px;
   height: 190px;
-  top: 67%;
+  top: 68%;
   left: 3%;
   text-align: center;
   border-radius: 10px;
@@ -485,7 +485,7 @@
 /* 차량 선택 옵션 */
 .carOptWrap {
   text-align: center;
-  margin-top: 22px;
+  margin-top: 16px;
 }
 .carOption {
   margin: 0 auto;

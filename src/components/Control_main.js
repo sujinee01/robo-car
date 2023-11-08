@@ -108,7 +108,7 @@ const CarListTab = ({ isOpen, carList, map }) => {
       });
 
       const infowindow = new window.kakao.maps.InfoWindow({
-        content: `${selectedCar.car_id}_${carPath[0].cp_resv_no}`,
+        content:`<div style="background-color: #f7be16; margin-bottom: 2px; padding: 5px; width: 180px; text-align:center; font-weight:bold;">${selectedCar.car_id}_${carPath[0].cp_resv_no}</div>`,
       });
 
       // 마커에 이벤트 리스너 추가
@@ -286,7 +286,7 @@ const ChargingStationTab = ({ isOpen, positions, map }) => {
     });
 
     const infowindow = new window.kakao.maps.InfoWindow({
-      content: selectedStation.stationName,
+      content: `<div style="background-color: #f7be16; margin-bottom: 2px; padding: 5px; width:180px; text-align:center; font-weight:bold;">${selectedStation.stationName}</div>`,
     });
 
     // 마커에 이벤트 리스너 추가
@@ -322,7 +322,7 @@ const ChargingStationTab = ({ isOpen, positions, map }) => {
       allMarker.push(marker);
 
       const infowindow = new window.kakao.maps.InfoWindow({
-        content: positions[i].stationName,
+        content: `<div style="background-color: #f7be16; margin-bottom: 2px; padding: 5px; width:180px; text-align:center; font-weight:bold;">${positions[i].stationName}</div>`,
       });
 
       // 마커에 이벤트 리스너 추가
@@ -551,7 +551,7 @@ const ControlMain = () => {
       // API로부터 받아온 주소 데이터를 기반으로 positions 배열 업데이트
       const updatedPositions = addrs.map((addr) => ({
         // console.log("addr : ", addr);
-        content: `<div>${addr.addr}</div>`, // 주소를 인포윈도우에 표시
+        content: `<div style={"background-color: #f7be16; margin-bottom: 2px; padding: 5px; width:180px; text-align:center; font-weight:bold;"}>${addr.addr}</div>`, // 주소를 인포윈도우에 표시
         latlng: new kakao.maps.LatLng(addr.lat, addr.longi), // 주소의 위도와 경도 정보
         stationAddr: addr.addr, // 충전소 주소
         stationName: addr.csNm, // 충전소 이름
@@ -686,7 +686,7 @@ const ControlMain = () => {
       });
 
       const infowindow = new window.kakao.maps.InfoWindow({
-        content: position.stationName,
+        content:`<div style="background-color: #f7be16; margin-bottom: 2px; padding: 5px; width:180px; text-align:center; font-weight:bold;">${position.stationName}</div>`,
       });
 
       window.kakao.maps.event.addListener(marker, "mouseover", function () {
