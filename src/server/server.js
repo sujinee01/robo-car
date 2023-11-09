@@ -409,71 +409,117 @@ app.post("/Resv", (req, res) => {
 
   const mergeDelivOpt = delivOpt1 + "/" + delivOpt2;
 
-  db.getConnection((err, conn) => {
-    console.log("운송예약 요청");
-    if (err) {
-      console.log("MySQL 연결 실패:", err);
-      res.status(500).json({ success: false, message: "MySQL 연결 실패" });
-      return;
-    }
-    console.log("MySQL 연결 성공");
-    const table =
-      "reservation(resv_subscriber, resv_no, resv_date, resv_ord_tel, resv_recip_tel, resv_start, resv_destin, resv_carselect, resv_price, resv_state, resv_info, resv_memo, resv_delivopt, car_list_car_id)";
-    const sql = `INSERT INTO ${table} VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
-    const params = [
-      subscriber,
-      resvNo,
-      date,
-      consignorPhone,
-      recepiptPhone,
-      origin,
-      destination,
-      carOpt,
-      price,
-      "예약완료",
-      freightInfo,
-      memo,
-      mergeDelivOpt,
-      carOpt,
-    ];
-    const sql2 =
-      "INSERT INTO car_path(cp_origin,cp_destination,cp_carId,cp_resv_no) VALUES(?,?,?,?)";
-    const params2 = [origin, destination, carOpt, resvNo];
+  const type = body.type;
+  const targetResvNo = body.resvNo;
+  const targetResvStat = body.opt.label;
 
-    conn.query(sql, params, (err, result, fields) => {
-      // console.log('실행쿼리: ' + sql);
+  if (type) {
+    console.log(targetResvStat);
+    db.getConnection((err, conn) => {
+      console.log("예약 수정 요청");
       if (err) {
-        console.log("쿼리 실행 실패:");
-        console.dir(err);
-        res.status(500).json({ success: false, message: "쿼리 실행 실패" });
+        console.log("MySQL 연결 실패:", err);
+        res.status(500).json({ success: false, message: "MySQL 연결 실패" });
         return;
       }
-      if (result) {
-        console.log(result);
-        console.log("예약 성공!");
-        res.status(200).json({ success: true, message: "예약 성공" });
-      } else {
-        res.status(500).json({ success: false, message: "예약 실패" });
-      }
-    });
+      console.log("MySQL 연결 성공");
 
-    conn.query(sql2, params2, (err, result, fields) => {
-      // console.log('실행쿼리: ' + sql);
+      const sql = "UPDATE reservation SET resv_state = ? WHERE resv_no = ?";
+      const params = [targetResvStat, targetResvNo];
+
+      conn.query(sql, params, (err, result, fields) => {
+        // console.log('실행쿼리: ' + sql);
+        if (err) {
+          console.log("쿼리 실행 실패:");
+          console.dir(err);
+          res.status(500).json({ success: false, message: "쿼리 실행 실패" });
+          return;
+        }
+        if (result) {
+          console.log(result);
+          console.log("예약 수정 성공!");
+          res
+            .status(200)
+            .json({
+              success: true,
+              message: "배송현황이 업데이트 되었습니다.",
+            });
+        } else {
+          res.status(500).json({ success: false, message: "예약 수정 실패" });
+        }
+      });
+
+      conn.release();
+    });
+  } else {
+    db.getConnection((err, conn) => {
+      console.log("운송예약 요청");
       if (err) {
-        console.log("쿼리 실행 실패:");
-        console.dir(err);
-        res.status(500).json({ success: false, message: "쿼리 실행 실패" });
+        console.log("MySQL 연결 실패:", err);
+        res.status(500).json({ success: false, message: "MySQL 연결 실패" });
         return;
       }
-      if (result) {
-        console.log(result);
-        console.log("차량주행 기록 성공!");
-      } else {
-        res.status(500).json({ success: false, message: "주행기록 저장 실패" });
-      }
+      console.log("MySQL 연결 성공");
+      const table =
+        "reservation(resv_subscriber, resv_no, resv_date, resv_ord_tel, resv_recip_tel, resv_start, resv_destin, resv_carselect, resv_price, resv_state, resv_info, resv_memo, resv_delivopt, car_list_car_id)";
+      const sql = `INSERT INTO ${table} VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+      const params = [
+        subscriber,
+        resvNo,
+        date,
+        consignorPhone,
+        recepiptPhone,
+        origin,
+        destination,
+        carOpt,
+        price,
+        "예약완료",
+        freightInfo,
+        memo,
+        mergeDelivOpt,
+        carOpt,
+      ];
+      const sql2 =
+        "INSERT INTO car_path(cp_origin,cp_destination,cp_carId,cp_resv_no) VALUES(?,?,?,?)";
+      const params2 = [origin, destination, carOpt, resvNo];
+
+      conn.query(sql, params, (err, result, fields) => {
+        // console.log('실행쿼리: ' + sql);
+        if (err) {
+          console.log("쿼리 실행 실패:");
+          console.dir(err);
+          res.status(500).json({ success: false, message: "쿼리 실행 실패" });
+          return;
+        }
+        if (result) {
+          console.log(result);
+          console.log("예약 성공!");
+          res.status(200).json({ success: true, message: "예약 성공" });
+        } else {
+          res.status(500).json({ success: false, message: "예약 실패" });
+        }
+      });
+
+      conn.query(sql2, params2, (err, result, fields) => {
+        // console.log('실행쿼리: ' + sql);
+        if (err) {
+          console.log("쿼리 실행 실패:");
+          console.dir(err);
+          res.status(500).json({ success: false, message: "쿼리 실행 실패" });
+          return;
+        }
+        if (result) {
+          console.log(result);
+          console.log("차량주행 기록 성공!");
+        } else {
+          res
+            .status(500)
+            .json({ success: false, message: "주행기록 저장 실패" });
+        }
+      });
+      conn.release();
     });
-    conn.release();
-  });
+  }
 });
 
 /** [관리자페이지 - 차량 등록] 데이터 처리 */

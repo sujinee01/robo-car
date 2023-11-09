@@ -108,7 +108,7 @@
   padding-bottom: 20px;
 }
 
-.content p{
+.content p {
   padding-right: 10px;
   font-weight: bold;
 }
@@ -342,3 +342,8 @@
   font-size: 15px;
   color: #c7c4c4;
 } */
+
+.noRiv {
+  padding: 20px 15px;
+  font-weight: bold;
+}

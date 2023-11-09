@@ -40,6 +40,20 @@ const Header = ({ isLogin, isAdmin }) => {
         })();
   };
 
+  const handleLink2 = () => {
+    console.log(isLogin);
+    isLogin
+      ? navigate("/controlMain")
+      : (() => {
+          toast.info("로그인이 필요한 서비스입니다.", {
+            theme: "colored",
+          });
+          setTimeout(() => {
+            navigate("/login");
+          }, 300);
+        })();
+  };
+
   useEffect(() => {
     const navItems = document.querySelectorAll(`.${nav_item}`);
     const targetHeader = document.querySelectorAll(`.${header}`);
@@ -106,10 +120,10 @@ const Header = ({ isLogin, isAdmin }) => {
           <a href="/about" className={st.nav_item}>
             서비스 소개
           </a>
-          <a href="/ControlMain" className={st.nav_item}>
+          <a href="#!" className={st.nav_item} onClick={handleLink2}>
             차량관제
           </a>
-          <a href="#" className={st.nav_item} onClick={handleLink}>
+          <a href="#!" className={st.nav_item} onClick={handleLink}>
             운송예약
           </a>
           <a href="/noticeMain" className={st.nav_item}>

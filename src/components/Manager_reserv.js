@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../style/Manager_reserv.module.css";
 import Select from "react-select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
 
 function ManagerReserv({ resvData }) {
   const CATEGORY_LIST = [
-    { label: "특급", value: null },
-    { label: "일반", value: "0001" },
+    { label: "배차완료", value: "01" },
+    { label: "픽업대기", value: "02" },
+    { label: "배송완료", value: "03" },
   ];
   const formatOptionLabel = ({ label, value }) => (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <span style={{ color: "black" }}>
-        {value === "0001" ? "특급 배송" : "일반 배송"}
-      </span>
+      <span style={{ color: "black" }}>{label}</span>
     </div>
   );
   const customStyles = {
@@ -31,6 +31,7 @@ function ManagerReserv({ resvData }) {
   };
 
   let reserve = "";
+
   if (!resvData) {
     reserve = [
       // 예약 데이터...
@@ -81,6 +82,75 @@ function ManagerReserv({ resvData }) {
   const handleSelectChange = (selectedOption) => {
     setSelectedOption(selectedOption);
   };
+
+  const [update, setUpdate] = useState(false);
+  const [data, setData] = useState(resvData);
+
+  const infoReq = async () => {
+    const reqTarget = "Resv";
+
+    try {
+      const response = await fetch("/ManageMember", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ reqTarget }), // 요청하는 데이터
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        if (data.success) {
+        }
+      }
+    } catch (error) {
+      console.error("오류:", error);
+    }
+  };
+
+  const handleModify = async (no) => {
+    const type = "modify";
+    const resvNo = no;
+    const opt = selectedOption;
+
+    try {
+      const response = await fetch("/Resv", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          type,
+          resvNo,
+          opt,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUpdate(!update);
+        setData(data["rows"]);
+        console.log(data.rows);
+        toast.success(data.message, {
+          theme: "colored",
+        });
+      }
+    } catch {
+      console.log("예약 수정 오류");
+    }
+  };
+
+  useEffect(() => {
+    if (update) {
+      infoReq();
+    } else {
+      infoReq();
+    }
+  }, [update]);
+  useEffect(() => {
+    infoReq();
+  }, []);
 
   return (
     <div className={styles.reservcontainer}>
@@ -154,9 +224,10 @@ function ManagerReserv({ resvData }) {
                           {reserve.resv_carselect}
                         </span>
                       </div>
+                      {/*  */}
                       <div className={styles.reservlist}>
                         <p className={styles.contname}>
-                          배송 옵션 &nbsp; &nbsp; &nbsp;
+                          배송 현황 &nbsp; &nbsp; &nbsp;
                         </p>
                         <Select
                           className={styles.categoryitem}
@@ -168,6 +239,15 @@ function ManagerReserv({ resvData }) {
                           styles={customStyles} // customStyles 변수 전달
                           formatOptionLabel={formatOptionLabel}
                         />
+                      </div>
+
+                      <div className={styles.reservlist}>
+                        <p className={styles.contname}>
+                          배송 옵션 &nbsp; &nbsp; &nbsp;
+                        </p>
+                        <span className={styles.item}>
+                          {reserve.resv_delivopt}
+                        </span>
                       </div>
                       <div className={styles.reservlist}>
                         <p className={styles.contname}>발송인 연락처 </p>
@@ -198,7 +278,12 @@ function ManagerReserv({ resvData }) {
                         </span>
                       </div>
                     </div>
-                    <button className={styles.btncomp}>수정 완료</button>
+                    <button
+                      className={styles.btncomp}
+                      onClick={() => handleModify(reserve.resv_no)}
+                    >
+                      수정 완료
+                    </button>
                   </div>
                 )}
               </div>

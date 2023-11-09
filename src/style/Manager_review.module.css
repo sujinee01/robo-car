@@ -135,7 +135,7 @@
   /* border: 1px solid #000; */
   padding-left: 50px;
   padding-right: 50px;
-  padding-bottom: 20px; 
+  padding-bottom: 20px;
 }
 
 .num {
@@ -163,18 +163,18 @@
   text-align: center;
   font-size: 15px;
   font-weight: 400;
-  left:7.5%;
+  left: 7.5%;
 }
 
 .accordionItem {
   border-radius: 5px;
 }
 
-.accordionItem{
+.accordionItem {
   background: #fff;
 }
 
-.accordionItem .content{
+.accordionItem .content {
   background-color: var(--back-color);
 }
 .triangle {
@@ -275,4 +275,9 @@
   color: #fff;
   border: 0;
   font-weight: 900;
+}
+
+.noRiv {
+  padding: 20px 15px;
+  font-weight: 600;
 }

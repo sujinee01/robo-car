@@ -20,10 +20,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import styled from "styled-components";
+import { toast } from "react-toastify";
 const { kakao } = window;
 
 /** 사이드 메뉴 선택시 해당하는 내용을 보여주는 부분 */
-const CarListTab = ({ isOpen, carList, map }) => {
+const CarListTab = ({ isOpen, carList, map, isAdmin }) => {
   const slide = isOpen ? styles.side_menu_car_info : styles.side_menu_hide;
   const [isEngineOn, setIsEngineOn] = useState(false); // 시동 버튼 상태
   const [areLightsOn, setAreLightsOn] = useState(false); // 라이트 버튼 상태
@@ -34,12 +35,40 @@ const CarListTab = ({ isOpen, carList, map }) => {
   const kmap = map;
 
   const toggleEngine = () => {
-    setIsEngineOn(!isEngineOn);
-    if (isEngineOn) {
+    if (isAdmin) {
+      setIsEngineOn(!isEngineOn);
+      if (isEngineOn === false) {
+        toast.success(`차량 시동 ON`, {
+          theme: "colored",
+        });
+      } else {
+        toast.error(`차량 시동 OFF`, {
+          theme: "colored",
+        });
+      }
+    } else {
+      toast.error("제어 권한이 없습니다!", {
+        theme: "colored",
+      });
     }
   };
   const toggleLights = () => {
-    setAreLightsOn(!areLightsOn);
+    if (isAdmin) {
+      setAreLightsOn(!areLightsOn);
+      if (areLightsOn === false) {
+        toast.success(`라이트 ON`, {
+          theme: "colored",
+        });
+      } else {
+        toast.error(`라이트 OFF`, {
+          theme: "colored",
+        });
+      }
+    } else {
+      toast.error("제어 권한이 없습니다!", {
+        theme: "colored",
+      });
+    }
   };
 
   /** 선택된 차량의 주행 기록 가져오는 함수 */
@@ -75,6 +104,7 @@ const CarListTab = ({ isOpen, carList, map }) => {
     } else {
       await infoReq(choice.car_id);
       setSelectedCar(choice);
+      console.log(carPath);
       carMarker();
     }
   };
@@ -108,7 +138,7 @@ const CarListTab = ({ isOpen, carList, map }) => {
       });
 
       const infowindow = new window.kakao.maps.InfoWindow({
-        content:`<div style="background-color: #f7be16; margin-bottom: 2px; padding: 5px; width: 180px; text-align:center; font-weight:bold;">${selectedCar.car_id}_${carPath[0].cp_resv_no}</div>`,
+        content: `<div style="background-color: #f7be16; margin-bottom: 2px; padding: 5px; width: 180px; text-align:center; font-weight:bold;">${selectedCar.car_id}_${carPath[0].cp_resv_no}</div>`,
       });
 
       // 마커에 이벤트 리스너 추가
@@ -120,6 +150,14 @@ const CarListTab = ({ isOpen, carList, map }) => {
       });
 
       marker.setMap(map);
+
+      toast.success(`차량 위치 조회 성공!`, {
+        theme: "colored",
+      });
+    } else {
+      toast.warning("차량 위치 수신중 입니다.", {
+        theme: "colored",
+      });
     }
   };
 
@@ -435,7 +473,7 @@ const ChargingStationTab = ({ isOpen, positions, map }) => {
   );
 };
 
-const SideMenu = ({ positions, map, carList }) => {
+const SideMenu = ({ positions, map, carList, isAdmin }) => {
   const [isOpen, setIsOpen] = useState("관제화면");
   const [selectedTab, setSelectedTab] = useState(); // 초기값을 차량목록으로 설정
 
@@ -511,7 +549,12 @@ const SideMenu = ({ positions, map, carList }) => {
         </ul>
       </div>
       {selectedTab === "차량목록" && (
-        <CarListTab isOpen={isOpen} carList={carList} map={map} />
+        <CarListTab
+          isOpen={isOpen}
+          carList={carList}
+          map={map}
+          isAdmin={isAdmin}
+        />
       )}{" "}
       {/* 차량목록 탭을 선택한 경우 CarListTab 컴포넌트를 렌더링 */}
       {selectedTab === "충전소" && (
@@ -523,7 +566,7 @@ const SideMenu = ({ positions, map, carList }) => {
 };
 
 /** 관제화면 지도 생성 및 사이드바/차량 정보 확인 관련 기능 */
-const ControlMain = () => {
+const ControlMain = ({ isLogin, isAdmin }) => {
   const [positions, setPositions] = useState([]);
   const [mergedPositions, setMergedPositions] = useState([]);
   const [map, setMap] = useState(null); // 카카오맵 객체
@@ -686,7 +729,7 @@ const ControlMain = () => {
       });
 
       const infowindow = new window.kakao.maps.InfoWindow({
-        content:`<div style="background-color: #f7be16; margin-bottom: 2px; padding: 5px; width:180px; text-align:center; font-weight:bold;">${position.stationName}</div>`,
+        content: `<div style="background-color: #f7be16; margin-bottom: 2px; padding: 5px; width:180px; text-align:center; font-weight:bold;">${position.stationName}</div>`,
       });
 
       window.kakao.maps.event.addListener(marker, "mouseover", function () {
@@ -714,7 +757,12 @@ const ControlMain = () => {
   return (
     <div>
       <div className={styles.map_wrapper}>
-        <SideMenu positions={positions} map={map} carList={carList} />
+        <SideMenu
+          positions={positions}
+          map={map}
+          carList={carList}
+          isAdmin={isAdmin}
+        />
         <div id="map" className={styles.kakao_map}>
           <button></button>
         </div>

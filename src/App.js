@@ -47,7 +47,10 @@ function App() {
       </div>
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/controlMain" element={<ControlMain />} />
+        <Route
+          path="/controlMain"
+          element={<ControlMain isLogin={isLogin} isAdmin={isAdmin} />}
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/join" element={<Join />} />
         <Route path="/noticeMain" element={<NoticeMain />} />
@@ -66,7 +69,7 @@ function App() {
       </div>
       <ToastContainer
         position="top-center" // 알람 위치 지정
-        autoClose={2000} // 자동 off 시간
+        autoClose={1500} // 자동 off 시간
         hideProgressBar={true} // 진행시간바 숨김
         closeOnClick // 클릭으로 알람 닫기
         theme="light"

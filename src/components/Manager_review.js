@@ -7,7 +7,7 @@ function ManagerReview({ reviewData }) {
   const [openIndex, setOpenIndex] = useState(null);
   const [arrowRotated, setArrowRotated] = useState([]);
   const [doRatingClick, setDoRatingClick] = useState(false);
-  const [receiveData, setReceiveData] = useState([]);
+  const [receiveData, setReceiveData] = useState(null);
 
   const toggleAccordion = (index) => {
     // 모든 삼각형 초기화
@@ -64,59 +64,63 @@ function ManagerReview({ reviewData }) {
         <p className={styles.thid}>작성자</p>
       </div>
       <div className={styles.accordionContainer}>
-        {receiveData.map((review, index) => (
-          <div
-            key={index}
-            className={`${styles.accordionItem} ${
-              openIndex === index ? styles.open : ""
-            }`}
-          >
+        {receiveData !== null ? (
+          receiveData.map((review, index) => (
             <div
-              className={styles.accordionHeader}
-              onClick={() => toggleAccordion(index)}
+              key={index}
+              className={`${styles.accordionItem} ${
+                openIndex === index ? styles.open : ""
+              }`}
             >
-              <span className={styles.num}>{review.rb_idx}</span>
-              <span className={styles.title}>{review.rb_title}</span>
-              <div className={styles.person}>
-                <span className={styles.author}>{review.rb_auth}</span>
-              </div>
-              <p
-                className={`${styles.triangle} ${
-                  arrowRotated[index] ? styles.rotate : ""
-                }`}
+              <div
+                className={styles.accordionHeader}
+                onClick={() => toggleAccordion(index)}
               >
-                <FontAwesomeIcon icon={faChevronLeft} />
-              </p>
-            </div>
-            <div className={styles.openontainer}>
-              {openIndex === index && (
-                <div className={styles.content}>
-                  <div className={styles.openstar}>
-                    <span className={styles.rating}>
-                      {"⭐️".repeat(review.rb_rating)}
-                    </span>
-                  </div>
-                  <div className={styles.openwriter}>
-                    <p>직성자 : </p>
-                    <span className={styles.author}>{review.rb_auth}</span>
-                  </div>
-                  <div className={styles.opencar}>
-                    <p>이용 차량 : </p>
-                    <span className={styles.car}>{review.rb_usedCarId}</span>
-                  </div>
-                  <div className={styles.opensatisfy}>
-                    <p>만족도 : </p>
-                    <span className={styles.satisfy}>{review.rb_rating}</span>
-                  </div>
-                  <div className={styles.opencontent}>
-                    <p>{review.rb_content}</p>
-                  </div>
-                  <button className={styles.btndelt}>삭제</button>
+                <span className={styles.num}>{review.rb_idx}</span>
+                <span className={styles.title}>{review.rb_title}</span>
+                <div className={styles.person}>
+                  <span className={styles.author}>{review.rb_auth}</span>
                 </div>
-              )}
+                <p
+                  className={`${styles.triangle} ${
+                    arrowRotated[index] ? styles.rotate : ""
+                  }`}
+                >
+                  <FontAwesomeIcon icon={faChevronLeft} />
+                </p>
+              </div>
+              <div className={styles.openontainer}>
+                {openIndex === index && (
+                  <div className={styles.content}>
+                    <div className={styles.openstar}>
+                      <span className={styles.rating}>
+                        {"⭐️".repeat(review.rb_rating)}
+                      </span>
+                    </div>
+                    <div className={styles.openwriter}>
+                      <p>직성자 : </p>
+                      <span className={styles.author}>{review.rb_auth}</span>
+                    </div>
+                    <div className={styles.opencar}>
+                      <p>이용 차량 : </p>
+                      <span className={styles.car}>{review.rb_usedCarId}</span>
+                    </div>
+                    <div className={styles.opensatisfy}>
+                      <p>만족도 : </p>
+                      <span className={styles.satisfy}>{review.rb_rating}</span>
+                    </div>
+                    <div className={styles.opencontent}>
+                      <p>{review.rb_content}</p>
+                    </div>
+                    <button className={styles.btndelt}>삭제</button>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p className={styles.noRiv}>등록된 리뷰가 없습니다.</p>
+        )}
       </div>
     </div>
   );
